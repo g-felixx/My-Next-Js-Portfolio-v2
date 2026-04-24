@@ -17,14 +17,70 @@ export const stats = [
 ];
 
 export const about = {
-  summary: "I blend backend engineering and full-stack delivery to ship reliable products across cloud environments. My sweet spot is owning systems end to end: designing scalable APIs, modeling data, shipping modern React and Next.js interfaces, and integrating everything with AWS, messaging, and observability tooling so teams can move fast without sacrificing quality.",
-  highlights: [
-    "Built an asynchronous API with multi-threaded WebSocket for real-time Jenkins build tracking as part of an Internal Development Platform (IDP) solution.",
-    "Integrated applications with AWS services (EC2, Lambda, SQS, SNS, API Gateway, Cognito, Aurora, Parameter Store) and secured them with OAuth 2.0, Spring Security, and JWT.",
-    "Delivered 20+ freelance full-stack projects using React, Next.js, Node.js, and MongoDB, including e-commerce platforms, custom apps, and SEO-optimized websites.",
-    "Published a Qualis B2 paper on SOFIA, a neural network-based software to assist in the early diagnosis of Autism Spectrum Disorder through screening protocols.",
-  ],
+  summary: "Full Stack Engineer focused on backend reliability, clean architecture, and cloud-based solutions — currently building in Portugal.",
+  githubUsername: "mandis-ncs",
 };
+
+export const softSkills = [
+  "Strategic Planning",
+  "Agile Collaboration",
+  "Cross-functional Teamwork",
+  "Problem Solving",
+  "Mentoring & Teaching",
+  "Clear Communication",
+  "Attention to Detail",
+  "Adaptability",
+];
+
+export interface Language {
+  name: string;
+  level: string;
+  proficiency: number;
+}
+
+export const languages: Language[] = [
+  { name: "Portuguese", level: "Native", proficiency: 100 },
+  { name: "English", level: "Professional Working", proficiency: 85 },
+  { name: "French", level: "Limited Working", proficiency: 40 },
+];
+
+export interface Certification {
+  name: string;
+  issuer: string;
+  year?: string;
+  category: string;
+}
+
+export const certifications: Certification[] = [
+  {
+    name: "AWS Certified Cloud Practitioner Exam Training [New]",
+    issuer: "Amazon Web Services",
+    year: "2023",
+    category: "Cloud",
+  },
+  {
+    name: "AWS Partner: Cloud Economics Accreditation",
+    issuer: "Amazon Web Services",
+    year: "2023",
+    category: "Cloud",
+  },
+  {
+    name: "AWS Partner: Sales Accreditation (Business)",
+    issuer: "Amazon Web Services",
+    year: "2023",
+    category: "Cloud",
+  },
+  {
+    name: "RabbitMQ: Messaging with Java, Spring Boot and Spring MVC",
+    issuer: "Udemy",
+    category: "Backend",
+  },
+  {
+    name: "The Complete Java Certification Course",
+    issuer: "Udemy",
+    category: "Backend",
+  },
+];
 
 export interface Experience {
   company: string;

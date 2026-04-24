@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import Script from 'next/script'
 import './globals.css'
 import { Providers } from './providers'
 import { SmoothScroll } from '@/components/SmoothScroll'
@@ -74,18 +73,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: portfolioJsonLd }}
         />
-      </head>
-      <body className="font-sans" suppressHydrationWarning>
-        <a
-          href="#main-content"
-          data-focus-target="true"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-full focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-foreground focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/40"
-        >
-          Skip to content
-        </a>
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -106,6 +94,15 @@ export default function RootLayout({
             `,
           }}
         />
+      </head>
+      <body className="font-sans" suppressHydrationWarning>
+        <a
+          href="#main-content"
+          data-focus-target="true"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-full focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-foreground focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/40"
+        >
+          Skip to content
+        </a>
         <div id="root">
           <SmoothScroll>
             <Providers>

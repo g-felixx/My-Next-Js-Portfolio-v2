@@ -305,7 +305,7 @@ const ExperienceSection = () => {
                 <span className="text-gradient">Experience</span>
               </h2>
               <p className="mb-8 max-w-md leading-relaxed text-muted-foreground">
-                I’ve grown from building public-sector software into shipping backend systems, platform tooling, and AI products where reliability, delivery speed, retrieval quality, and usability all have to work together.
+                From customer-facing operations to teaching and marketing, and onward into backend engineering, full-stack development, and cloud-based architectures — every chapter has shaped how I build reliable, user-focused software.
               </p>
 
               <div className="hidden lg:block">

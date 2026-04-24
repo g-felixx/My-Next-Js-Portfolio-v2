@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ArrowDown, MessageCircle, Download } from "lucide-react";
+import { ArrowDown, Download } from "lucide-react";
 import { personalInfo, stats } from "@/data/portfolio";
 import Card3D from "./Card3D";
 import cardImage from "@/assets/card.png";
@@ -136,13 +136,6 @@ const HeroSection = () => {
               >
                 <Download className="w-4 h-4 mr-1 text-primary" />
                 Resume
-              </a>
-              <a
-                href="#ai-twin"
-                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3.5 rounded-full hover:bg-white/5 transition-all duration-300 font-semibold text-sm text-muted-foreground hover:text-foreground active:scale-95"
-              >
-                <MessageCircle className="w-4 h-4 text-primary" />
-                Talk to AI Twin
               </a>
             </motion.div>
 

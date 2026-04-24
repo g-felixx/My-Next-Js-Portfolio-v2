@@ -1,15 +1,15 @@
 "use client";
 import { skillCategories } from "@/data/portfolio";
-import { Brain, Layers, Database, Server, Wrench } from "lucide-react";
+import { Code2, Layers, Database, Server, Wrench } from "lucide-react";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 // Icons for each category
 const CATEGORY_ICONS: Record<string, React.ElementType> = {
-  "Backend & Product Engineering": Layers,
-  "GenAI, Agents & Retrieval": Brain,
-  "Data & Search Infrastructure": Database,
-  "Platform, DevOps & Delivery": Server,
-  "Product Tooling & UX": Wrench,
+  "Backend & API Engineering": Layers,
+  "Frontend & Product Experience": Code2,
+  "Data & Messaging": Database,
+  "Cloud, DevOps & Delivery": Server,
+  "Testing, Tooling & Methodologies": Wrench,
 };
 
 const SkillsSection = () => {
@@ -29,7 +29,7 @@ const SkillsSection = () => {
                 <span className="text-gradient">Stack</span>
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-md">
-                The technologies I reach for most often when building backend systems, full-stack products, production infrastructure, and AI-powered workflows.
+                The technologies I reach for most often when building backend APIs, full-stack products, cloud-based infrastructure, and reliable delivery pipelines.
               </p>
             </div>
           </div>

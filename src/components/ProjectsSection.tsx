@@ -6,7 +6,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ExternalLink, Github, Maximize2 } from "lucide-react";
 import { projects, type Project } from "@/data/portfolio";
-import { PROJECT_ANCHOR_PREFIX } from "@/lib/ai-twin";
+
+const PROJECT_ANCHOR_PREFIX = "project-";
 import {
   Carousel,
   CarouselContent,
@@ -192,7 +193,7 @@ const ProjectsSection = () => {
             Featured <span className="text-gradient">Work</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-10 max-w-xl text-lg">
-            Backend systems, full-stack products, AI applications, and platform tooling spanning APIs, UX, automation, retrieval, and production infrastructure.
+            Full-stack products, backend systems, and custom web solutions spanning APIs, databases, UX, cloud integrations, and production infrastructure.
           </p>
 
           {/* Filters */}
@@ -298,7 +299,7 @@ const ProjectsSection = () => {
           className="flex justify-center mt-12"
         >
           <a
-            href="https://github.com/Nikunj2003"
+            href="https://github.com/mandis-ncs"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-8 py-4 rounded-full glass border border-white/10 border-b-white/5 text-sm font-bold text-foreground hover:text-primary hover:bg-white/10 transition-all duration-300 shadow-accent-soft hover:shadow-[0_0_18px_rgba(41,214,185,0.12)] active:scale-95"

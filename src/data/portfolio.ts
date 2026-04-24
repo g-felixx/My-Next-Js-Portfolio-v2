@@ -37,79 +37,40 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
-    company: "Mirelle Begliomini Confectionery",
-    role: "Customer Service Cashier",
-    period: "June 2021 - May 2022",
+    company: "tns",
+    role: "Full Stack Developer II",
+    period: "January 2026 - Present",
     type: "work",
-    summary: "Customer-facing role focused on operations, inventory control, and high-volume order handling during peak seasons.",
+    summary: "Structuring and developing lead generation landing pages for the company's app launch, with A/B testing and performance-focused delivery.",
     bullets: [
-      "Handled over 30 orders during the season, gaining agility and dynamism in fast-paced environments.",
-      "Managed cash register organization, receipts, and inventory control with suppliers.",
-      "Achieved high customer satisfaction by being proactive, patient, and attentive to customer needs.",
+      "Structured and developed lead generation landing pages for the company's app launch.",
+      "Drove 40,000 organic leads with nearly 1 minute of retention and a 30% increase in results.",
+      "Ran A/B tests to continuously improve website performance and conversion.",
     ],
   },
   {
-    company: "Compuway Registro",
-    role: "Computer Courses Instructor",
-    period: "July 2022 - February 2023",
+    company: "tns",
+    role: "Full Stack Developer I",
+    period: "April 2025 - January 2026",
     type: "work",
-    summary: "Taught programming, design, and office tools to students of all ages while managing the school's operational and digital presence.",
+    summary: "Developed applications in React and TypeScript using Atomic Design architecture, collaborating with Marketing and Sales to enhance the B2B customer experience.",
     bullets: [
-      "Assisted students through the online platform and taught children's robotics classes.",
-      "Performed simple software installation and maintenance and managed social media platforms.",
-      "Supported courses covering programming (HTML, PHP, Java, MySQL), design (Photoshop, Illustrator), and the Microsoft Office suite.",
+      "Development of applications in React and TypeScript using Atomic Design architecture.",
+      "Collaboration with the Marketing and Sales departments to enhance the B2B customer experience.",
+      "Experience with serverless services such as AWS Lambda and Cloudflare Workers.",
     ],
   },
   {
-    company: "Freelance",
-    role: "Web Developer",
-    period: "October 2022 - Present",
+    company: "CapLink",
+    role: "Full Stack Developer",
+    period: "March 2025 - Present",
     type: "work",
-    summary: "Development of complete web solutions, integrating front-end and back-end, with a focus on supporting small businesses. Successfully delivered over 20 projects.",
+    summary: "Maintain RESTful and GraphQL APIs with Clean Code architecture in Node.js and TypeScript while delivering polished frontend microcomponents.",
     bullets: [
-      "Create custom websites and platforms using React.js, Node.js, Next.js, and MongoDB, ensuring intuitive interfaces and high performance.",
-      "Implement e-commerce solutions with shopping carts, filters, searches, and dynamic product management.",
-      "Develop RESTful APIs for data integration and process automation, with secure authentication and real-time updates.",
-      "Optimize SEO, add animations, and configure servers, DNS, and Google Search Console to ensure online visibility.",
-      "Developed the One Help Informática website, integrating the Google Reviews API to automatically update 5+ star reviews alongside an interface for catalog and news management.",
-    ],
-  },
-  {
-    company: "Angelus Vale do Ribeira",
-    role: "Marketing Intern",
-    period: "March 2023 - May 2023",
-    type: "work",
-    summary: "Designed digital and graphic media while supporting internal communication and process documentation.",
-    bullets: [
-      "Designed social media posts, business cards, and banners for the brand.",
-      "Edited short videos for Reels and produced tutorials for internal processes and billboards.",
-      "Developed an intranet on SharePoint to streamline internal communication.",
-    ],
-  },
-  {
-    company: "Compass UOL",
-    role: "Scholarship",
-    period: "May 2023 - October 2023",
-    type: "work",
-    summary: "Worked on the development of APIs and backend solutions using Spring Boot, focusing on agile projects and real-world challenges.",
-    bullets: [
-      "Developed RESTful APIs for CRUD operations, utilizing HTTP verbs and tools like OpenFeign for external resource consumption.",
-      "Implemented message brokers such as ActiveMQ Artemis to manage queues and asynchronous request processing.",
-      "Used relational (H2) and non-relational (MongoDB) databases for data storage and manipulation across projects.",
-      "Applied unit and integration testing with JUnit and Mockito, ensuring quality and robustness.",
-      "Collaborated in Scrum, tracked tasks in Kanban tools like Trello, and created automated documentation with Swagger.",
-    ],
-  },
-  {
-    company: "FATEC Registro",
-    role: "English Monitor",
-    period: "August 2023 - December 2023",
-    type: "work",
-    summary: "Assisted fellow students to improve their English language skills, recommending learning materials and clarifying doubts.",
-    bullets: [
-      "Provided recommendations for learning materials and study resources.",
-      "Addressed students' questions regarding grammar, vocabulary, and language usage.",
-      "Supported an inclusive learning environment for peers across different proficiency levels.",
+      "Maintain RESTful and GraphQL APIs with Clean Code architecture in Node.js and TypeScript.",
+      "Optimize PostgreSQL queries and maintain automated test coverage above 80% with Jest and Vitest.",
+      "Deliver frontend microcomponents in React and document them in Storybook.",
+      "Work with Docker containers and agile methodologies such as Scrum and Kanban.",
     ],
   },
   {
@@ -128,75 +89,51 @@ export const experiences: Experience[] = [
       "Implemented a solution to consume Jenkins build progress via multiple WebSockets, enabling real-time updates for users subscribed to specific topics with session-based JWT key pair management, asynchronous logging, and multi-threaded execution.",
     ],
   },
+];
+
+export interface Education {
+  institution: string;
+  degree: string;
+  period: string;
+  location?: string;
+  summary: string;
+  highlights: string[];
+}
+
+export const education: Education[] = [
   {
-    company: "CapLink",
-    role: "Full Stack Developer",
-    period: "March 2025 - Present",
-    type: "work",
-    summary: "Maintain RESTful and GraphQL APIs with Clean Code architecture in Node.js and TypeScript while delivering polished frontend microcomponents.",
-    bullets: [
-      "Maintain RESTful and GraphQL APIs with Clean Code architecture in Node.js and TypeScript.",
-      "Optimize PostgreSQL queries and maintain automated test coverage above 80% with Jest and Vitest.",
-      "Deliver frontend microcomponents in React and document them in Storybook.",
-      "Work with Docker containers and agile methodologies such as Scrum and Kanban.",
-    ],
-  },
-  {
-    company: "tns",
-    role: "Full Stack Developer I",
-    period: "April 2025 - January 2026",
-    type: "work",
-    summary: "Developed applications in React and TypeScript using Atomic Design architecture, collaborating with Marketing and Sales to enhance the B2B customer experience.",
-    bullets: [
-      "Development of applications in React and TypeScript using Atomic Design architecture.",
-      "Collaboration with the Marketing and Sales departments to enhance the B2B customer experience.",
-      "Experience with serverless services such as AWS Lambda and Cloudflare Workers.",
-    ],
-  },
-  {
-    company: "tns",
-    role: "Full Stack Developer II",
-    period: "January 2026 - Present",
-    type: "work",
-    summary: "Structuring and developing lead generation landing pages for the company's app launch, with A/B testing and performance-focused delivery.",
-    bullets: [
-      "Structured and developed lead generation landing pages for the company's app launch.",
-      "Drove 40,000 organic leads with nearly 1 minute of retention and a 30% increase in results.",
-      "Ran A/B tests to continuously improve website performance and conversion.",
-    ],
-  },
-  {
-    company: "ETEC Professor André Bogas",
-    role: "Integrated High School + Technical Course in Business Administration",
-    period: "February 2019 - December 2021",
-    type: "education",
-    summary: "Integrated high school program combined with a technical course focused on business administration fundamentals.",
-    bullets: [
-      "Completed an integrated high school program with a technical focus on business administration.",
-      "Built early foundations in management, communication, and structured problem-solving.",
-    ],
-  },
-  {
-    company: "Fatec Registro",
-    role: "Bachelor's Degree — Multiplatform Software Development",
-    period: "February 2022 - December 2024",
-    type: "education",
-    summary: "Bachelor's degree focused on multiplatform software development, covering backend, frontend, mobile, databases, and software engineering.",
-    bullets: [
-      "Studied software engineering, algorithms, databases, mobile, and multiplatform development.",
-      "Co-authored the SOFIA publication, an AI-based software to assist in the early diagnosis of Autism Spectrum Disorder.",
-      "Contributed to an integrated post-clinical monitoring platform for rehabilitated chemical dependents.",
-    ],
-  },
-  {
-    company: "Faculdade Focus",
-    role: "Pós-graduação Lato Sensu — Business Intelligence, Big Data e Inteligência Artificial",
-    period: "May 2025 - January 2026",
-    type: "education",
+    institution: "Faculdade Focus",
+    degree: "Pós-graduação Lato Sensu — Business Intelligence, Big Data & Artificial Intelligence",
+    period: "May 2025 — January 2026",
     summary: "Postgraduate specialization in Business Intelligence, Big Data, and Artificial Intelligence.",
-    bullets: [
-      "Deepened expertise in Business Intelligence pipelines and Big Data architectures.",
-      "Studied applied Artificial Intelligence and data-driven decision making.",
+    highlights: [
+      "Business Intelligence pipelines and Big Data architectures",
+      "Applied Artificial Intelligence and data-driven decision making",
+      "Analytical modeling for complex enterprise problems",
+    ],
+  },
+  {
+    institution: "Fatec Registro",
+    degree: "Bachelor's Degree — Multiplatform Software Development",
+    period: "February 2022 — December 2024",
+    location: "Registro, São Paulo, Brazil",
+    summary: "Bachelor's degree focused on multiplatform software development — backend, frontend, mobile, databases, and software engineering.",
+    highlights: [
+      "Software engineering, algorithms, databases, and multiplatform development",
+      "Co-authored SOFIA — an AI-based software to assist in the early diagnosis of ASD",
+      "Integrated post-clinical monitoring platform for rehabilitated chemical dependents",
+    ],
+  },
+  {
+    institution: "ETEC Professor André Bogas",
+    degree: "Integrated High School + Technical Course in Business Administration",
+    period: "February 2019 — December 2021",
+    location: "Registro, São Paulo, Brazil",
+    summary: "Integrated high school program combined with a technical course focused on business administration fundamentals.",
+    highlights: [
+      "Business administration fundamentals and management",
+      "Communication, teamwork, and structured problem solving",
+      "Early foundations for a career bridging business and technology",
     ],
   },
 ];

@@ -1,22 +1,10 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Mail, Linkedin, Github, Send, Download, ArrowUpRight } from "lucide-react";
+import { Mail, Linkedin, Github, Download, ArrowUpRight } from "lucide-react";
 import { personalInfo } from "@/data/portfolio";
-import { toast } from "@/components/ui/sonner";
 import { useTranslation } from "@/lib/i18n/context";
-import {
-  CONTACT_CLIENT_TIMEOUT_MS,
-  CONTACT_HONEYPOT_FIELD,
-  CONTACT_REASONS,
-  contactSchema,
-  type ContactFormData,
-} from "@/lib/contact";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
-import Card3D from "./Card3D";
-import cardImage from "@/assets/card.png";
 
 const SOCIAL_LINKS = [
   {
@@ -39,96 +27,10 @@ const SOCIAL_LINKS = [
   },
 ];
 
-const INITIAL_FORM: ContactFormData = {
-  name: "",
-  email: "",
-  reason: CONTACT_REASONS[0],
-  message: "",
-};
-
-type ContactField = keyof ContactFormData;
-type ContactErrors = Partial<Record<ContactField, string>>;
-
 const ContactSection = () => {
   const t = useTranslation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [form, setForm] = useState<ContactFormData>(INITIAL_FORM);
-  const [honeypot, setHoneypot] = useState("");
-  const [startedAt, setStartedAt] = useState(() => Date.now());
-  const [errors, setErrors] = useState<ContactErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-  const reasonLabel = (key: string) =>
-    t.contact.reasons.find((r) => r.key === key)?.label ?? key;
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const parsed = contactSchema.safeParse(form);
-    if (!parsed.success) {
-      const nextErrors = parsed.error.issues.reduce<ContactErrors>((acc, issue) => {
-        const field = issue.path[0];
-        if (typeof field === "string" && !(field in acc)) {
-          acc[field as ContactField] = issue.message;
-        }
-        return acc;
-      }, {});
-
-      setErrors(nextErrors);
-      toast.error(t.contact.toasts.reviewTitle, {
-        description: parsed.error.issues[0]?.message || t.contact.toasts.reviewFallback,
-      });
-      return;
-    }
-
-    setErrors({});
-
-    const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => controller.abort(), CONTACT_CLIENT_TIMEOUT_MS);
-
-    try {
-      setIsSubmitting(true);
-
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...parsed.data,
-          startedAt,
-          [CONTACT_HONEYPOT_FIELD]: honeypot,
-        }),
-        signal: controller.signal,
-      });
-
-      const data = (await response.json().catch(() => null)) as { error?: string } | null;
-
-      if (!response.ok) {
-        throw new Error(data?.error || t.contact.toasts.unableDefault);
-      }
-
-      setForm(INITIAL_FORM);
-      setHoneypot("");
-      setStartedAt(Date.now());
-      setErrors({});
-      toast.success(t.contact.toasts.successTitle, {
-        description: t.contact.toasts.successDescription,
-      });
-    } catch (error) {
-      toast.error(t.contact.toasts.unableTitle, {
-        description:
-          error instanceof DOMException && error.name === "AbortError"
-            ? t.contact.toasts.timeout
-            : error instanceof Error
-              ? error.message
-              : t.contact.toasts.unableDefault,
-      });
-    } finally {
-      window.clearTimeout(timeoutId);
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <section id="contact" className="section-padding relative z-10">
@@ -152,32 +54,9 @@ const ContactSection = () => {
           </p>
         </motion.div>
 
-        {/* Mobile-only card */}
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: shouldReduceMotion ? 0.2 : 0.6, delay: shouldReduceMotion ? 0 : 0.05 }}
-          className="block lg:hidden mb-10 mx-auto w-full max-w-xs sm:max-w-sm"
-        >
-          <Card3D>
-            <Image
-              src={cardImage}
-              alt=""
-              aria-hidden="true"
-              className="w-full h-auto rounded-3xl border border-white/10 shadow-accent-strong pointer-events-none select-none"
-              draggable={false}
-              sizes="(min-width: 640px) 384px, 100vw"
-            />
-          </Card3D>
-        </motion.div>
-
-        {/* Two equal panels with Spotlight */}
-        <div className="grid lg:grid-cols-2 gap-6 items-stretch max-w-5xl 2xl:max-w-7xl mx-auto">
-
-          {/* Left panel */}
+        <div className="mx-auto w-full max-w-2xl">
           <SpotlightCard delay={0.1} className="h-full">
             <div className="p-6 sm:p-8 md:p-10 flex flex-col gap-6 h-full">
-              {/* Grows to fill */}
               <div className="flex flex-col gap-6 flex-1">
                 <div>
                   <h3 className="text-3xl font-bold mb-3 tracking-tight">{t.contact.buildHeading}</h3>
@@ -210,7 +89,7 @@ const ContactSection = () => {
               </div>
 
               {/* Pinned to bottom */}
-              <div className="mt-auto flex min-h-[122px] flex-col justify-between gap-4">
+              <div className="mt-auto flex flex-col gap-4">
                 <a
                   href={personalInfo.resumeUrl}
                   download
@@ -225,166 +104,6 @@ const ContactSection = () => {
                 </div>
               </div>
             </div>
-          </SpotlightCard>
-
-          {/* Right panel — Form */}
-          <SpotlightCard delay={0.2} className="h-full">
-            <form onSubmit={handleSubmit} className="relative p-6 sm:p-8 md:p-10 flex flex-col gap-6 h-full" aria-busy={isSubmitting} noValidate>
-              <div className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
-                <label htmlFor="contact-website">Website</label>
-                <input
-                  id="contact-website"
-                  name={CONTACT_HONEYPOT_FIELD}
-                  tabIndex={-1}
-                  autoComplete="off"
-                  value={honeypot}
-                  onChange={(event) => setHoneypot(event.target.value)}
-                />
-              </div>
-
-              {/* Grows to fill */}
-              <div className="flex flex-col gap-6 flex-1">
-                <div>
-                  <h3 className="text-3xl font-bold mb-3 tracking-tight">{t.contact.form.sendHeading}</h3>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    {t.contact.form.sendDescription}
-                  </p>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="contact-name" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">{t.contact.form.nameLabel}</label>
-                    <input
-                      id="contact-name"
-                      required
-                      minLength={2}
-                      maxLength={80}
-                      autoComplete="name"
-                      disabled={isSubmitting}
-                      value={form.name}
-                      onChange={(e) => {
-                        setForm({ ...form, name: e.target.value });
-                        if (errors.name) {
-                          setErrors((current) => ({ ...current, name: undefined }));
-                        }
-                      }}
-                      aria-invalid={Boolean(errors.name)}
-                      aria-describedby={errors.name ? "contact-name-error" : undefined}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-muted-foreground/40"
-                      placeholder={t.contact.form.namePlaceholder}
-                    />
-                    {errors.name && (
-                      <p id="contact-name-error" className="mt-2 text-sm text-destructive">
-                        {errors.name}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label htmlFor="contact-email" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">{t.contact.form.emailLabel}</label>
-                    <input
-                      id="contact-email"
-                      type="email"
-                      required
-                      maxLength={120}
-                      autoComplete="email"
-                      disabled={isSubmitting}
-                      value={form.email}
-                      onChange={(e) => {
-                        setForm({ ...form, email: e.target.value });
-                        if (errors.email) {
-                          setErrors((current) => ({ ...current, email: undefined }));
-                        }
-                      }}
-                      aria-invalid={Boolean(errors.email)}
-                      aria-describedby={errors.email ? "contact-email-error" : undefined}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-muted-foreground/40"
-                      placeholder={t.contact.form.emailPlaceholder}
-                    />
-                    {errors.email && (
-                      <p id="contact-email-error" className="mt-2 text-sm text-destructive">
-                        {errors.email}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="contact-reason" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">{t.contact.form.reasonLabel}</label>
-                  <div className="relative">
-                    <select
-                      id="contact-reason"
-                      disabled={isSubmitting}
-                      value={form.reason}
-                      onChange={(e) => {
-                        setForm({ ...form, reason: e.target.value as ContactFormData["reason"] });
-                        if (errors.reason) {
-                          setErrors((current) => ({ ...current, reason: undefined }));
-                        }
-                      }}
-                      aria-invalid={Boolean(errors.reason)}
-                      aria-describedby={errors.reason ? "contact-reason-error" : undefined}
-                      className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all appearance-none"
-                    >
-                      {CONTACT_REASONS.map((r) => (
-                        <option key={r} value={r} className="bg-background text-foreground">{reasonLabel(r)}</option>
-                      ))}
-                    </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
-                      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                  </div>
-                  {errors.reason && (
-                    <p id="contact-reason-error" className="mt-2 text-sm text-destructive">
-                      {errors.reason}
-                    </p>
-                  )}
-                </div>
-
-                <div className="flex-1 flex flex-col min-h-[140px]">
-                  <label htmlFor="contact-message" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">{t.contact.form.messageLabel}</label>
-                  <textarea
-                    id="contact-message"
-                    required
-                    minLength={10}
-                    maxLength={2000}
-                    disabled={isSubmitting}
-                    value={form.message}
-                    onChange={(e) => {
-                      setForm({ ...form, message: e.target.value });
-                      if (errors.message) {
-                        setErrors((current) => ({ ...current, message: undefined }));
-                      }
-                    }}
-                    aria-invalid={Boolean(errors.message)}
-                    aria-describedby={errors.message ? "contact-message-error" : undefined}
-                    className="flex-1 w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none placeholder:text-muted-foreground/40"
-                    placeholder={t.contact.form.messagePlaceholder}
-                  />
-                  {errors.message && (
-                    <p id="contact-message-error" className="mt-2 text-sm text-destructive">
-                      {errors.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Pinned to bottom */}
-              <div className="mt-auto flex min-h-[122px] flex-col justify-between gap-4">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-foreground font-bold text-sm tracking-wide hover:bg-black/10 dark:hover:bg-white/10 transition-all duration-300 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  <Send className="w-4 h-4 text-primary" />
-                  {isSubmitting ? t.contact.form.sendingButton : t.contact.form.sendButton}
-                </button>
-                <p className="text-[11px] font-medium text-muted-foreground/60 text-center border-t border-black/10 dark:border-white/5 pt-4">
-                  {t.contact.form.securityNote(personalInfo.email)}
-                </p>
-              </div>
-            </form>
           </SpotlightCard>
         </div>
       </div>

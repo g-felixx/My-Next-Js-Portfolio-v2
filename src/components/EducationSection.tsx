@@ -2,10 +2,11 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { GraduationCap, CalendarDays, MapPin, Sparkles } from "lucide-react";
-import { education } from "@/data/portfolio";
+import { useTranslation } from "@/lib/i18n/context";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 
 const EducationSection = () => {
+  const t = useTranslation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const shouldReduceMotion = useReducedMotion();
 
@@ -20,13 +21,13 @@ const EducationSection = () => {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-primary/20 text-xs font-mono text-primary mb-6">
             <GraduationCap className="h-3.5 w-3.5" />
-            Academic Path
+            {t.education.label}
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            Academic <span className="text-gradient">Journey</span>
+            {t.education.titleLead} <span className="text-gradient">{t.education.titleHighlight}</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed max-w-2xl text-lg">
-            From an integrated technical high school to a Bachelor&apos;s in Multiplatform Software Development and a postgraduate specialization in Big Data &amp; AI — a continuous commitment to learning and technical depth.
+            {t.education.description}
           </p>
         </motion.div>
 
@@ -37,7 +38,7 @@ const EducationSection = () => {
           />
 
           <ol className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {education.map((edu, index) => {
+            {t.education.items.map((edu, index) => {
               const step = String(index + 1).padStart(2, "0");
               const isLatest = index === 0;
 
@@ -52,12 +53,12 @@ const EducationSection = () => {
 
                         <div className="flex flex-col items-end gap-2">
                           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground/70">
-                            Step {step}
+                            {t.education.stepLabel} {step}
                           </span>
                           {isLatest && (
                             <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider text-primary">
                               <Sparkles className="h-3 w-3" />
-                              Latest
+                              {t.education.latestLabel}
                             </span>
                           )}
                         </div>

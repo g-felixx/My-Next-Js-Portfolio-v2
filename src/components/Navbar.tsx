@@ -1,24 +1,17 @@
 "use client";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Menu, X, Download } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import logo from "@/assets/logo.png";
 import { personalInfo } from "@/data/portfolio";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
+import { useTranslation } from "@/lib/i18n/context";
 import { scrollToHash } from "@/lib/scroll";
 
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#education", label: "Education" },
-  { href: "#certifications", label: "Certifications" },
-  { href: "#projects", label: "Projects" },
-  { href: "#skills", label: "Skills" },
-  { href: "#contact", label: "Contact" },
-];
-
 const Navbar = () => {
+  const t = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -27,6 +20,19 @@ const Navbar = () => {
   const firstMobileLinkRef = useRef<HTMLAnchorElement>(null);
   const shouldRestoreFocusRef = useRef(true);
   const shouldReduceMotion = useReducedMotion();
+
+  const navLinks = useMemo(
+    () => [
+      { href: "#about", label: t.nav.about },
+      { href: "#experience", label: t.nav.experience },
+      { href: "#education", label: t.nav.education },
+      { href: "#certifications", label: t.nav.certifications },
+      { href: "#projects", label: t.nav.projects },
+      { href: "#skills", label: t.nav.skills },
+      { href: "#contact", label: t.nav.contact },
+    ],
+    [t],
+  );
 
   useEffect(() => {
     let frameId: number | null = null;
@@ -67,7 +73,7 @@ const Navbar = () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [navLinks]);
 
   const closeMenu = useCallback((restoreFocus = true) => {
     shouldRestoreFocusRef.current = restoreFocus;
@@ -159,7 +165,7 @@ const Navbar = () => {
             scrolled ? "glass-strong shadow-accent-card border-white/10" : "bg-transparent border-transparent"
           }`}
         >
-          <a href="#hero" aria-label="Go to hero section" className="flex items-center gap-2 group">
+          <a href="#hero" aria-label={t.nav.heroAria} className="flex items-center gap-2 group">
             <Image src={logo} alt="" aria-hidden="true" className="w-10 h-10 sm:w-12 sm:h-12 transition-transform duration-300 group-hover:scale-110 pointer-events-none" draggable={false} />
             <span className="font-bold text-lg tracking-wide hidden sm:block">Amanda Castro</span>
           </a>
@@ -181,6 +187,7 @@ const Navbar = () => {
               </a>
             ))}
             <div className="w-px h-4 bg-white/10 mx-2" />
+            <LanguageToggle />
             <ThemeToggle />
             <a
               href={personalInfo.resumeUrl}
@@ -188,7 +195,7 @@ const Navbar = () => {
               className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold rounded-full bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 active:scale-[0.97] ml-2"
             >
               <Download className="w-3.5 h-3.5" />
-              Resume
+              {t.nav.resume}
             </a>
           </div>
 
@@ -197,7 +204,7 @@ const Navbar = () => {
             type="button"
             onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
             className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors active:scale-95"
-            aria-label="Toggle menu"
+            aria-label={t.nav.toggleMenu}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
           >
@@ -246,8 +253,11 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
-              <div className="flex items-center justify-between mt-2 pt-4 border-t border-white/5">
-                <ThemeToggle />
+              <div className="flex items-center justify-between mt-2 pt-4 border-t border-white/5 gap-2">
+                <div className="flex items-center gap-1">
+                  <LanguageToggle />
+                  <ThemeToggle />
+                </div>
                 <a
                   href={personalInfo.resumeUrl}
                   download
@@ -255,7 +265,7 @@ const Navbar = () => {
                   className="flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold rounded-xl bg-primary text-primary-foreground active:scale-[0.97]"
                 >
                   <Download className="w-4 h-4" />
-                  Resume
+                  {t.nav.resume}
                 </a>
               </div>
             </div>

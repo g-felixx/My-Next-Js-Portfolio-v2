@@ -4,7 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ArrowDown, Download } from "lucide-react";
-import { personalInfo, stats } from "@/data/portfolio";
+import { personalInfo } from "@/data/portfolio";
+import { useTranslation } from "@/lib/i18n/context";
 import Card3D from "./Card3D";
 import cardImage from "@/assets/card.png";
 
@@ -44,6 +45,7 @@ const AnimatedCounter = ({ value, suffix, start }: { value: number; suffix: stri
 };
 
 const HeroSection = () => {
+  const t = useTranslation();
   const shouldReduceMotion = useReducedMotion();
   const [statsTriggerRef, statsInView] = useInView({
     triggerOnce: true,
@@ -51,6 +53,9 @@ const HeroSection = () => {
     rootMargin: "0px 0px -2% 0px",
   });
   const [statsRevealStarted, setStatsRevealStarted] = useState(false);
+  const roleWithoutHighlight = t.role.endsWith(t.roleHighlightWord)
+    ? t.role.slice(0, t.role.length - t.roleHighlightWord.length).trim()
+    : t.role;
 
   const shouldStartStats = Boolean(statsInView && (shouldReduceMotion || statsRevealStarted));
 
@@ -104,7 +109,7 @@ const HeroSection = () => {
             <motion.div variants={item}>
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-bold glass-subtle border border-primary/20 text-primary tracking-wide shadow-[0_0_12px_rgba(41,214,185,0.1)]">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse motion-reduce:animate-none" />
-                Available for New Opportunities
+                {t.heroAvailable}
               </span>
             </motion.div>
 
@@ -113,12 +118,12 @@ const HeroSection = () => {
                 {personalInfo.name}
               </motion.h1>
               <motion.h2 variants={item} className="text-xl sm:text-4xl font-semibold tracking-tight text-muted-foreground mt-2">
-                {personalInfo.role.split(" ").slice(0, -1).join(" ")} <span className="text-gradient">{personalInfo.role.split(" ").slice(-1)[0]}</span>
+                {roleWithoutHighlight} <span className="text-gradient">{t.roleHighlightWord}</span>
               </motion.h2>
             </div>
 
             <motion.p variants={item} className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-xl font-medium" style={{ textWrap: "pretty" }}>
-              {personalInfo.tagline}
+              {t.tagline}
             </motion.p>
 
             <motion.div variants={item} className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-1 sm:mt-2">
@@ -126,7 +131,7 @@ const HeroSection = () => {
                 href="#projects"
                 className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(41,214,185,0.18)] hover:shadow-[0_0_28px_rgba(41,214,185,0.24)] transition-all duration-300 active:scale-95"
               >
-                View Projects
+                {t.heroViewProjects}
                 <ArrowDown className="w-4 h-4 ml-1" />
               </a>
               <a
@@ -135,7 +140,7 @@ const HeroSection = () => {
                 className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-8 py-3.5 rounded-full bg-white/5 dark:bg-white/[0.02] backdrop-blur-lg border border-primary/50 dark:border-primary/50 font-bold text-foreground text-sm tracking-wide hover:bg-primary/10 transition-all duration-300 active:scale-95"
               >
                 <Download className="w-4 h-4 mr-1 text-primary" />
-                Resume
+                {t.heroResume}
               </a>
             </motion.div>
 
@@ -146,7 +151,7 @@ const HeroSection = () => {
               onAnimationStart={() => setStatsRevealStarted(true)}
               className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 sm:mt-6"
             >
-              {stats.map((stat) => (
+              {t.stats.map((stat) => (
                 <div key={stat.label} className="border-l-2 border-primary/30 pl-4 py-1">
                   <div className="text-2xl font-bold tracking-tighter text-foreground">
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} start={shouldStartStats} />

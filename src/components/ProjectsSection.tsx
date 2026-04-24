@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ExternalLink, Github, Maximize2 } from "lucide-react";
 import { projects, type Project } from "@/data/portfolio";
+import { useTranslation } from "@/lib/i18n/context";
 
 const PROJECT_ANCHOR_PREFIX = "project-";
 import {
@@ -18,7 +19,6 @@ import {
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import ProjectImageViewer from "@/components/ProjectImageViewer";
 
-const categories = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
 const PROJECT_IMAGE_SIZES = "(min-width: 1536px) 42rem, (min-width: 1024px) 40vw, 100vw";
 
 function ProjectPreviewImage({ src, alt, priority = false, eager = false }: { src: string; alt: string; priority?: boolean; eager?: boolean }) {
@@ -50,6 +50,7 @@ function ProjectShowcase({
   priority: boolean;
   onOpenViewer: (project: Project, index: number) => void;
 }) {
+  const t = useTranslation();
   const [mediaRef, mediaInView] = useInView({ triggerOnce: true, threshold: 0, rootMargin: "600px 0px" });
   const hasPrefetchedRef = useRef(false);
 
@@ -112,7 +113,7 @@ function ProjectShowcase({
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-100 sm:opacity-0 sm:group-hover/viewer:opacity-100 transition-opacity duration-300" />
                     <div className="pointer-events-none absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/45 px-3 py-2 text-xs font-mono text-white/90 backdrop-blur-md shadow-accent-soft">
                       <Maximize2 className="h-3.5 w-3.5" />
-                      {project.images.length > 1 ? "View gallery" : "View image"}
+                      {project.images.length > 1 ? t.projects.viewGallery : t.projects.viewImage}
                     </div>
                     {project.images.length > 1 && (
                       <div className="pointer-events-none absolute right-4 top-4 rounded-full border border-white/10 bg-black/45 px-2.5 py-1 text-[11px] font-mono text-white/80 backdrop-blur-md">
@@ -151,7 +152,7 @@ function ProjectShowcase({
         )
       ) : (
         <div className="aspect-[16/10] w-full flex items-center justify-center rounded-xl ring-1 ring-white/10 bg-zinc-950/50 text-muted-foreground text-sm font-mono z-10">
-          {">"} No preview available
+          {t.projects.noPreview}
         </div>
       )}
 
@@ -160,7 +161,8 @@ function ProjectShowcase({
 }
 
 const ProjectsSection = () => {
-  const [filter, setFilter] = useState("All");
+  const t = useTranslation();
+  const [filter, setFilter] = useState(t.projects.filterAll);
   const [viewerState, setViewerState] = useState<{ open: boolean; project: Project | null; index: number }>({
     open: false,
     project: null,
@@ -169,7 +171,8 @@ const ProjectsSection = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const shouldReduceMotion = useReducedMotion();
 
-  const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
+  const categories = [t.projects.filterAll, ...Array.from(new Set(projects.map((p) => p.category)))];
+  const filtered = filter === t.projects.filterAll ? projects : projects.filter((p) => p.category === filter);
   const activeViewerProject = viewerState.project;
 
   const handleOpenViewer = useCallback((project: Project, index: number) => {
@@ -187,13 +190,13 @@ const ProjectsSection = () => {
           className="text-center mb-16 flex flex-col items-center"
         >
           <div className="inline-flex items-center px-3 py-1.5 rounded-full glass-subtle border border-primary/20 text-xs font-mono text-primary mb-6">
-            Portfolio
+            {t.projects.label}
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            Featured <span className="text-gradient">Work</span>
+            {t.projects.titleLead} <span className="text-gradient">{t.projects.titleHighlight}</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-10 max-w-xl text-lg">
-            Full-stack products, backend systems, and custom web solutions spanning APIs, databases, UX, cloud integrations, and production infrastructure.
+            {t.projects.description}
           </p>
 
           {/* Filters */}
@@ -265,7 +268,7 @@ const ProjectsSection = () => {
                           className="flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors hover:bg-primary/10 px-4 py-2 rounded-lg -ml-4"
                         >
                           <Github className="w-5 h-5" />
-                          Source Code
+                          {t.projects.sourceCode}
                         </a>
                         {project.live && (
                           <a
@@ -275,7 +278,7 @@ const ProjectsSection = () => {
                             className="flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors hover:bg-primary/10 px-4 py-2 rounded-lg"
                           >
                             <ExternalLink className="w-5 h-5" />
-                            Live Demo
+                            {t.projects.liveDemo}
                           </a>
                         )}
                       </div>
@@ -305,7 +308,7 @@ const ProjectsSection = () => {
             className="flex items-center gap-2 px-8 py-4 rounded-full glass border border-white/10 border-b-white/5 text-sm font-bold text-foreground hover:text-primary hover:bg-white/10 transition-all duration-300 shadow-accent-soft hover:shadow-[0_0_18px_rgba(41,214,185,0.12)] active:scale-95"
           >
             <Github className="w-5 h-5" />
-            Explore more repositories
+            {t.projects.exploreMore}
           </a>
         </motion.div>
 

@@ -1,18 +1,12 @@
 "use client";
-import { skillCategories } from "@/data/portfolio";
 import { Code2, Layers, Database, Server, Wrench } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/context";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 
-// Icons for each category
-const CATEGORY_ICONS: Record<string, React.ElementType> = {
-  "Backend & API Engineering": Layers,
-  "Frontend & Product Experience": Code2,
-  "Data & Messaging": Database,
-  "Cloud, DevOps & Delivery": Server,
-  "Testing, Tooling & Methodologies": Wrench,
-};
+const CATEGORY_ICONS: React.ElementType[] = [Layers, Code2, Database, Server, Wrench];
 
 const SkillsSection = () => {
+  const t = useTranslation();
   return (
     <section id="skills" className="section-padding relative">
       <div className="container-narrow">
@@ -22,22 +16,22 @@ const SkillsSection = () => {
           <div className="lg:w-1/3 lg:sticky lg:top-32 shrink-0">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-subtle border border-primary/20 text-xs font-mono text-primary mb-6">
-                Expertise
+                {t.skills.label}
               </div>
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6">
-                Technical <br className="hidden lg:block" />
-                <span className="text-gradient">Stack</span>
+                {t.skills.titleLead} <br className="hidden lg:block" />
+                <span className="text-gradient">{t.skills.titleHighlight}</span>
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-md">
-                The technologies I reach for most often when building backend APIs, full-stack products, cloud-based infrastructure, and reliable delivery pipelines.
+                {t.skills.description}
               </p>
             </div>
           </div>
 
           {/* Right Column: Spotlight Cards */}
           <div className="lg:w-2/3 flex flex-col gap-6 w-full">
-            {skillCategories.map((cat) => {
-              const Icon = CATEGORY_ICONS[cat.title] ?? Wrench;
+            {t.skills.categories.map((cat, catIndex) => {
+              const Icon = CATEGORY_ICONS[catIndex] ?? Wrench;
               return (
                 <SpotlightCard key={cat.title} animateOnEnter={false} className="w-full">
                   <div className="p-8 sm:p-10">
@@ -47,7 +41,7 @@ const SkillsSection = () => {
                       </div>
                       <div>
                         <h3 className="text-xl font-bold tracking-tight group-hover:text-primary transition-colors duration-300">{cat.title}</h3>
-                        <p className="text-xs text-muted-foreground mt-1 font-mono">{cat.skills.length} technologies</p>
+                        <p className="text-xs text-muted-foreground mt-1 font-mono">{cat.skills.length} {t.skills.technologiesSuffix}</p>
                       </div>
                     </div>
 

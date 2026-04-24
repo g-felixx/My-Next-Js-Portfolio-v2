@@ -1,4 +1,5 @@
-import { about, personalInfo } from "@/data/portfolio";
+import { personalInfo } from "@/data/portfolio";
+import { en } from "@/lib/i18n/en";
 
 const siteUrl = "https://amandacastro.dev";
 export const ogLocale = "en_US";
@@ -9,8 +10,8 @@ export const siteConfig = {
   resumeUrl: `${siteUrl}${personalInfo.resumeUrl}`,
   updatedAt: "2026-04-24T00:00:00.000Z",
   siteName: "Amanda Castro Portfolio",
-  title: `${personalInfo.name} — Full Stack Engineer`,
-  description: personalInfo.tagline,
+  title: `${personalInfo.name} — ${en.role}`,
+  description: en.tagline,
   author: personalInfo.name,
   creator: personalInfo.name,
   email: personalInfo.email,
@@ -68,7 +69,7 @@ export const siteConfig = {
     icbm: "39.3999, -8.2245",
   },
   sameAs: [personalInfo.github, personalInfo.linkedin],
-  aboutSummary: about.summary,
+  aboutSummary: en.about.summary,
 } as const;
 
 export const canonicalPages = [siteConfig.homeUrl] as const;

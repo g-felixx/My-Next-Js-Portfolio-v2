@@ -6,6 +6,7 @@ import { useInView } from "react-intersection-observer";
 import { Mail, Linkedin, Github, Send, Download, ArrowUpRight } from "lucide-react";
 import { personalInfo } from "@/data/portfolio";
 import { toast } from "@/components/ui/sonner";
+import { useTranslation } from "@/lib/i18n/context";
 import {
   CONTACT_CLIENT_TIMEOUT_MS,
   CONTACT_HONEYPOT_FIELD,
@@ -49,6 +50,7 @@ type ContactField = keyof ContactFormData;
 type ContactErrors = Partial<Record<ContactField, string>>;
 
 const ContactSection = () => {
+  const t = useTranslation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [form, setForm] = useState<ContactFormData>(INITIAL_FORM);
   const [honeypot, setHoneypot] = useState("");
@@ -56,6 +58,8 @@ const ContactSection = () => {
   const [errors, setErrors] = useState<ContactErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const reasonLabel = (key: string) =>
+    t.contact.reasons.find((r) => r.key === key)?.label ?? key;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,8 +75,8 @@ const ContactSection = () => {
       }, {});
 
       setErrors(nextErrors);
-      toast.error("Please review the form", {
-        description: parsed.error.issues[0]?.message || "Check the highlighted fields and try again.",
+      toast.error(t.contact.toasts.reviewTitle, {
+        description: parsed.error.issues[0]?.message || t.contact.toasts.reviewFallback,
       });
       return;
     }
@@ -101,24 +105,24 @@ const ContactSection = () => {
       const data = (await response.json().catch(() => null)) as { error?: string } | null;
 
       if (!response.ok) {
-        throw new Error(data?.error || "Unable to send your message right now.");
+        throw new Error(data?.error || t.contact.toasts.unableDefault);
       }
 
       setForm(INITIAL_FORM);
       setHoneypot("");
       setStartedAt(Date.now());
       setErrors({});
-      toast.success("Message sent", {
-        description: "Thanks for reaching out. I will get back to you soon.",
+      toast.success(t.contact.toasts.successTitle, {
+        description: t.contact.toasts.successDescription,
       });
     } catch (error) {
-      toast.error("Unable to send your message", {
+      toast.error(t.contact.toasts.unableTitle, {
         description:
           error instanceof DOMException && error.name === "AbortError"
-            ? "The request took too long. Please try again."
+            ? t.contact.toasts.timeout
             : error instanceof Error
               ? error.message
-              : "Unable to send your message right now.",
+              : t.contact.toasts.unableDefault,
       });
     } finally {
       window.clearTimeout(timeoutId);
@@ -138,13 +142,13 @@ const ContactSection = () => {
           className="text-center mb-14"
         >
           <div className="inline-flex items-center px-3 py-1.5 rounded-full glass-subtle border border-primary/20 text-xs font-mono text-primary mb-6">
-            Connect
+            {t.contact.label}
           </div>
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
-            Get in <span className="text-gradient">Touch</span>
+            {t.contact.titleLead} <span className="text-gradient">{t.contact.titleHighlight}</span>
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto text-base leading-relaxed">
-            Open to full-stack, backend, and frontend engineering opportunities, as well as thoughtful collaborations and freelance projects.
+            {t.contact.description}
           </p>
         </motion.div>
 
@@ -176,9 +180,9 @@ const ContactSection = () => {
               {/* Grows to fill */}
               <div className="flex flex-col gap-6 flex-1">
                 <div>
-                  <h3 className="text-3xl font-bold mb-3 tracking-tight">Let&apos;s Build Something</h3>
+                  <h3 className="text-3xl font-bold mb-3 tracking-tight">{t.contact.buildHeading}</h3>
                   <p className="text-base text-muted-foreground leading-relaxed" style={{ textWrap: "pretty" }}>
-                    If you&apos;re hiring for full-stack, backend, or cloud-oriented engineering work, I&apos;d love to talk. I&apos;m also open to freelance projects, thoughtful collaborations, and open-source conversations.
+                    {t.contact.buildDescription}
                   </p>
                 </div>
 
@@ -213,11 +217,11 @@ const ContactSection = () => {
                   className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-sm tracking-wide shadow-[0_0_16px_rgba(41,214,185,0.14)] hover:shadow-[0_0_24px_rgba(41,214,185,0.2)] transition-all duration-300 active:scale-[0.98]"
                 >
                   <Download className="w-4 h-4" />
-                  Download Resume
+                  {t.contact.form.downloadResume}
                 </a>
                 <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground border-t border-black/10 dark:border-white/5 pt-4">
                   <span className="w-2 h-2 rounded-full bg-primary animate-pulse motion-reduce:animate-none shrink-0 shadow-[0_0_6px_rgba(41,214,185,0.28)]" />
-                  Available for new opportunities
+                  {t.contact.form.availableLabel}
                 </div>
               </div>
             </div>
@@ -241,15 +245,15 @@ const ContactSection = () => {
               {/* Grows to fill */}
               <div className="flex flex-col gap-6 flex-1">
                 <div>
-                  <h3 className="text-3xl font-bold mb-3 tracking-tight">Send a Message</h3>
+                  <h3 className="text-3xl font-bold mb-3 tracking-tight">{t.contact.form.sendHeading}</h3>
                   <p className="text-base text-muted-foreground leading-relaxed">
-                    Share the role, team, problem space, or product idea and I&apos;ll reply with context that&apos;s actually useful.
+                    {t.contact.form.sendDescription}
                   </p>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="contact-name" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">Name</label>
+                    <label htmlFor="contact-name" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">{t.contact.form.nameLabel}</label>
                     <input
                       id="contact-name"
                       required
@@ -267,7 +271,7 @@ const ContactSection = () => {
                       aria-invalid={Boolean(errors.name)}
                       aria-describedby={errors.name ? "contact-name-error" : undefined}
                       className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-muted-foreground/40"
-                      placeholder="Your name"
+                      placeholder={t.contact.form.namePlaceholder}
                     />
                     {errors.name && (
                       <p id="contact-name-error" className="mt-2 text-sm text-destructive">
@@ -276,7 +280,7 @@ const ContactSection = () => {
                     )}
                   </div>
                   <div>
-                    <label htmlFor="contact-email" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">Email</label>
+                    <label htmlFor="contact-email" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">{t.contact.form.emailLabel}</label>
                     <input
                       id="contact-email"
                       type="email"
@@ -294,7 +298,7 @@ const ContactSection = () => {
                       aria-invalid={Boolean(errors.email)}
                       aria-describedby={errors.email ? "contact-email-error" : undefined}
                       className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all placeholder:text-muted-foreground/40"
-                      placeholder="you@company.com"
+                      placeholder={t.contact.form.emailPlaceholder}
                     />
                     {errors.email && (
                       <p id="contact-email-error" className="mt-2 text-sm text-destructive">
@@ -305,7 +309,7 @@ const ContactSection = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="contact-reason" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">Reason</label>
+                  <label htmlFor="contact-reason" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">{t.contact.form.reasonLabel}</label>
                   <div className="relative">
                     <select
                       id="contact-reason"
@@ -322,7 +326,7 @@ const ContactSection = () => {
                       className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all appearance-none"
                     >
                       {CONTACT_REASONS.map((r) => (
-                        <option key={r} value={r} className="bg-background text-foreground">{r}</option>
+                        <option key={r} value={r} className="bg-background text-foreground">{reasonLabel(r)}</option>
                       ))}
                     </select>
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
@@ -339,7 +343,7 @@ const ContactSection = () => {
                 </div>
 
                 <div className="flex-1 flex flex-col min-h-[140px]">
-                  <label htmlFor="contact-message" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">Message</label>
+                  <label htmlFor="contact-message" className="text-xs font-mono font-medium text-foreground/70 mb-2 block uppercase tracking-wider">{t.contact.form.messageLabel}</label>
                   <textarea
                     id="contact-message"
                     required
@@ -356,7 +360,7 @@ const ContactSection = () => {
                     aria-invalid={Boolean(errors.message)}
                     aria-describedby={errors.message ? "contact-message-error" : undefined}
                     className="flex-1 w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-sm outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all resize-none placeholder:text-muted-foreground/40"
-                    placeholder="Tell me about the opportunity or idea..."
+                    placeholder={t.contact.form.messagePlaceholder}
                   />
                   {errors.message && (
                     <p id="contact-message-error" className="mt-2 text-sm text-destructive">
@@ -374,10 +378,10 @@ const ContactSection = () => {
                   className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-foreground font-bold text-sm tracking-wide hover:bg-black/10 dark:hover:bg-white/10 transition-all duration-300 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <Send className="w-4 h-4 text-primary" />
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {isSubmitting ? t.contact.form.sendingButton : t.contact.form.sendButton}
                 </button>
                 <p className="text-[11px] font-medium text-muted-foreground/60 text-center border-t border-black/10 dark:border-white/5 pt-4">
-                  Messages are sent securely to {personalInfo.email} with your email set as the reply-to.
+                  {t.contact.form.securityNote(personalInfo.email)}
                 </p>
               </div>
             </form>

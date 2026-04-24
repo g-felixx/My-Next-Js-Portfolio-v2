@@ -1,4 +1,5 @@
 import { personalInfo, projects } from "@/data/portfolio";
+import { en } from "@/lib/i18n/en";
 import { siteConfig } from "./site";
 
 const websiteId = `${siteConfig.siteUrl}#website`;
@@ -54,9 +55,9 @@ export function getPersonSchema(): JsonLd {
     "@id": personId,
     name: personalInfo.name,
     url: siteConfig.homeUrl,
-    description: personalInfo.tagline,
+    description: en.tagline,
     email: siteConfig.email,
-    jobTitle: personalInfo.role,
+    jobTitle: en.role,
     sameAs: siteConfig.sameAs,
     homeLocation: {
       "@type": "Place",

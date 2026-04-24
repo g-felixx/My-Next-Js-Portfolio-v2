@@ -12,22 +12,28 @@ import {
 } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Briefcase, CalendarDays, GraduationCap } from "lucide-react";
-import { experiences, type Experience } from "@/data/portfolio";
+import { useTranslation } from "@/lib/i18n/context";
+import type { TranslationExperienceItem } from "@/lib/i18n/types";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 
-const CHAPTER_WORDS = ["adventure", "chapter", "journey"];
-
 function FlipChapter() {
-  const [currentWord, setCurrentWord] = useState(CHAPTER_WORDS[0]);
+  const t = useTranslation();
+  const words = t.experience.flipChapterWords;
+  const [currentWord, setCurrentWord] = useState(words[0]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const shouldReduceMotion = useReducedMotion();
 
+  useEffect(() => {
+    setCurrentWord(words[0]);
+  }, [words]);
+
   const startAnimation = useCallback(() => {
-    const word = CHAPTER_WORDS[CHAPTER_WORDS.indexOf(currentWord) + 1] || CHAPTER_WORDS[0];
+    const currentIndex = words.indexOf(currentWord);
+    const word = words[(currentIndex + 1) % words.length];
     setCurrentWord(word);
     setIsAnimating(true);
-  }, [currentWord]);
+  }, [currentWord, words]);
 
   useEffect(() => {
     const handler = () => setIsVisible(!document.hidden);
@@ -50,7 +56,7 @@ function FlipChapter() {
       transition={{ duration: shouldReduceMotion ? 0.2 : 0.5 }}
       className="mt-10 text-left text-base font-semibold text-foreground sm:text-xl md:text-2xl"
     >
-      And a new{" "}
+      {t.experience.flipChapterPrefix}{" "}
       <AnimatePresence onExitComplete={() => setIsAnimating(false)}>
         <motion.span
           key={currentWord}
@@ -81,7 +87,7 @@ function FlipChapter() {
           ))}
         </motion.span>
       </AnimatePresence>{" "}
-      ahead
+      {t.experience.flipChapterSuffix}
     </motion.h3>
   );
 }
@@ -163,14 +169,15 @@ function ExperienceItem({
   timelineRef,
   lineProgress,
 }: {
-  exp: Experience;
+  exp: TranslationExperienceItem;
   index: number;
   timelineRef: React.RefObject<HTMLDivElement | null>;
   lineProgress: MotionValue<number>;
 }) {
+  const t = useTranslation();
   const ref = useRef<HTMLLIElement>(null);
   const MetaIcon = exp.type === "education" ? GraduationCap : Briefcase;
-  const metaLabel = exp.type === "education" ? "Education" : "Experience";
+  const metaLabel = exp.type === "education" ? t.experience.metaEducation : t.experience.metaWork;
 
   return (
     <li ref={ref} className="relative mb-12 flex w-full flex-col gap-1 pl-[50px] sm:mb-16 sm:pl-[90px]">
@@ -214,6 +221,7 @@ function ExperienceItem({
 }
 
 const ExperienceSection = () => {
+  const t = useTranslation();
   const timelineRef = useRef<HTMLDivElement>(null);
   const scrollYProgress = useMotionValue(0);
   const shouldReduceMotion = useReducedMotion();
@@ -298,14 +306,14 @@ const ExperienceSection = () => {
               transition={{ duration: shouldReduceMotion ? 0.2 : 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="mb-6 inline-flex items-center rounded-full border border-primary/20 glass-subtle px-3 py-1.5 text-xs font-mono text-primary">
-                Journey
+                {t.experience.label}
               </div>
               <h2 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
-                Professional <br className="hidden lg:block" />
-                <span className="text-gradient">Experience</span>
+                {t.experience.titleLead} <br className="hidden lg:block" />
+                <span className="text-gradient">{t.experience.titleHighlight}</span>
               </h2>
               <p className="mb-8 max-w-md leading-relaxed text-muted-foreground">
-                From customer-facing operations to teaching and marketing, and onward into backend engineering, full-stack development, and cloud-based architectures — every chapter has shaped how I build reliable, user-focused software.
+                {t.experience.description}
               </p>
 
               <div className="hidden lg:block">
@@ -323,7 +331,7 @@ const ExperienceSection = () => {
             />
 
             <ul className="relative w-full py-4">
-              {experiences.map((experience, index) => (
+              {t.experience.items.map((experience, index) => (
                 <ExperienceItem
                   key={`${experience.company}-${experience.period}`}
                   exp={experience}

@@ -3,15 +3,17 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Sparkles, Languages as LanguagesIcon, Github } from "lucide-react";
-import { about, softSkills, languages } from "@/data/portfolio";
+import { githubUsername } from "@/data/portfolio";
+import { useTranslation } from "@/lib/i18n/context";
 import logo from "@/assets/logo.png";
 
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 
-const GITHUB_CHART_URL = `https://ghchart.rshah.org/29d6b9/${about.githubUsername}`;
-const GITHUB_PROFILE_URL = `https://github.com/${about.githubUsername}`;
+const GITHUB_CHART_URL = `https://ghchart.rshah.org/29d6b9/${githubUsername}`;
+const GITHUB_PROFILE_URL = `https://github.com/${githubUsername}`;
 
 const AboutSection = () => {
+  const t = useTranslation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const shouldReduceMotion = useReducedMotion();
 
@@ -33,15 +35,15 @@ const AboutSection = () => {
                   <Image src={logo} alt="" aria-hidden="true" className="w-12 h-12 opacity-80 relative z-10 pointer-events-none" draggable={false} />
                 </div>
                 <div className="inline-flex items-center px-3 py-1.5 rounded-full glass-subtle border border-primary/20 text-xs font-mono text-primary">
-                  Profile
+                  {t.about.label}
                 </div>
               </div>
               <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6">
-                About <br className="hidden lg:block" />
-                <span className="text-gradient">Amanda</span>
+                {t.about.titleLead} <br className="hidden lg:block" />
+                <span className="text-gradient">{t.about.titleHighlight}</span>
               </h2>
               <p className="text-muted-foreground leading-relaxed max-w-md">
-                {about.summary}
+                {t.about.summary}
               </p>
             </motion.div>
           </div>
@@ -57,13 +59,15 @@ const AboutSection = () => {
                       <Sparkles className="h-4 w-4 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold tracking-tight">Soft Skills</h3>
-                      <p className="font-mono text-[11px] text-muted-foreground">{softSkills.length} strengths</p>
+                      <h3 className="text-base font-bold tracking-tight">{t.about.softSkillsTitle}</h3>
+                      <p className="font-mono text-[11px] text-muted-foreground">
+                        {t.about.softSkillsSubtitle(t.about.softSkills.length)}
+                      </p>
                     </div>
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    {softSkills.map((skill) => (
+                    {t.about.softSkills.map((skill) => (
                       <span
                         key={skill}
                         className="rounded-lg border border-white/5 bg-white/5 px-3 py-1.5 text-xs font-medium text-foreground/80 transition-all duration-300 hover:border-primary/40 hover:text-primary"
@@ -83,13 +87,15 @@ const AboutSection = () => {
                       <LanguagesIcon className="h-4 w-4 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold tracking-tight">Languages</h3>
-                      <p className="font-mono text-[11px] text-muted-foreground">{languages.length} spoken</p>
+                      <h3 className="text-base font-bold tracking-tight">{t.about.languagesTitle}</h3>
+                      <p className="font-mono text-[11px] text-muted-foreground">
+                        {t.about.languagesSubtitle(t.about.languages.length)}
+                      </p>
                     </div>
                   </div>
 
                   <ul className="flex flex-col gap-4">
-                    {languages.map((lang) => (
+                    {t.about.languages.map((lang) => (
                       <li key={lang.name} className="flex flex-col gap-1.5">
                         <div className="flex items-baseline justify-between gap-3">
                           <span className="text-sm font-semibold text-foreground">{lang.name}</span>
@@ -121,9 +127,9 @@ const AboutSection = () => {
                       <Github className="h-4 w-4 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold tracking-tight">GitHub Activity</h3>
+                      <h3 className="text-base font-bold tracking-tight">{t.about.githubTitle}</h3>
                       <p className="font-mono text-[11px] text-muted-foreground">
-                        Last year of contributions
+                        {t.about.githubSubtitle}
                       </p>
                     </div>
                   </div>
@@ -134,7 +140,7 @@ const AboutSection = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 self-start rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-mono text-primary transition-colors hover:bg-primary/15 sm:self-auto"
                   >
-                    @{about.githubUsername}
+                    @{githubUsername}
                   </a>
                 </div>
 
@@ -142,7 +148,7 @@ const AboutSection = () => {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={GITHUB_CHART_URL}
-                    alt={`${about.githubUsername} GitHub contribution calendar`}
+                    alt={`${githubUsername} GitHub contribution calendar`}
                     loading="lazy"
                     className="h-auto w-full select-none"
                     draggable={false}

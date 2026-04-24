@@ -1,0 +1,190 @@
+export type Locale = "en" | "pt" | "fr";
+
+export const LOCALES: Locale[] = ["en", "pt", "fr"];
+export const DEFAULT_LOCALE: Locale = "en";
+export const LOCALE_COOKIE = "locale";
+
+export interface TranslationStat {
+  value: number;
+  suffix: string;
+  label: string;
+}
+
+export interface TranslationExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  type: "work" | "education";
+  summary: string;
+  bullets: string[];
+}
+
+export interface TranslationEducationItem {
+  institution: string;
+  degree: string;
+  period: string;
+  location?: string;
+  summary: string;
+  highlights: string[];
+}
+
+export type CertificationCategory = "cloud" | "backend";
+
+export interface TranslationCertificationItem {
+  name: string;
+  issuer: string;
+  year?: string;
+  category: CertificationCategory;
+}
+
+export interface TranslationLanguageItem {
+  name: string;
+  level: string;
+  proficiency: number;
+}
+
+export interface TranslationSkillCategory {
+  title: string;
+  description: string;
+  skills: string[];
+}
+
+export interface TranslationContactReason {
+  key: "Hiring" | "Collaboration" | "Open Source" | "Other";
+  label: string;
+}
+
+export interface Translation {
+  locale: Locale;
+  htmlLang: string;
+  role: string;
+  roleHighlightWord: string;
+  tagline: string;
+  heroAvailable: string;
+  heroViewProjects: string;
+  heroResume: string;
+  stats: TranslationStat[];
+  nav: {
+    about: string;
+    experience: string;
+    education: string;
+    certifications: string;
+    projects: string;
+    skills: string;
+    contact: string;
+    resume: string;
+    heroAria: string;
+    toggleMenu: string;
+  };
+  about: {
+    label: string;
+    titleLead: string;
+    titleHighlight: string;
+    summary: string;
+    softSkillsTitle: string;
+    softSkillsSubtitle: (count: number) => string;
+    softSkills: string[];
+    languagesTitle: string;
+    languagesSubtitle: (count: number) => string;
+    languages: TranslationLanguageItem[];
+    githubTitle: string;
+    githubSubtitle: string;
+  };
+  experience: {
+    label: string;
+    titleLead: string;
+    titleHighlight: string;
+    description: string;
+    metaWork: string;
+    metaEducation: string;
+    flipChapterPrefix: string;
+    flipChapterSuffix: string;
+    flipChapterWords: string[];
+    items: TranslationExperienceItem[];
+  };
+  education: {
+    label: string;
+    titleLead: string;
+    titleHighlight: string;
+    description: string;
+    stepLabel: string;
+    latestLabel: string;
+    items: TranslationEducationItem[];
+  };
+  certifications: {
+    label: string;
+    titleLead: string;
+    titleHighlight: string;
+    description: string;
+    categoryLabels: Record<CertificationCategory, string>;
+    items: TranslationCertificationItem[];
+  };
+  projects: {
+    label: string;
+    titleLead: string;
+    titleHighlight: string;
+    description: string;
+    filterAll: string;
+    sourceCode: string;
+    liveDemo: string;
+    exploreMore: string;
+    viewGallery: string;
+    viewImage: string;
+    noPreview: string;
+  };
+  skills: {
+    label: string;
+    titleLead: string;
+    titleHighlight: string;
+    description: string;
+    technologiesSuffix: string;
+    categories: TranslationSkillCategory[];
+  };
+  contact: {
+    label: string;
+    titleLead: string;
+    titleHighlight: string;
+    description: string;
+    buildHeading: string;
+    buildDescription: string;
+    reasons: TranslationContactReason[];
+    form: {
+      nameLabel: string;
+      emailLabel: string;
+      reasonLabel: string;
+      messageLabel: string;
+      namePlaceholder: string;
+      emailPlaceholder: string;
+      messagePlaceholder: string;
+      sendHeading: string;
+      sendDescription: string;
+      sendButton: string;
+      sendingButton: string;
+      securityNote: (email: string) => string;
+      availableLabel: string;
+      downloadResume: string;
+    };
+    toasts: {
+      reviewTitle: string;
+      reviewFallback: string;
+      unableTitle: string;
+      unableDefault: string;
+      timeout: string;
+      successTitle: string;
+      successDescription: string;
+    };
+  };
+  footer: {
+    roleNote: string;
+    downloadResume: string;
+    builtWith: string;
+  };
+  languageToggle: {
+    label: string;
+    options: { code: Locale; label: string; nativeLabel: string }[];
+  };
+  themeToggle: {
+    toLight: string;
+    toDark: string;
+  };
+}

@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from 'next'
+import { cookies } from 'next/headers'
 import './globals.css'
 import { Providers } from './providers'
 import { SmoothScroll } from '@/components/SmoothScroll'
 import { getPortfolioGraph, toJsonLd } from '@/lib/seo/jsonld'
 import { siteConfig, ogLocale } from '@/lib/seo/site'
+import { DEFAULT_LOCALE, LOCALE_COOKIE } from '@/lib/i18n/types'
+import { normalizeLocale, translations } from '@/lib/i18n/translations'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
@@ -58,15 +61,20 @@ export const viewport: Viewport = {
   viewportFit: 'cover',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   const portfolioJsonLd = toJsonLd(getPortfolioGraph()).replace(/</g, '\\u003c')
 
+  const cookieStore = await cookies()
+  const cookieLocale = cookieStore.get(LOCALE_COOKIE)?.value
+  const initialLocale = normalizeLocale(cookieLocale ?? DEFAULT_LOCALE)
+  const htmlLang = translations[initialLocale].htmlLang
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <head>
         <meta name="color-scheme" content="dark light" />
         <script
@@ -105,7 +113,7 @@ export default function RootLayout({
         </a>
         <div id="root">
           <SmoothScroll>
-            <Providers>
+            <Providers initialLocale={initialLocale}>
               {children}
             </Providers>
           </SmoothScroll>

@@ -3,17 +3,8 @@ import Image from "next/image";
 import { personalInfo } from "@/data/portfolio";
 import logo from "@/assets/logo.png";
 import { Mail, Linkedin, Github } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/context";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
-
-const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Education", href: "#education" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
-];
 
 const SOCIAL_LINKS = [
   { icon: Mail, label: "Email", href: `mailto:${personalInfo.email}` },
@@ -21,7 +12,19 @@ const SOCIAL_LINKS = [
   { icon: Github, label: "GitHub", href: personalInfo.github },
 ];
 
-const Footer = () => (
+const Footer = () => {
+  const t = useTranslation();
+  const navLinks = [
+    { label: t.nav.about, href: "#about" },
+    { label: t.nav.experience, href: "#experience" },
+    { label: t.nav.education, href: "#education" },
+    { label: t.nav.certifications, href: "#certifications" },
+    { label: t.nav.projects, href: "#projects" },
+    { label: t.nav.skills, href: "#skills" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
+
+  return (
   <footer className="py-8 px-4 relative z-10">
     <div className="container-narrow">
       <SpotlightCard className="w-full">
@@ -40,7 +43,7 @@ const Footer = () => (
             </a>
 
             <nav className="flex max-w-xl flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:justify-end">
-              {NAV_LINKS.map((l) => (
+              {navLinks.map((l) => (
                 <a
                   key={l.label}
                   href={l.href}
@@ -57,21 +60,21 @@ const Footer = () => (
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-8 text-center sm:text-left">
             <p className="text-sm font-medium text-foreground/85">
-              Open to full-stack, backend, and frontend engineering roles.
+              {t.footer.roleNote}
             </p>
             <a
               href={personalInfo.resumeUrl}
               download
               className="inline-flex items-center justify-center gap-2 self-center sm:self-auto rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/15"
             >
-              Download Resume
+              {t.footer.downloadResume}
             </a>
           </div>
 
           {/* Mobile: centered social icons above copyright | Desktop: copyright-left icons-right */}
           <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-6">
             <p className="text-xs text-muted-foreground/60 text-center sm:text-left font-medium">
-              © {new Date().getFullYear()} Amanda Castro · Built with Next.js &amp; Tailwind
+              © {new Date().getFullYear()} Amanda Castro · {t.footer.builtWith}
             </p>
 
             <div className="flex items-center gap-3">
@@ -94,6 +97,7 @@ const Footer = () => (
       </SpotlightCard>
     </div>
   </footer>
-);
+  );
+};
 
 export default Footer;

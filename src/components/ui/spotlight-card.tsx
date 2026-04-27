@@ -18,7 +18,7 @@ export function SpotlightCard({
   children,
   delay = 0,
   className,
-  glowColor = "rgba(41, 214, 185, 0.08)", // Default teal accent glow
+  glowColor = "rgba(245, 117, 53, 0.1)",
   glowSize = 650,
   glowOpacity = 100,
   animateOnEnter = true,

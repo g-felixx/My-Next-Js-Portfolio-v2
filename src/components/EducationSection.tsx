@@ -47,7 +47,7 @@ const EducationSection = () => {
                   <SpotlightCard delay={index * 0.08} className="h-full">
                     <div className="flex h-full flex-col gap-6 p-6 sm:p-8">
                       <div className="flex items-start justify-between gap-4">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 shadow-[0_0_18px_rgba(41,214,185,0.12)] transition-transform duration-500 group-hover:scale-110">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 shadow-[0_0_18px_rgba(245,117,53,0.12)] transition-transform duration-500 group-hover:scale-110">
                           <GraduationCap className="h-5 w-5 text-primary" />
                         </div>
 

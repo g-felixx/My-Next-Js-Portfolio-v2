@@ -5,7 +5,7 @@
 @layer base {
   /* Applied before JS to prevent white flash — matches .dark --background value */
   html {
-    background-color: hsl(224, 47%, 7%);
+    background-color: hsl(270, 35%, 8%);
   }
 
   :root {
@@ -15,21 +15,21 @@
     --card-foreground: 220 25% 10%;
     --popover: 40 15% 95%;
     --popover-foreground: 220 25% 10%;
-    --primary: 175 84% 32%;
+    --primary: 270 70% 45%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 170 20% 92%;
-    --secondary-foreground: 175 84% 22%;
-    --muted: 170 15% 92%;
+    --secondary: 270 30% 92%;
+    --secondary-foreground: 270 70% 30%;
+    --muted: 20 15% 92%;
     --muted-foreground: 220 10% 45%;
-    --accent: 170 68% 50%;
-    --accent-light: 170 68% 60%;
-    --accent-dark: 176 61% 19%;
+    --accent: 18 90% 55%;
+    --accent-light: 22 95% 65%;
+    --accent-dark: 270 60% 25%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 175 20% 85%;
-    --input: 175 20% 85%;
-    --ring: 175 84% 32%;
+    --border: 270 20% 85%;
+    --input: 270 20% 85%;
+    --ring: 270 70% 45%;
     --radius: 0.75rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -42,27 +42,27 @@
   }
 
   .dark {
-    --background: 224 47% 7%;
-    --foreground: 170 20% 92%;
-    --card: 221 39% 11%;
-    --card-foreground: 170 20% 92%;
-    --popover: 221 39% 13%;
-    --popover-foreground: 170 20% 92%;
-    --primary: 170 68% 50%;
-    --primary-foreground: 224 47% 7%;
-    --secondary: 221 30% 15%;
-    --secondary-foreground: 170 40% 80%;
-    --muted: 221 30% 15%;
-    --muted-foreground: 220 15% 55%;
-    --accent: 170 68% 50%;
-    --accent-light: 170 68% 60%;
-    --accent-dark: 176 61% 19%;
-    --accent-foreground: 224 47% 7%;
-    --destructive: 0 62% 30%;
+    --background: 270 35% 8%;
+    --foreground: 30 25% 92%;
+    --card: 270 30% 12%;
+    --card-foreground: 30 25% 92%;
+    --popover: 270 30% 14%;
+    --popover-foreground: 30 25% 92%;
+    --primary: 270 75% 65%;
+    --primary-foreground: 270 35% 8%;
+    --secondary: 270 25% 16%;
+    --secondary-foreground: 30 50% 85%;
+    --muted: 270 25% 16%;
+    --muted-foreground: 30 15% 60%;
+    --accent: 18 90% 58%;
+    --accent-light: 22 95% 68%;
+    --accent-dark: 270 60% 25%;
+    --accent-foreground: 270 35% 8%;
+    --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 100%;
-    --border: 221 20% 18%;
-    --input: 221 20% 18%;
-    --ring: 170 68% 50%;
+    --border: 270 25% 20%;
+    --input: 270 25% 20%;
+    --ring: 270 75% 65%;
   }
 }
 
@@ -83,13 +83,13 @@
   }
 }
 
-/* Custom cursors */
+/* Custom cursors — flame palette (purple in light, orange in dark) */
 body {
-  cursor: url("/icons8-select-cursor-18-light.png") 3 2, auto;
+  cursor: url("/cursor-select-light.png") 3 2, auto;
 }
 
 .dark body {
-  cursor: url("/icons8-select-cursor-18-dark.png") 3 2, auto;
+  cursor: url("/cursor-select-dark.png") 3 2, auto;
 }
 
 a,
@@ -98,7 +98,7 @@ button,
 input[type="submit"],
 input[type="button"],
 .cursor-pointer {
-  cursor: url("/icons8-hand-cursor-18-light.png") 4 2, pointer;
+  cursor: url("/cursor-pointer-light.png") 6 2, pointer;
 }
 
 .dark a,
@@ -107,7 +107,7 @@ input[type="button"],
 .dark input[type="submit"],
 .dark input[type="button"],
 .dark .cursor-pointer {
-  cursor: url("/icons8-hand-cursor-18-dark.png") 4 2, pointer;
+  cursor: url("/cursor-pointer-dark.png") 6 2, pointer;
 }
 
 input:not([type]),
@@ -121,7 +121,7 @@ input[type="number"],
 textarea,
 [contenteditable="true"],
 .cursor-text {
-  cursor: url("/icons8-text-cursor-19-light.png") 9 9, text;
+  cursor: url("/cursor-text-light.png") 9 9, text;
 }
 
 .dark input:not([type]),
@@ -135,7 +135,7 @@ textarea,
 .dark textarea,
 .dark [contenteditable="true"],
 .dark .cursor-text {
-  cursor: url("/icons8-text-cursor-19-dark.png") 9 9, text;
+  cursor: url("/cursor-text-dark.png") 9 9, text;
 }
 
 @layer utilities {
@@ -156,19 +156,19 @@ textarea,
   }
 
   .glow-accent {
-    box-shadow: 0 0 24px rgba(41, 214, 185, 0.1), 0 0 48px rgba(41, 214, 185, 0.035);
+    box-shadow: 0 0 24px rgba(245, 117, 53, 0.12), 0 0 48px rgba(155, 81, 224, 0.05);
   }
 
   .shadow-accent-soft {
-    box-shadow: 0 10px 24px rgba(41, 214, 185, 0.12);
+    box-shadow: 0 10px 24px rgba(245, 117, 53, 0.14);
   }
 
   .shadow-accent-card {
-    box-shadow: 0 16px 48px rgba(41, 214, 185, 0.16);
+    box-shadow: 0 16px 48px rgba(245, 117, 53, 0.18);
   }
 
   .shadow-accent-strong {
-    box-shadow: 0 22px 68px rgba(41, 214, 185, 0.2);
+    box-shadow: 0 22px 68px rgba(245, 117, 53, 0.22);
   }
 
   .section-padding {

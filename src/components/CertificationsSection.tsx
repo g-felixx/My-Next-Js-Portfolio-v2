@@ -47,7 +47,7 @@ const CertificationsSection = () => {
                 <div className="flex h-full items-center gap-5 p-5 sm:p-6">
                   <div className="relative shrink-0">
                     <div className="absolute inset-0 rounded-2xl bg-primary/20 blur-md opacity-60" />
-                    <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10 shadow-[0_0_20px_rgba(41,214,185,0.15)]">
+                    <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10 shadow-[0_0_20px_rgba(245,117,53,0.15)]">
                       <Icon className="h-5 w-5 text-primary" />
                     </div>
                   </div>

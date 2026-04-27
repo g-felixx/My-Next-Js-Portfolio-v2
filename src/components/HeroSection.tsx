@@ -91,9 +91,10 @@ const HeroSection = () => {
         backgroundSize: "32px 32px",
       }} />
 
-      {/* Massive Glowing Animated Orbs */}
-      <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] rounded-full animate-[pulse_8s_ease-in-out_infinite] motion-reduce:animate-none opacity-50 pointer-events-none bg-[radial-gradient(circle,hsl(var(--primary)/0.2)_0%,transparent_70%)]" />
-      <div className="absolute bottom-0 -left-1/4 w-[600px] h-[600px] rounded-full animate-[pulse_10s_ease-in-out_infinite_reverse] motion-reduce:animate-none opacity-40 pointer-events-none bg-[radial-gradient(circle,hsl(var(--accent)/0.2)_0%,transparent_70%)]" />
+      {/* Flame-like animated glow: purple top, orange/red base */}
+      <div className="absolute -top-1/4 -right-1/4 w-[800px] h-[800px] rounded-full animate-[pulse_8s_ease-in-out_infinite] motion-reduce:animate-none opacity-60 pointer-events-none bg-[radial-gradient(circle,hsl(var(--primary)/0.35)_0%,transparent_70%)]" />
+      <div className="absolute -bottom-1/4 -left-1/4 w-[700px] h-[700px] rounded-full animate-[pulse_10s_ease-in-out_infinite_reverse] motion-reduce:animate-none opacity-70 pointer-events-none bg-[radial-gradient(circle,hsl(var(--accent)/0.35)_0%,transparent_70%)]" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full animate-[pulse_12s_ease-in-out_infinite] motion-reduce:animate-none opacity-50 pointer-events-none bg-[radial-gradient(ellipse_at_bottom,hsl(var(--accent-light)/0.3)_0%,hsl(var(--primary)/0.18)_45%,transparent_75%)]" />
 
       {/* Smooth fade into the next section */}
       <div className="absolute bottom-0 inset-x-0 h-32 sm:h-64 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none z-0" />
@@ -106,7 +107,7 @@ const HeroSection = () => {
           className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center sm:gap-8"
         >
           <motion.div variants={item}>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-bold glass-subtle border border-primary/20 text-primary tracking-wide shadow-[0_0_12px_rgba(41,214,185,0.1)]">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-bold glass-subtle border border-primary/20 text-primary tracking-wide shadow-[0_0_12px_rgba(245,117,53,0.1)]">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse motion-reduce:animate-none" />
               {t.heroAvailable}
             </span>
@@ -132,7 +133,7 @@ const HeroSection = () => {
           <motion.div variants={item} className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mt-1 sm:mt-2">
             <a
               href="#projects"
-              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(41,214,185,0.18)] hover:shadow-[0_0_28px_rgba(41,214,185,0.24)] transition-all duration-300 active:scale-95"
+              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(245,117,53,0.18)] hover:shadow-[0_0_28px_rgba(245,117,53,0.24)] transition-all duration-300 active:scale-95"
             >
               {t.heroViewProjects}
               <ArrowDown className="w-4 h-4 ml-1" />

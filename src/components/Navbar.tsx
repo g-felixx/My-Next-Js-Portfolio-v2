@@ -1,9 +1,7 @@
 "use client";
-import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Menu, X, Download } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import logo from "@/assets/logo.png";
 import { personalInfo } from "@/data/portfolio";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageToggle } from "./LanguageToggle";
@@ -165,9 +163,10 @@ const Navbar = () => {
             scrolled ? "glass-strong shadow-accent-card border-white/10" : "bg-transparent border-transparent"
           }`}
         >
-          <a href="#hero" aria-label={t.nav.heroAria} className="flex items-center gap-2 group">
-            <Image src={logo} alt="" aria-hidden="true" className="w-10 h-10 sm:w-12 sm:h-12 transition-transform duration-300 group-hover:scale-110 pointer-events-none" draggable={false} />
-            <span className="font-bold text-lg tracking-wide hidden sm:block">Amanda Castro</span>
+          <a href="#hero" aria-label={t.nav.heroAria} className="group">
+            <span className="font-bold text-base sm:text-lg tracking-wide transition-colors group-hover:text-primary">
+              Amanda Castro
+            </span>
           </a>
 
           <div className="hidden md:flex items-center gap-1.5">
@@ -179,7 +178,7 @@ const Navbar = () => {
                 aria-current={activeSection === link.href ? "location" : undefined}
                 className={`px-3 py-2 text-sm font-medium transition-all duration-200 rounded-full ${
                   activeSection === link.href
-                    ? "bg-primary/10 text-primary shadow-[0_0_14px_rgba(41,214,185,0.1)]"
+                    ? "bg-primary/10 text-primary shadow-[0_0_14px_rgba(245,117,53,0.1)]"
                     : "text-muted-foreground hover:text-foreground hover:bg-white/10"
                 }`}
               >

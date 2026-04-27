@@ -1,7 +1,5 @@
 "use client";
-import Image from "next/image";
 import { personalInfo } from "@/data/portfolio";
-import logo from "@/assets/logo.png";
 import { Mail, Linkedin, Github } from "lucide-react";
 import { useTranslation } from "@/lib/i18n/context";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
@@ -32,11 +30,7 @@ const Footer = () => {
           
           {/* Mobile: centered stack | Desktop: logo-left nav-right */}
           <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-4 mb-8">
-            <a href="#hero" className="flex items-center gap-3 group shrink-0">
-              <div className="relative">
-                <div className="absolute inset-0 bg-primary/20 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                <Image src={logo} alt="" aria-hidden="true" className="w-8 h-8 opacity-80 group-hover:opacity-100 relative z-10 transition-opacity pointer-events-none" draggable={false} />
-              </div>
+            <a href="#hero" className="group shrink-0">
               <span className="text-base font-bold text-muted-foreground group-hover:text-foreground transition-colors tracking-tight">
                 Amanda Castro
               </span>

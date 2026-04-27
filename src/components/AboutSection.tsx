@@ -1,15 +1,13 @@
 "use client";
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Sparkles, Languages as LanguagesIcon, Github } from "lucide-react";
 import { githubUsername } from "@/data/portfolio";
 import { useTranslation } from "@/lib/i18n/context";
-import logo from "@/assets/logo.png";
 
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 
-const GITHUB_CHART_URL = `https://ghchart.rshah.org/29d6b9/${githubUsername}`;
+const GITHUB_CHART_URL = `https://ghchart.rshah.org/f57535/${githubUsername}`;
 const GITHUB_PROFILE_URL = `https://github.com/${githubUsername}`;
 
 const AboutSection = () => {
@@ -30,10 +28,6 @@ const AboutSection = () => {
               transition={{ duration: shouldReduceMotion ? 0.2 : 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
-                  <Image src={logo} alt="" aria-hidden="true" className="w-12 h-12 opacity-80 relative z-10 pointer-events-none" draggable={false} />
-                </div>
                 <div className="inline-flex items-center px-3 py-1.5 rounded-full glass-subtle border border-primary/20 text-xs font-mono text-primary">
                   {t.about.label}
                 </div>
@@ -108,7 +102,7 @@ const AboutSection = () => {
                             initial={{ width: 0 }}
                             animate={inView ? { width: `${lang.proficiency}%` } : { width: 0 }}
                             transition={{ duration: shouldReduceMotion ? 0.2 : 1.1, ease: [0.16, 1, 0.3, 1], delay: shouldReduceMotion ? 0 : 0.2 }}
-                            className="block h-full rounded-full bg-primary shadow-[0_0_10px_rgba(41,214,185,0.35)]"
+                            className="block h-full rounded-full bg-primary shadow-[0_0_10px_rgba(245,117,53,0.35)]"
                           />
                         </div>
                       </li>

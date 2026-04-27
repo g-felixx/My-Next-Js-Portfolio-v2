@@ -216,3 +216,17 @@ textarea,
   background: hsl(var(--accent) / 0.3);
   color: hsl(var(--foreground));
 }
+
+/* Animated theme toggle (View Transitions API) — disable default crossfade
+   so the JS-driven clip-path animation runs alone */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 0;
+}
+::view-transition-new(root) {
+  z-index: 1;
+}

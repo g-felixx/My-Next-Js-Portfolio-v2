@@ -155,8 +155,8 @@ const HeroSection = () => {
             onAnimationStart={() => setStatsRevealStarted(true)}
             className="mt-4 grid w-full grid-cols-2 gap-4 sm:mt-6 sm:grid-cols-4"
           >
-            {t.stats.map((stat) => (
-              <div key={stat.label} className="border-l-2 border-primary/30 pl-4 py-1 text-left">
+            {t.stats.map((stat, index) => (
+              <div key={index} className="border-l-2 border-primary/30 pl-4 py-1 text-left">
                 <div className="text-2xl font-bold tracking-tighter text-foreground">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} start={shouldStartStats} />
                 </div>

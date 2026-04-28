@@ -219,7 +219,7 @@ export const pt: Translation = {
     titleLead: "Projetos em",
     titleHighlight: "Destaque",
     description:
-      "Produtos full-stack, sistemas backend e soluções web personalizadas abrangendo APIs, bancos de dados, UX, integrações em nuvem e infraestrutura de produção.",
+      "Produtos full-stack, sites institucionais e aplicações com IA — abrangendo APIs, bancos de dados, UX, integrações em nuvem e infraestrutura de produção.",
     filterAll: "Todos",
     sourceCode: "Código Fonte",
     liveDemo: "Ver Online",
@@ -227,6 +227,75 @@ export const pt: Translation = {
     viewGallery: "Ver galeria",
     viewImage: "Ver imagem",
     noPreview: "> Sem pré-visualização",
+    categoryLabels: {
+      "ai-web-app": "App Web com IA",
+      institutional: "Site Institucional",
+      "product-showcase": "Vitrine de Produtos",
+      ecommerce: "Plataforma E-commerce",
+      "ai-mobile-app": "App Mobile com IA",
+    },
+    items: [
+      {
+        slug: "dolphin-talk",
+        title: "Dolphin Talk",
+        summary: "Treino mobile-first de pronúncia em inglês com feedback instantâneo via Azure.",
+        description:
+          "Aplicação web mobile-first onde estudantes brasileiros praticam pronúncia em inglês de forma gamificada. O áudio é gravado pela Web Audio API, enviado a um Route Handler do Next.js que atua como BFF e faz proxy para o Azure Cognitive Services Pronunciation Assessment, retornando uma nota geral além de marcação de erros palavra por palavra (Omissão, Inserção, Pronúncia). Inclui autenticação com sessão em cookie HTTP-only, histórico de exercícios com revisão de notas, planos pagos com controle de créditos e estados inativos, histórico de pagamentos, perfil e URLs assinadas do Supabase Storage para mídia privada.",
+        impact:
+          "Produto SaaS de idiomas ponta a ponta: arquitetura BFF, pipeline de captura de áudio, integração com IA externa e ciclo completo de autenticação e planos.",
+        role: "Frontend, design do BFF e integração com IA",
+        timeline: "Mar 2026 - Abr 2026",
+        complexity: "Pipeline de captura de áudio, integração Azure Speech, armazenamento com URLs assinadas, lógica de planos por crédito",
+      },
+      {
+        slug: "catelao-automotive",
+        title: "Catelão Automotive",
+        summary: "Site institucional para distribuidor brasileiro de autopeças no Vale do Ribeira.",
+        description:
+          "Site institucional para distribuidor de autopeças sediado em Registro-SP, atendendo mecânicos e revendedores há mais de uma década. Inclui hero responsivo (variações desktop/mobile), seção 'sobre', carrossel interativo de marcas, páginas dedicadas 'Empresa' e 'Fornecedores' com drawer lateral revelando produtos por fabricante, seção 'Novidades' paginada com rotas dinâmicas [slug] e formulário de contato com validação Zod (telefone/WhatsApp formatados, seletor de estado brasileiro) enviando via API Route com Nodemailer. Botão flutuante de WhatsApp, tipografia Redonda via next/font, JSON-LD e metadata otimizada para SEO.",
+        impact:
+          "Estabeleceu a presença online da empresa com stack moderno, SEO completo e fluxo de captura de leads integrado com e-mail transacional.",
+        role: "Full-stack, design e SEO",
+        timeline: "Dez 2025 - Fev 2026",
+        complexity: "Carrossel de marcas, drawer fornecedor-produto, rotas dinâmicas de blog, e-mail transacional, formulários validados",
+      },
+      {
+        slug: "multpoint",
+        title: "MultPoint Automotive",
+        summary: "Catálogo de produtos para fabricante brasileiro de componentes de injeção eletrônica.",
+        description:
+          "Vitrine de produtos para a MultPoint, especializada em componentes de injeção eletrônica (válvulas injetoras, kits de reparo, juntas, conectores). Catálogo com busca avançada e filtros por linha, montadora, modelo e ano; páginas por produto com especificações técnicas e galerias; carrosséis de hero e linhas de produto na home; seção de representantes pelo Brasil com Google Maps interativo; e blog corporativo. As categorias incluem Magneti Marelli, Bosch, Delphi, Arla, injetores de motos, kits de reparo, juntas e conectores. Entrega de imagens otimizada via CDN com carrosséis infinitos via Embla.",
+        impact:
+          "Apresentou um catálogo multi-eixo complexo (linha × montadora × modelo × ano) em uma interface rápida e navegável para compradores B2B.",
+        role: "Implementação frontend e arquitetura do catálogo",
+        timeline: "Jun 2025 - Jan 2026",
+        complexity: "Filtragem multi-eixo, integração Google Maps, carrosséis hero/categoria, entrega de imagens via CDN",
+      },
+      {
+        slug: "one-help",
+        title: "One Help Informática",
+        summary: "Catálogo de produtos e notícias para empresa brasileira de TI.",
+        description:
+          "Site de vitrine de produtos e serviços para a One Help Informática com blog de notícias, catálogo com busca e filtros, páginas individuais por produto e interface administrativa para gerenciar produtos e artigos. Integrou a API do Google Reviews para puxar automaticamente avaliações com 5 estrelas ou mais. DNS, servidor e Google Search Console totalmente configurados para visibilidade orgânica.",
+        impact:
+          "Entregou um catálogo completo, CMS administrativo e plataforma de avaliações que está no ar e gerando descoberta local para o negócio.",
+        role: "Full-stack: frontend, backend, infraestrutura, SEO",
+        timeline: "Out 2024 - Jan 2025",
+        complexity: "CMS administrativo, integração Google Reviews API, modelagem MongoDB, configuração de DNS e servidor",
+      },
+      {
+        slug: "sofia",
+        title: "SOFIA — Pré-diagnóstico de TEA",
+        summary: "App mobile combinando uma CNN com instrumentos de triagem para apoiar o diagnóstico precoce de TEA.",
+        description:
+          "Aplicativo mobile projetado para auxiliar médicos no diagnóstico precoce de Transtorno do Espectro Autista em crianças. O recurso central é uma rede neural convolucional que analisa vídeos de comportamento infantil, combinada com instrumentos de triagem adequados a cada faixa etária aplicados dentro do app. O resultado final combina a inferência da IA com o protocolo de triagem, apresentado em gráficos e comparações. Apoiado por serviços em Spring Boot e Flask e publicado como artigo Qualis B2 em 2024.",
+        impact:
+          "Contribuição acadêmica e prática para o diagnóstico precoce de TEA — publicado como artigo Qualis B2 em 2024.",
+        role: "Backend, integração com IA e design de produto",
+        timeline: "Jul 2023 - Dez 2024",
+        complexity: "Pipeline de treinamento e inferência da CNN, lógica de triagem segmentada por idade, integração da stack Kotlin/Spring",
+      },
+    ],
   },
   skills: {
     label: "Especialidade",

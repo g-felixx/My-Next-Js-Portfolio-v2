@@ -218,7 +218,7 @@ export const en: Translation = {
     titleLead: "Featured",
     titleHighlight: "Work",
     description:
-      "Full-stack products, backend systems, and custom web solutions spanning APIs, databases, UX, cloud integrations, and production infrastructure.",
+      "Full-stack products, institutional websites, and AI-driven applications spanning APIs, databases, UX, cloud integrations, and production infrastructure.",
     filterAll: "All",
     sourceCode: "Source Code",
     liveDemo: "Live Demo",
@@ -226,6 +226,75 @@ export const en: Translation = {
     viewGallery: "View gallery",
     viewImage: "View image",
     noPreview: "> No preview available",
+    categoryLabels: {
+      "ai-web-app": "AI Web App",
+      institutional: "Institutional Website",
+      "product-showcase": "Product Showcase",
+      ecommerce: "E-commerce Platform",
+      "ai-mobile-app": "AI Mobile App",
+    },
+    items: [
+      {
+        slug: "dolphin-talk",
+        title: "Dolphin Talk",
+        summary: "Mobile-first English pronunciation training with instant Azure-powered feedback.",
+        description:
+          "Mobile-first web app where Brazilian students practice English pronunciation in a gamified flow. Audio is recorded via the Web Audio API, sent through a Next.js Route Handler acting as a BFF that proxies Azure Cognitive Services Pronunciation Assessment, and returned with an overall score plus word-by-word error tagging (Omission, Insertion, Mispronunciation). Includes auth with HTTP-only cookie sessions, exercise history with score review, paid plans with credit tracking and inactive states, payment history, profile, and Supabase Storage signed URLs for private media.",
+        impact:
+          "End-to-end SaaS-style language product: BFF architecture, audio capture pipeline, third-party AI integration, and full auth + plan lifecycle.",
+        role: "Frontend, BFF design, and AI integration",
+        timeline: "Mar 2026 - Apr 2026",
+        complexity: "Audio capture pipeline, Azure Speech integration, signed-URL storage, credit-based plan logic",
+      },
+      {
+        slug: "catelao-automotive",
+        title: "Catelão Automotive",
+        summary: "Institutional site for a Brazilian automotive parts distributor in Vale do Ribeira.",
+        description:
+          "Institutional website for an automotive parts distributor based in Registro-SP, serving mechanics and retailers for over a decade. Includes a responsive hero (desktop/mobile variants), about section, interactive brand carousel, dedicated 'Empresa' and 'Fornecedores' pages with a side drawer revealing products per manufacturer, paginated 'Novidades' news section with dynamic [slug] routes, and a contact form with Zod validation (formatted phone/WhatsApp, Brazilian state selector) submitting through a Next.js API route powered by Nodemailer. Floating WhatsApp button, custom Redonda typography via next/font, JSON-LD, and SEO-friendly metadata.",
+        impact:
+          "Established the company's online presence with a modern stack, full SEO setup, and a lead-capture contact flow integrated with transactional email.",
+        role: "Full-stack, design, and SEO",
+        timeline: "Dec 2025 - Feb 2026",
+        complexity: "Brand carousel, supplier-product drawer, dynamic blog routes, transactional email, validated forms",
+      },
+      {
+        slug: "multpoint",
+        title: "MultPoint Automotive",
+        summary: "Product catalog for a Brazilian fuel-injection components manufacturer.",
+        description:
+          "Product showcase for MultPoint, specializing in fuel injection components (injector valves, repair kits, gaskets, connectors). Catalog with advanced search and filters by product line, automaker, model, and year; per-product pages with technical specs and image galleries; hero and product-line carousels on the home; a representatives section across Brazil with interactive Google Maps; and a corporate news/blog. Categories include Magneti Marelli, Bosch, Delphi, Arla, motorcycle injectors, repair kits, gaskets, and connectors. Optimized image delivery via CDN with infinite-loop carousels powered by Embla.",
+        impact:
+          "Surfaced a complex multi-axis catalog (line × maker × model × year) in a fast, browsable interface for B2B buyers.",
+        role: "Frontend implementation and catalog architecture",
+        timeline: "Jun 2025 - Jan 2026",
+        complexity: "Multi-axis filtering, Google Maps integration, hero/category carousels, image-heavy CDN delivery",
+      },
+      {
+        slug: "one-help",
+        title: "One Help Informática",
+        summary: "Product catalog and news platform for a Brazilian IT services company.",
+        description:
+          "Product and service showcase site for One Help Informática featuring a news blog, product catalog with search bar and filters, individual product pages, and an admin interface for managing products and articles. Integrated the Google Reviews API to automatically pull in reviews rated 5 stars or higher. DNS, server, and Google Search Console fully configured for organic discoverability.",
+        impact:
+          "Delivered a full catalog, admin CMS, and reviews platform that has been live and driving local discovery for the business.",
+        role: "Full-stack: frontend, backend, infrastructure, SEO",
+        timeline: "Oct 2024 - Jan 2025",
+        complexity: "Admin CMS, Google Reviews API integration, MongoDB modeling, DNS and server configuration",
+      },
+      {
+        slug: "sofia",
+        title: "SOFIA — ASD Pre-diagnosis",
+        summary: "Mobile app combining a CNN with screening tools to support early ASD diagnosis.",
+        description:
+          "Mobile application designed to assist doctors with the early diagnosis of Autism Spectrum Disorder in children. The core feature is a Convolutional Neural Network that analyzes videos of child behavior, paired with age-appropriate screening tools applied within the app. Final results combine the AI inference with the screening protocol, presented as graphics and comparisons. Backed by Spring Boot and Flask services and published as a Qualis B2 paper in 2024.",
+        impact:
+          "Academic and practical contribution to early ASD diagnosis — published as a Qualis B2 paper in 2024.",
+        role: "Backend, AI integration, and product design",
+        timeline: "Jul 2023 - Dec 2024",
+        complexity: "CNN training and inference pipeline, age-segmented screening logic, Kotlin/Spring stack integration",
+      },
+    ],
   },
   skills: {
     label: "Expertise",

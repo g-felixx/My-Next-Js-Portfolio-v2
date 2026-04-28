@@ -68,27 +68,31 @@ export function getPersonSchema(): JsonLd {
 }
 
 export function getProjectsItemListSchema(): JsonLd {
+  const itemBySlug = new Map(en.projects.items.map((item) => [item.slug, item]));
   return {
     "@type": "ItemList",
     "@id": projectListId,
     name: `${personalInfo.name} Projects`,
     numberOfItems: projects.length,
-    itemListElement: projects.map((project, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "SoftwareSourceCode",
-        name: project.title,
-        description: `${project.summary} ${project.impact}`,
-        url: project.live ?? project.github,
-        codeRepository: project.github,
-        image: project.images[0] ? `${siteConfig.siteUrl}${project.images[0]}` : undefined,
-        creator: {
-          "@id": personId,
+    itemListElement: projects.map((project, index) => {
+      const translated = itemBySlug.get(project.slug);
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "SoftwareSourceCode",
+          name: translated?.title,
+          description: translated ? `${translated.summary} ${translated.impact}` : undefined,
+          url: project.live ?? project.github,
+          codeRepository: project.github,
+          image: project.images[0] ? `${siteConfig.siteUrl}${project.images[0]}` : undefined,
+          creator: {
+            "@id": personId,
+          },
+          keywords: project.tech.join(", "),
         },
-        keywords: project.tech.join(", "),
-      },
-    })),
+      };
+    }),
   };
 }
 

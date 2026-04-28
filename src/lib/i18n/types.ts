@@ -54,6 +54,24 @@ export interface TranslationContactReason {
   label: string;
 }
 
+export type ProjectCategoryKey =
+  | "ai-web-app"
+  | "institutional"
+  | "product-showcase"
+  | "ecommerce"
+  | "ai-mobile-app";
+
+export interface TranslationProjectItem {
+  slug: string;
+  title: string;
+  summary: string;
+  description: string;
+  impact: string;
+  role: string;
+  timeline: string;
+  complexity: string;
+}
+
 export interface Translation {
   locale: Locale;
   htmlLang: string;
@@ -131,6 +149,8 @@ export interface Translation {
     viewGallery: string;
     viewImage: string;
     noPreview: string;
+    categoryLabels: Record<ProjectCategoryKey, string>;
+    items: TranslationProjectItem[];
   };
   skills: {
     label: string;

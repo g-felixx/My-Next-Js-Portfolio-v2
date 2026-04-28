@@ -219,7 +219,7 @@ export const fr: Translation = {
     titleLead: "Projets",
     titleHighlight: "Phares",
     description:
-      "Produits full-stack, systèmes backend et solutions web personnalisées couvrant API, bases de données, UX, intégrations cloud et infrastructure de production.",
+      "Produits full-stack, sites institutionnels et applications dopées à l'IA — couvrant API, bases de données, UX, intégrations cloud et infrastructure de production.",
     filterAll: "Tous",
     sourceCode: "Code Source",
     liveDemo: "Démo",
@@ -227,6 +227,75 @@ export const fr: Translation = {
     viewGallery: "Voir la galerie",
     viewImage: "Voir l'image",
     noPreview: "> Aucun aperçu disponible",
+    categoryLabels: {
+      "ai-web-app": "App Web IA",
+      institutional: "Site Institutionnel",
+      "product-showcase": "Vitrine Produits",
+      ecommerce: "Plateforme E-commerce",
+      "ai-mobile-app": "App Mobile IA",
+    },
+    items: [
+      {
+        slug: "dolphin-talk",
+        title: "Dolphin Talk",
+        summary: "Entraînement mobile-first à la prononciation anglaise avec retour instantané via Azure.",
+        description:
+          "Application web mobile-first où des étudiants brésiliens s'entraînent à la prononciation de l'anglais dans un parcours gamifié. L'audio est enregistré via la Web Audio API, envoyé à un Route Handler Next.js servant de BFF qui relaie Azure Cognitive Services Pronunciation Assessment, et renvoyé avec un score global et une annotation des erreurs mot par mot (Omission, Insertion, Mauvaise prononciation). Inclut authentification avec sessions cookie HTTP-only, historique d'exercices avec revue des scores, plans payants avec suivi des crédits et états inactifs, historique de paiements, profil et URLs signées Supabase Storage pour les médias privés.",
+        impact:
+          "Produit linguistique de bout en bout : architecture BFF, pipeline de capture audio, intégration IA tierce et cycle complet d'authentification et d'abonnement.",
+        role: "Frontend, conception du BFF et intégration IA",
+        timeline: "Mars 2026 - Avr 2026",
+        complexity: "Pipeline de capture audio, intégration Azure Speech, stockage à URLs signées, logique de plans à crédits",
+      },
+      {
+        slug: "catelao-automotive",
+        title: "Catelão Automotive",
+        summary: "Site institutionnel pour un distributeur brésilien de pièces auto au Vale do Ribeira.",
+        description:
+          "Site institutionnel pour un distributeur de pièces automobiles basé à Registro-SP, qui dessert mécaniciens et revendeurs depuis plus d'une décennie. Comprend un hero responsive (variantes desktop/mobile), une section 'à propos', un carrousel de marques interactif, des pages dédiées 'Empresa' et 'Fornecedores' avec un drawer latéral révélant les produits par fabricant, une section 'Novidades' paginée avec routes dynamiques [slug], et un formulaire de contact validé par Zod (téléphone/WhatsApp formatés, sélecteur d'État brésilien) soumis via une API Route Next.js avec Nodemailer. Bouton WhatsApp flottant, typographie Redonda via next/font, JSON-LD et metadata SEO.",
+        impact:
+          "Établi la présence en ligne de l'entreprise avec une stack moderne, un SEO complet et un parcours de capture de leads relié à l'e-mail transactionnel.",
+        role: "Full-stack, design et SEO",
+        timeline: "Déc 2025 - Fév 2026",
+        complexity: "Carrousel de marques, drawer fournisseur-produit, routes blog dynamiques, e-mail transactionnel, formulaires validés",
+      },
+      {
+        slug: "multpoint",
+        title: "MultPoint Automotive",
+        summary: "Catalogue produits pour un fabricant brésilien de composants d'injection.",
+        description:
+          "Vitrine produits pour MultPoint, spécialisée dans les composants d'injection (vannes injectrices, kits de réparation, joints, connecteurs). Catalogue avec recherche avancée et filtres par ligne, constructeur, modèle et année ; pages par produit avec spécifications techniques et galeries d'images ; carrousels hero et lignes de produits sur la home ; section représentants à travers le Brésil avec Google Maps interactif ; et blog corporate. Catégories : Magneti Marelli, Bosch, Delphi, Arla, injecteurs moto, kits de réparation, joints et connecteurs. Livraison d'images optimisée via CDN avec carrousels en boucle infinie via Embla.",
+        impact:
+          "Restitue un catalogue multi-axes complexe (ligne × constructeur × modèle × année) dans une interface rapide et navigable pour acheteurs B2B.",
+        role: "Implémentation frontend et architecture du catalogue",
+        timeline: "Juin 2025 - Janv 2026",
+        complexity: "Filtrage multi-axes, intégration Google Maps, carrousels hero/catégorie, livraison d'images CDN",
+      },
+      {
+        slug: "one-help",
+        title: "One Help Informática",
+        summary: "Catalogue produits et plateforme d'actualités pour une entreprise IT brésilienne.",
+        description:
+          "Site vitrine produits et services pour One Help Informática avec blog d'actualités, catalogue avec barre de recherche et filtres, pages produit individuelles, et interface admin pour gérer produits et articles. Intégration de l'API Google Reviews pour récupérer automatiquement les avis 5 étoiles ou plus. DNS, serveur et Google Search Console entièrement configurés pour la découverte organique.",
+        impact:
+          "Livré un catalogue complet, un CMS admin et une plateforme d'avis qui est en ligne et alimente la découverte locale pour l'entreprise.",
+        role: "Full-stack : frontend, backend, infrastructure, SEO",
+        timeline: "Oct 2024 - Janv 2025",
+        complexity: "CMS admin, intégration Google Reviews API, modélisation MongoDB, configuration DNS et serveur",
+      },
+      {
+        slug: "sofia",
+        title: "SOFIA — Pré-diagnostic du TSA",
+        summary: "App mobile combinant un CNN et des outils de dépistage pour soutenir le diagnostic précoce du TSA.",
+        description:
+          "Application mobile conçue pour aider les médecins dans le diagnostic précoce du Trouble du Spectre Autistique chez les enfants. La fonctionnalité centrale est un réseau neuronal convolutif qui analyse des vidéos de comportements d'enfants, associé à des outils de dépistage adaptés à l'âge appliqués dans l'app. Le résultat final combine l'inférence de l'IA et le protocole de dépistage, présenté sous forme de graphiques et de comparaisons. Soutenu par des services Spring Boot et Flask, publié comme article Qualis B2 en 2024.",
+        impact:
+          "Contribution académique et pratique au diagnostic précoce du TSA — publié comme article Qualis B2 en 2024.",
+        role: "Backend, intégration IA et design produit",
+        timeline: "Juil 2023 - Déc 2024",
+        complexity: "Pipeline d'entraînement et d'inférence du CNN, logique de dépistage par tranche d'âge, intégration de la stack Kotlin/Spring",
+      },
+    ],
   },
   skills: {
     label: "Expertise",

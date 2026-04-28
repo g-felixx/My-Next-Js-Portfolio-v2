@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ExternalLink, Github, Maximize2 } from "lucide-react";
 import { projects, type Project } from "@/data/portfolio";
 import { useTranslation } from "@/lib/i18n/context";
+import type { ProjectCategoryKey, TranslationProjectItem } from "@/lib/i18n/types";
 
 const PROJECT_ANCHOR_PREFIX = "project-";
 import {
@@ -43,10 +44,12 @@ function ProjectPreviewImage({ src, alt, priority = false, eager = false }: { sr
 
 function ProjectShowcase({
   project,
+  title,
   priority,
   onOpenViewer,
 }: {
   project: Project;
+  title: string;
   priority: boolean;
   onOpenViewer: (project: Project, index: number) => void;
 }) {
@@ -91,7 +94,7 @@ function ProjectShowcase({
           <Carousel className="w-full relative z-10 rounded-xl overflow-hidden shadow-accent-card ring-1 ring-white/10 bg-black">
             <CarouselContent>
               {project.images.map((img, idx) => (
-                <CarouselItem key={`${project.title}-${img}`}>
+                <CarouselItem key={`${title}-${img}`}>
                   <button
                     type="button"
                     onClick={() => {
@@ -102,11 +105,11 @@ function ProjectShowcase({
                     onFocus={() => prefetchProjectImages(idx)}
                     onTouchStart={() => prefetchProjectImages(idx)}
                     className="group/viewer relative block w-full rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                    aria-label={`Open ${project.title} screenshot ${idx + 1} in viewer`}
+                    aria-label={`Open ${title} screenshot ${idx + 1} in viewer`}
                   >
                     <ProjectPreviewImage
                       src={img}
-                      alt={`${project.title} screenshot ${idx + 1}`}
+                      alt={`${title} screenshot ${idx + 1}`}
                       priority={priority && idx === 0}
                       eager={priority && idx === 0}
                     />
@@ -140,9 +143,9 @@ function ProjectShowcase({
             onFocus={() => prefetchProjectImages(0)}
             onTouchStart={() => prefetchProjectImages(0)}
             className="group/viewer w-full relative z-10 rounded-xl overflow-hidden shadow-accent-card ring-1 ring-white/10 bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-            aria-label={`Open ${project.title} preview in viewer`}
+            aria-label={`Open ${title} preview in viewer`}
           >
-            <ProjectPreviewImage src={project.images[0]} alt={`${project.title} preview`} />
+            <ProjectPreviewImage src={project.images[0]} alt={`${title} preview`} />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-100 sm:opacity-0 sm:group-hover/viewer:opacity-100 transition-opacity duration-300" />
             <div className="pointer-events-none absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/45 px-3 py-2 text-xs font-mono text-white/90 backdrop-blur-md shadow-accent-soft">
               <Maximize2 className="h-3.5 w-3.5" />
@@ -162,7 +165,7 @@ function ProjectShowcase({
 
 const ProjectsSection = () => {
   const t = useTranslation();
-  const [filter, setFilter] = useState(t.projects.filterAll);
+  const [filterKey, setFilterKey] = useState<ProjectCategoryKey | null>(null);
   const [viewerState, setViewerState] = useState<{ open: boolean; project: Project | null; index: number }>({
     open: false,
     project: null,
@@ -171,9 +174,22 @@ const ProjectsSection = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const shouldReduceMotion = useReducedMotion();
 
-  const categories = [t.projects.filterAll, ...Array.from(new Set(projects.map((p) => p.category)))];
-  const filtered = filter === t.projects.filterAll ? projects : projects.filter((p) => p.category === filter);
+  const itemBySlug = useMemo(() => {
+    const map = new Map<string, TranslationProjectItem>();
+    for (const item of t.projects.items) map.set(item.slug, item);
+    return map;
+  }, [t.projects.items]);
+
+  const usedCategoryKeys = useMemo(
+    () => Array.from(new Set(projects.map((p) => p.categoryKey))) as ProjectCategoryKey[],
+    [],
+  );
+
+  const filtered = filterKey === null ? projects : projects.filter((p) => p.categoryKey === filterKey);
   const activeViewerProject = viewerState.project;
+  const activeViewerTitle = activeViewerProject
+    ? itemBySlug.get(activeViewerProject.slug)?.title ?? ""
+    : "";
 
   const handleOpenViewer = useCallback((project: Project, index: number) => {
     setViewerState({ open: true, project, index });
@@ -201,19 +217,32 @@ const ProjectsSection = () => {
 
           {/* Filters */}
           <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((cat) => (
+            <button
+              key="__all"
+              type="button"
+              onClick={() => setFilterKey(null)}
+              aria-pressed={filterKey === null}
+              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 active:scale-95 border ${
+                filterKey === null
+                  ? "bg-primary text-primary-foreground border-primary shadow-[0_0_14px_rgba(245,117,53,0.18)]"
+                  : "glass-subtle text-muted-foreground border-white/5 hover:text-foreground hover:bg-white/10 hover:border-white/10"
+              }`}
+            >
+              {t.projects.filterAll}
+            </button>
+            {usedCategoryKeys.map((key) => (
               <button
-                key={cat}
+                key={key}
                 type="button"
-                onClick={() => setFilter(cat)}
-                aria-pressed={filter === cat}
+                onClick={() => setFilterKey(key)}
+                aria-pressed={filterKey === key}
                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 active:scale-95 border ${
-                  filter === cat
+                  filterKey === key
                     ? "bg-primary text-primary-foreground border-primary shadow-[0_0_14px_rgba(245,117,53,0.18)]"
                     : "glass-subtle text-muted-foreground border-white/5 hover:text-foreground hover:bg-white/10 hover:border-white/10"
                 }`}
               >
-                {cat}
+                {t.projects.categoryLabels[key]}
               </button>
             ))}
           </div>
@@ -222,6 +251,8 @@ const ProjectsSection = () => {
         {/* Stacked Cards Layout */}
         <div className="flex flex-col gap-8 relative pb-20 max-w-5xl 2xl:max-w-7xl mx-auto">
           {filtered.map((project, i) => {
+            const item = itemBySlug.get(project.slug);
+            if (!item) return null;
             const isEven = i % 2 === 0;
             return (
               <div
@@ -238,38 +269,40 @@ const ProjectsSection = () => {
               >
                 <SpotlightCard className="w-full relative bg-background dark:bg-background border-black/10 dark:border-white/10 backdrop-blur-none backdrop-saturate-100">
                   <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} min-h-[450px]`}>
-                    
+
                     {/* Content Section */}
                     <div className="p-6 sm:p-8 lg:p-12 flex flex-col justify-center flex-1 lg:w-1/2 static z-10">
                       <span className="text-xs font-mono uppercase tracking-widest text-primary mb-4 block">
-                        {project.category}
+                        {t.projects.categoryLabels[project.categoryKey]}
                       </span>
-                      <h3 className="text-3xl font-bold mb-4 tracking-tight leading-tight">{project.title}</h3>
+                      <h3 className="text-3xl font-bold mb-4 tracking-tight leading-tight">{item.title}</h3>
                       <p className="text-base text-muted-foreground leading-relaxed mb-8 flex-1 text-pretty">
-                        {project.description}
+                        {item.description}
                       </p>
-                      
+
                       <div className="flex flex-wrap gap-2 mb-8">
-                        {project.tech.map((t) => (
+                        {project.tech.map((tech) => (
                           <span
-                            key={t}
+                            key={tech}
                             className="px-3 py-1.5 rounded-lg text-xs font-mono bg-primary/10 text-primary border border-primary/20 backdrop-blur-sm"
                           >
-                            {t}
+                            {tech}
                           </span>
                         ))}
                       </div>
-                      
+
                       <div className="flex items-center gap-6 mt-auto">
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors hover:bg-primary/10 px-4 py-2 rounded-lg -ml-4"
-                        >
-                          <Github className="w-5 h-5" />
-                          {t.projects.sourceCode}
-                        </a>
+                        {project.github && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors hover:bg-primary/10 px-4 py-2 rounded-lg -ml-4"
+                          >
+                            <Github className="w-5 h-5" />
+                            {t.projects.sourceCode}
+                          </a>
+                        )}
                         {project.live && (
                           <a
                             href={project.live}
@@ -285,7 +318,7 @@ const ProjectsSection = () => {
                     </div>
 
                     {/* Image / Carousel Showcase Section */}
-                    <ProjectShowcase project={project} priority={i === 0} onOpenViewer={handleOpenViewer} />
+                    <ProjectShowcase project={project} title={item.title} priority={i === 0} onOpenViewer={handleOpenViewer} />
 
                   </div>
                 </SpotlightCard>
@@ -314,7 +347,7 @@ const ProjectsSection = () => {
 
         {activeViewerProject && (
           <ProjectImageViewer
-            projectTitle={activeViewerProject.title}
+            projectTitle={activeViewerTitle}
             images={activeViewerProject.images}
             open={viewerState.open}
             currentIndex={viewerState.index}

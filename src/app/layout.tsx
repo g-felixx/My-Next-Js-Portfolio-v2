@@ -38,11 +38,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteConfig.homeUrl,
   },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
-  },
   robots: {
     index: true,
     follow: true,

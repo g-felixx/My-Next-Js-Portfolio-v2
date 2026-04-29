@@ -74,11 +74,15 @@ export const pt: Translation = {
         period: "Janeiro 2026 - Atual",
         type: "work",
         summary:
-          "Estruturação e desenvolvimento de landing pages de geração de leads para o lançamento do app da empresa, com testes A/B e entrega focada em performance.",
+          "Construindo plataformas de gerenciamento de conteúdo que alimentam web e mobile, portal de notícias com scroll infinito e landing pages de geração de leads — tudo em Next.js com forte foco em velocidade.",
         bullets: [
+          "Projetei e construí plataformas de gerenciamento de conteúdo que alimentam tanto a aplicação web quanto o app mobile, atuando em backend e frontend.",
+          "Desenvolvi um portal de notícias com scroll infinito em Next.js, com foco em velocidade percebida e Core Web Vitals.",
+          "Stack predominantemente Next.js, com atenção constante a performance de carregamento e estratégia de renderização.",
           "Estruturei e desenvolvi landing pages de geração de leads para o lançamento do app da empresa.",
           "Gerei 40.000 leads orgânicos com quase 1 minuto de retenção e 30% de aumento nos resultados.",
           "Conduzi testes A/B para melhorar continuamente performance e conversão do site.",
+          "Desenvolvi um SAC automatizado com triagem de tickets no estilo Jira, respostas em batch geradas por IA e fluxo de aprovação para execução de ações em plataformas externas — como ativação, inativação e atualização de cadastros de leitores.",
         ],
       },
       {

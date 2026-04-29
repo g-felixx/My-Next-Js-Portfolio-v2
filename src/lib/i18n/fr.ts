@@ -74,11 +74,15 @@ export const fr: Translation = {
         period: "Janvier 2026 - Présent",
         type: "work",
         summary:
-          "Structuration et développement de landing pages de génération de leads pour le lancement de l'application, avec tests A/B et livraison orientée performance.",
+          "Construction de plateformes CMS alimentant web et mobile, d'un portail d'actualités à défilement infini et de landing pages de génération de leads — le tout sur Next.js avec un fort accent sur la vitesse.",
         bullets: [
+          "Conception et construction de plateformes de gestion de contenu alimentant à la fois l'application web et l'app mobile, en assumant les couches backend et frontend.",
+          "Développement d'un portail d'actualités à défilement infini sur Next.js, avec optimisation de la vitesse perçue et des Core Web Vitals.",
+          "Stack majoritairement Next.js, avec une attention constante à la performance de chargement et à la stratégie de rendu.",
           "Structuration et développement de landing pages de génération de leads pour le lancement de l'application.",
           "40 000 leads organiques générés avec près d'une minute de rétention et 30% d'augmentation des résultats.",
           "Mise en place de tests A/B pour améliorer continuellement la performance et la conversion du site.",
+          "Développé un système de support client automatisé avec triage de tickets à la manière de Jira, réponses en batch générées par IA et flux d'approbation pour l'exécution d'actions sur des plateformes externes — incluant l'activation, la désactivation et la mise à jour des profils d'abonnés.",
         ],
       },
       {

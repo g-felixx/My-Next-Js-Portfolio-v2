@@ -74,11 +74,15 @@ export const en: Translation = {
         period: "January 2026 - Present",
         type: "work",
         summary:
-          "Structuring and developing lead generation landing pages for the company's app launch, with A/B testing and performance-focused delivery.",
+          "Building content management platforms feeding web and mobile apps, a news portal with infinite scroll, and lead-generation landing pages — all on Next.js with a strong focus on speed.",
         bullets: [
+          "Designed and built content management platforms feeding both web and mobile apps, owning backend and frontend layers.",
+          "Developed a news portal with infinite scroll on Next.js, focused on perceived speed and Core Web Vitals.",
+          "Stack predominantly Next.js, with consistent attention to load performance and rendering strategy.",
           "Structured and developed lead generation landing pages for the company's app launch.",
           "Drove 40,000 organic leads with nearly 1 minute of retention and a 30% increase in results.",
           "Ran A/B tests to continuously improve website performance and conversion.",
+          "Built an automated customer support system with Jira-style ticket triage, AI-generated batch responses, and an approval flow for executing actions on external platforms — including reader activation, deactivation, and profile updates.",
         ],
       },
       {

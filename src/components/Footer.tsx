@@ -57,7 +57,7 @@ const Footer = () => {
               {t.footer.roleNote}
             </p>
             <a
-              href={personalInfo.resumeUrl}
+              href={t.resumeUrl}
               download
               className="inline-flex items-center justify-center gap-2 self-center sm:self-auto rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/15"
             >

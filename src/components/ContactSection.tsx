@@ -91,7 +91,7 @@ const ContactSection = () => {
               {/* Pinned to bottom */}
               <div className="mt-auto flex flex-col gap-4">
                 <a
-                  href={personalInfo.resumeUrl}
+                  href={t.resumeUrl}
                   download
                   className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-primary text-primary-foreground font-bold text-sm tracking-wide shadow-[0_0_16px_rgba(245,117,53,0.14)] hover:shadow-[0_0_24px_rgba(245,117,53,0.2)] transition-all duration-300 active:scale-[0.98]"
                 >

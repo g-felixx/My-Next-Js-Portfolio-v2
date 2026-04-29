@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Menu, X, Download } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { personalInfo } from "@/data/portfolio";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageToggle } from "./LanguageToggle";
 import { useTranslation } from "@/lib/i18n/context";
@@ -189,7 +188,7 @@ const Navbar = () => {
             <LanguageToggle />
             <ThemeToggle />
             <a
-              href={personalInfo.resumeUrl}
+              href={t.resumeUrl}
               download
               className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold rounded-full bg-primary/10 border border-primary/20 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 active:scale-[0.97] ml-2"
             >
@@ -258,7 +257,7 @@ const Navbar = () => {
                   <ThemeToggle />
                 </div>
                 <a
-                  href={personalInfo.resumeUrl}
+                  href={t.resumeUrl}
                   download
                   onClick={() => closeMenu(false)}
                   className="flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold rounded-xl bg-primary text-primary-foreground active:scale-[0.97]"

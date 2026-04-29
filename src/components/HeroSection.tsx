@@ -139,7 +139,7 @@ const HeroSection = () => {
               <ArrowDown className="w-4 h-4 ml-1" />
             </a>
             <a
-              href={personalInfo.resumeUrl}
+              href={t.resumeUrl}
               download
               className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-8 py-3.5 rounded-full bg-white/5 dark:bg-white/[0.02] backdrop-blur-lg border border-primary/50 dark:border-primary/50 font-bold text-foreground text-sm tracking-wide hover:bg-primary/10 transition-all duration-300 active:scale-95"
             >

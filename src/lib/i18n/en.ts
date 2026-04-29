@@ -10,6 +10,7 @@ export const en: Translation = {
   heroAvailable: "Available for New Opportunities",
   heroViewProjects: "View Projects",
   heroResume: "Resume",
+  resumeUrl: "/cv/Amanda Castro CV - Full Stack Engineer EN.pdf",
   stats: [
     { value: 20, suffix: "+", label: "Projects Delivered" },
     { value: 40, suffix: "K+", label: "Organic Leads Generated" },

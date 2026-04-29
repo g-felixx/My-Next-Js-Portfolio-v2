@@ -81,6 +81,7 @@ export interface Translation {
   heroAvailable: string;
   heroViewProjects: string;
   heroResume: string;
+  resumeUrl: string;
   stats: TranslationStat[];
   nav: {
     about: string;

@@ -70,9 +70,26 @@ export const en: Translation = {
     flipChapterWords: ["adventure", "chapter", "journey"],
     items: [
       {
+        company: "YDUQS",
+        role: "Mid-level Full Stack Developer",
+        period: "June 2026 - Present",
+        type: "work",
+        summary:
+          "Working in an Acceleration cell, taking part in planning, architecture, and continuous delivery of new applications — 4 strategic projects shipped from scratch to deploy, focused on performance, code quality, and advanced AI.",
+        bullets: [
+          "Full stack and AI engineering with Next.js, React, TypeScript, and Python, building microservices and GenAI/LLM ecosystems with LangGraph.",
+          "Implemented a multimodal voice agent using Gemini, with an internal abstraction layer on Databricks and production on AWS Bedrock + AWS Prompt Manager.",
+          "Built and extended a chatbot using MCP (Model Context Protocol) and a RAG architecture for student recommendation, acquisition, and enrollment, integrated asynchronously with the website and synchronously with WhatsApp via Salesforce.",
+          "Provisioned the entire AWS infrastructure with Terraform: ECS, EC2, Lambda, API Gateway, RDS, S3, Route 53, and WAF.",
+          "Modeled and managed SQL (PostgreSQL on AWS RDS) and NoSQL (MongoDB Atlas) databases.",
+          "Created new repositories and CI/CD pipelines with Quality Gates, enforcing rigorous unit and integration test coverage.",
+          "Take part in technical refinement of requirements, facilitate agile ceremonies (Kanban/Scrum), run meetings and executive presentations, and support junior developers day to day.",
+        ],
+      },
+      {
         company: "tns",
         role: "Full Stack Developer II",
-        period: "January 2026 - Present",
+        period: "January 2026 - June 2026",
         type: "work",
         summary:
           "Building content management platforms feeding web and mobile apps, a news portal with infinite scroll, and lead-generation landing pages — all on Next.js with a strong focus on speed.",
@@ -102,7 +119,7 @@ export const en: Translation = {
       {
         company: "CapLink",
         role: "Full Stack Developer",
-        period: "March 2025 - Present",
+        period: "March 2025 - May 2026",
         type: "work",
         summary:
           "Maintain RESTful and GraphQL APIs with Clean Code architecture in Node.js and TypeScript while delivering polished frontend microcomponents.",
@@ -128,6 +145,22 @@ export const en: Translation = {
           "Managed database migrations with Flyway and ensured compatibility between PostgreSQL and AWS Aurora queries.",
           "Integrated applications with AWS services such as Cognito, Lambda, SQS, SNS, API Gateway, Parameter Store, and EC2.",
           "Implemented a solution to consume Jenkins build progress via multiple WebSockets, enabling real-time updates for users subscribed to specific topics with session-based JWT key pair management, asynchronous logging, and multi-threaded execution.",
+        ],
+      },
+      {
+        company: "Freelance",
+        role: "Freelance Web Developer",
+        period: "October 2022 - Present",
+        type: "work",
+        summary:
+          "Complete web solutions, front end to back end, for micro businesses — over 20 success stories.",
+        bullets: [
+          "Built custom websites and platforms with React.js, Node.js, Next.js, and MongoDB, with intuitive, high-performance interfaces.",
+          "Implemented e-commerce features such as shopping cart, filters, search, and dynamic product management.",
+          "Developed RESTful APIs for data integration and process automation, with secure authentication and real-time updates.",
+          "Optimized SEO, added animations, and configured servers, DNS, and Google Search Console to improve online visibility.",
+          "Managed academic and professional projects focused on UX/UI, neural networks, and AI, such as SOFIA, an app for early ASD diagnosis.",
+          "Biggest achievement: the One Help Informática website, with Google Reviews API integration (5-star reviews updated automatically) and an interface to manage the catalog and news.",
         ],
       },
     ],
@@ -237,8 +270,34 @@ export const en: Translation = {
       "product-showcase": "Product Showcase",
       ecommerce: "E-commerce Platform",
       "ai-mobile-app": "AI Mobile App",
+      "saas-platform": "SaaS Platform",
+      "mobile-app": "Mobile App",
     },
     items: [
+      {
+        slug: "digital-menu-platform",
+        title: "Digital Menu Platform",
+        summary: "Customer storefront and merchant dashboard with async orders, payments, and metrics.",
+        description:
+          "End-to-end digital menu platform with two surfaces: a customer-facing storefront (menu browsing and ordering) and a merchant dashboard (product CRUD, menu management, appearance customization, order queue, payments, notifications, and business metrics). The order lifecycle covers cart → checkout → queue → fulfillment, with RabbitMQ-driven async processing, an integrated payment gateway, and event hooks into external conversion platforms. Per-merchant analytics are tied to the same order pipeline.",
+        impact:
+          "In progress: a complete multi-merchant product where every order flows through a single async pipeline feeding the queue, payments, notifications, and analytics.",
+        role: "Full-stack",
+        timeline: "Apr 2026 - Present",
+        complexity: "RabbitMQ async order lifecycle, payment gateway, conversion events, per-merchant analytics",
+      },
+      {
+        slug: "event-mobile-app",
+        title: "Event Mobile App",
+        summary: "Mobile sub-app for a real-world event inside a 50k-user newsletter app.",
+        description:
+          "Mobile sub-app for a real-world event embedded in a 50k-user newsletter app, with self-contained navigation, themed identity, and 7 feature screens (hub, agenda, speakers, venue, sponsors, FAQ, support). Highlights: typed REST integration with 5 resource families via React Query (custom cache config, DTO → domain mappers, payload-shape divergence handled at the client); a date-driven \"Live Now\" mode that replaces the ticket CTA on event day with a real-time block filtering sessions by the current full hour (3 render variants); slide-up bottom sheets with hand-rolled Animated transitions; a Google Maps embed via WebView with no API key; full dark mode and accessibility coverage.",
+        impact:
+          "Delivered the full event experience to a 50k-user base, with an automatic live mode on event day and a map that needs no API key.",
+        role: "Mobile development and API integration",
+        timeline: "May 2026 - Jun 2026",
+        complexity: "Typed React Query data layer, date-driven \"Live Now\" mode, custom animations, Cloudflare Workers backend",
+      },
       {
         slug: "dolphin-talk",
         title: "Dolphin Talk",

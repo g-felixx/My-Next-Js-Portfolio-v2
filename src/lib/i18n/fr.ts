@@ -70,9 +70,26 @@ export const fr: Translation = {
     flipChapterWords: ["aventure", "étape", "page"],
     items: [
       {
+        company: "YDUQS",
+        role: "Développeuse Full Stack Confirmée",
+        period: "Juin 2026 - Présent",
+        type: "work",
+        summary:
+          "Au sein d'une cellule d'Accélération, je participe à la planification, à l'architecture et à la livraison continue de nouvelles applications — 4 projets stratégiques livrés de zéro au déploiement, axés sur la performance, la qualité du code et l'IA avancée.",
+        bullets: [
+          "Développement full stack et AI engineering avec Next.js, React, TypeScript et Python, en construisant des microservices et des écosystèmes GenAI/LLM avec LangGraph.",
+          "Implémentation d'un agent vocal multimodal avec Gemini, avec une abstraction interne via Databricks et une production sur AWS Bedrock + AWS Prompt Manager.",
+          "Développement et évolution d'un chatbot avec MCP (Model Context Protocol) et une architecture RAG pour la recommandation, le recrutement et l'inscription des étudiants, intégré de façon asynchrone au site web et synchrone à WhatsApp via Salesforce.",
+          "Provisionnement de toute l'infrastructure AWS avec Terraform : ECS, EC2, Lambda, API Gateway, RDS, S3, Route 53 et WAF.",
+          "Modélisation et gestion de bases SQL (PostgreSQL sur AWS RDS) et NoSQL (MongoDB Atlas).",
+          "Création de dépôts et de pipelines CI/CD avec Quality Gates, garantissant une couverture rigoureuse de tests unitaires et d'intégration.",
+          "Participation au raffinement technique des demandes, animation des rituels agiles (Kanban/Scrum), conduite de réunions et de présentations exécutives, et soutien quotidien aux développeurs juniors.",
+        ],
+      },
+      {
         company: "tns",
         role: "Développeuse Full Stack II",
-        period: "Janvier 2026 - Présent",
+        period: "Janvier 2026 - Juin 2026",
         type: "work",
         summary:
           "Construction de plateformes CMS alimentant web et mobile, d'un portail d'actualités à défilement infini et de landing pages de génération de leads — le tout sur Next.js avec un fort accent sur la vitesse.",
@@ -102,7 +119,7 @@ export const fr: Translation = {
       {
         company: "CapLink",
         role: "Développeuse Full Stack",
-        period: "Mars 2025 - Présent",
+        period: "Mars 2025 - Mai 2026",
         type: "work",
         summary:
           "Maintenance d'API REST et GraphQL avec une architecture Clean Code en Node.js et TypeScript, tout en livrant des microcomposants frontend soignés.",
@@ -128,6 +145,22 @@ export const fr: Translation = {
           "Gestion des migrations de base de données avec Flyway et assurance de la compatibilité entre PostgreSQL et AWS Aurora.",
           "Intégration d'applications avec des services AWS tels que Cognito, Lambda, SQS, SNS, API Gateway, Parameter Store et EC2.",
           "Implémentation d'une solution pour consommer la progression des builds Jenkins via plusieurs WebSockets, permettant des mises à jour en temps réel pour les utilisateurs abonnés à des sujets spécifiques avec gestion de clés JWT basée sur la session, journalisation asynchrone et exécution multi-thread.",
+        ],
+      },
+      {
+        company: "Freelance",
+        role: "Développeuse Web Freelance",
+        period: "Octobre 2022 - Présent",
+        type: "work",
+        summary:
+          "Solutions web complètes, du front-end au back-end, pour de très petites entreprises — plus de 20 cas de réussite.",
+        bullets: [
+          "Création de sites et de plateformes sur mesure avec React.js, Node.js, Next.js et MongoDB, avec des interfaces intuitives et performantes.",
+          "Mise en place d'e-commerces avec panier, filtres, recherche et gestion dynamique des produits.",
+          "Développement d'API RESTful pour l'intégration de données et l'automatisation des processus, avec authentification sécurisée et mises à jour en temps réel.",
+          "Optimisation SEO, animations et configuration de serveurs, DNS et Google Search Console pour la visibilité en ligne.",
+          "Gestion de projets académiques et professionnels axés sur l'UX/UI, les réseaux de neurones et l'IA, comme SOFIA, une application de diagnostic précoce du TSA.",
+          "Plus grande réussite : le site de One Help Informática, avec intégration de l'API Google Reviews (avis 5 étoiles mis à jour automatiquement) et une interface de gestion du catalogue et des actualités.",
         ],
       },
     ],
@@ -238,8 +271,34 @@ export const fr: Translation = {
       "product-showcase": "Vitrine Produits",
       ecommerce: "Plateforme E-commerce",
       "ai-mobile-app": "App Mobile IA",
+      "saas-platform": "Plateforme SaaS",
+      "mobile-app": "App Mobile",
     },
     items: [
+      {
+        slug: "digital-menu-platform",
+        title: "Plateforme de Menu Numérique",
+        summary: "Vitrine client et tableau de bord commerçant, avec commandes asynchrones, paiements et métriques.",
+        description:
+          "Plateforme de menu numérique de bout en bout avec deux surfaces : la vitrine côté client (consultation du menu et commandes) et le tableau de bord du commerçant (CRUD des produits, gestion du menu, personnalisation de l'apparence, file de commandes, paiements, notifications et métriques d'activité). Le cycle de commande va du panier au paiement, à la file puis au traitement, avec un traitement asynchrone via RabbitMQ, une passerelle de paiement intégrée et des événements vers des plateformes de conversion externes. Les analyses par commerçant reposent sur le même pipeline de commandes.",
+        impact:
+          "En cours : un produit multi-commerçants complet où chaque commande suit un pipeline asynchrone unique alimentant la file, les paiements, les notifications et les analytics.",
+        role: "Full-stack",
+        timeline: "Avr 2026 - Présent",
+        complexity: "Cycle de commande asynchrone avec RabbitMQ, passerelle de paiement, événements de conversion, analytics par commerçant",
+      },
+      {
+        slug: "event-mobile-app",
+        title: "App Mobile d'Événement",
+        summary: "Sous-application mobile d'un événement réel au sein d'une app de newsletter de 50 000 utilisateurs.",
+        description:
+          "Sous-application mobile d'un événement réel, intégrée à une app de newsletter de 50 000 utilisateurs, avec navigation autonome, identité thématique et 7 écrans (hub, agenda, intervenants, lieu, sponsors, FAQ, support). Intégration REST typée avec 5 familles de ressources via React Query (cache configuré, mappers DTO → domaine, divergences de payload gérées côté client) ; mode « En direct » piloté par la date, qui remplace le CTA de billetterie le jour J par un bloc temps réel filtrant les sessions de l'heure pleine en cours (3 variantes de rendu) ; bottom sheets avec transitions Animated codées à la main ; carte Google via WebView sans clé d'API ; mode sombre complet et couverture d'accessibilité.",
+        impact:
+          "A livré l'expérience complète de l'événement à une base de 50 000 utilisateurs, avec un mode en direct automatique le jour J et une carte sans clé d'API.",
+        role: "Développement mobile et intégration API",
+        timeline: "Mai 2026 - Juin 2026",
+        complexity: "Couche de données typée avec React Query, mode « En direct » piloté par la date, animations sur mesure, backend Cloudflare Workers",
+      },
       {
         slug: "dolphin-talk",
         title: "Dolphin Talk",

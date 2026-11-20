@@ -21,6 +21,26 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "digital-menu-platform",
+    categoryKey: "saas-platform",
+    tech: ["Node.js", "Next.js", "React", "PostgreSQL", "RabbitMQ"],
+    images: [],
+  },
+  {
+    slug: "event-mobile-app",
+    categoryKey: "mobile-app",
+    tech: [
+      "React Native",
+      "Expo SDK 53",
+      "TypeScript",
+      "Expo Router",
+      "React Query",
+      "Zustand",
+      "Cloudflare Workers",
+    ],
+    images: [],
+  },
+  {
     slug: "dolphin-talk",
     categoryKey: "ai-web-app",
     tech: [

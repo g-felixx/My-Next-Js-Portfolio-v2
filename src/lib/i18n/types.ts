@@ -59,7 +59,9 @@ export type ProjectCategoryKey =
   | "institutional"
   | "product-showcase"
   | "ecommerce"
-  | "ai-mobile-app";
+  | "ai-mobile-app"
+  | "saas-platform"
+  | "mobile-app";
 
 export interface TranslationProjectItem {
   slug: string;

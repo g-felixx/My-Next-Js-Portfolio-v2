@@ -35,7 +35,8 @@ For meaningful changes, use:
 - next-themes for dark mode
 - Radix/shadcn-style UI primitives under `src/components/ui`
 - Resend for contact email delivery
-- LLM-backed “AI Twin” chat via `src/app/api/chat/route.ts`
+- “Ask my résumé” chat widget in the hero (front end only — the RAG backend is built separately, see below)
+- Fonts via `next/font/google`: Mona Sans (UI), JetBrains Mono (code/prompt), Pixelify Sans (mascot speech only)
 
 ## Architecture
 
@@ -43,15 +44,15 @@ For meaningful changes, use:
 
 - `src/app/layout.tsx` owns global metadata, viewport config, JSON-LD injection, theme bootstrapping, skip link, and wraps the app with `SmoothScroll` and `Providers`.
 - `src/app/providers.tsx` configures class-based theming via `next-themes` and mounts the global Sonner toaster.
-- `src/app/page.tsx` is intentionally compositional: it stitches together the landing-page sections plus the floating AI chat.
+- `src/app/page.tsx` is intentionally compositional: it stitches together the landing-page sections plus the floating mascot.
 
 ### Content model
 
 The portfolio is mostly data-driven.
 
-- `src/data/portfolio.ts` is the source of truth for personal info, experience, projects, skills, stats, and initial AI chat suggestions.
-- Multiple parts of the app derive from this file: visible homepage sections, contact links, AI twin context, and SEO metadata.
-- When updating resume links, social links, project entries, or career facts, start here and then verify any dependent SEO/chat behavior.
+- `src/data/portfolio.ts` is the source of truth for personal info and project entries.
+- Visible copy (hero, experience, skills, prompt widget, mascot lines…) lives in `src/lib/i18n/{en,pt,fr}.ts` and is typed by `src/lib/i18n/types.ts`. **Every new string must be added to all three locales and to the type.**
+- When updating resume links, social links, project entries, or career facts, start here and then verify any dependent SEO behavior.
 
 ### SEO and metadata
 
@@ -66,20 +67,17 @@ SEO is centralized rather than scattered across sections.
 The homepage is a single long-form landing page with section-based navigation.
 
 - `Navbar` scrolls to hash sections and tracks the active section in view.
-- Most visible sections (`HeroSection`, `AboutSection`, `ExperienceSection`, `ProjectsSection`, `SkillsSection`, `AITwinSection`, `ContactSection`) are presentation components backed by portfolio data.
+- Order: `HeroSection` → `TechMarquee` → `AboutSection` → `ExperienceSection` → `EducationSection` → `CertificationsSection` → `ProjectsSection` → `SkillsSection` → `AskCta` → `ContactSection`, plus `FloatingMascot` (fixed).
+- Sections are presentation components backed by the i18n dictionaries and portfolio data.
 - `SmoothScroll` installs Lenis globally and intercepts in-page hash navigation, so section links should use the existing scroll helpers instead of custom scrolling behavior.
 
-### AI Twin flow
+### Ask-my-résumé widget and mascot
 
-The AI Twin is the most application-like feature in the repo.
-
-- `src/components/AITwinChat.tsx` contains the chat UI, localStorage-backed conversation persistence, retry UX, markdown rendering, suggestion chips, and mobile/desktop dialog behavior.
-- `src/components/AITwinSection.tsx` is the landing-page CTA that opens the chat via a custom window event.
-- `src/app/api/chat/route.ts` validates input, rate-limits requests, trims conversation history, calls the upstream LLM provider, and generates follow-up suggestions.
-- `src/lib/ai-config.ts` contains the system prompts and model selection.
-- `src/lib/ai-twin.ts` builds the portfolio knowledge context, normalizes project matching, manages stored chat history, and injects contextual links into AI responses.
-
-Important constraint: the AI assistant is intentionally scoped to Nikunj’s professional profile and project history. If you change portfolio data or project naming, review both the prompt context and link-generation logic.
+- `src/components/HeroPrompt.tsx` is the chat card in the hero: typewriter placeholder, auto-playing demo conversation, suggestion chips, rotating “thinking” lines, cited sources, `aria-live` log.
+- `src/lib/ai-twin-client.ts` is the **single seam to the backend**. `streamTwinReply()` currently returns a placeholder (“Demo mode”) reply; replace its body with a streaming `fetch("/api/chat", …)` that yields `{type:"text"}` / `{type:"source"}` chunks. The UI needs no other change. It also exports `PROMPT_FOCUS_EVENT`, which other components dispatch on `window` to focus the input.
+- `src/components/pixel/sprites.ts` holds the mascot as a 48×48 pixel grid (`BASE`, converted 1:1 from the original SVG) plus small patches for the poses (`idle`, `blink`, `point` = wave, `walkA/B`). Keep every frame at 48×48. Cell characters map to `--px-*` CSS variables in `globals.css` (light/dark palettes). `PixelSprite.tsx` renders it as crisp SVG; size it in multiples of 48px for sharp pixels.
+- `Mascot.tsx` (hero/CTA, with blink), `MascotCallout.tsx` (“I built this AI with RAG” note + arrow), `FloatingMascot.tsx` (walks across the screen on scroll, parks at the nearest edge when idle, comments on the current section, click → back to the prompt).
+- Demo/answer copy must stay faithful to the résumé; do not invent experience in `prompt.demo`.
 
 ### Contact flow
 
@@ -92,7 +90,9 @@ The contact form is split cleanly between client validation and server delivery.
 
 ### Styling and UI primitives
 
-- Global design tokens, cursors, utility classes, and theme variables live in `src/app/globals.css`.
+- Global design tokens, cursors, utility classes, and theme variables live in `src/app/globals.css`. The look is GitHub-inspired: neutral surfaces, 1px borders, small radii, purple as the accent. `.glass*` utilities are flat bordered surfaces.
+- Use theme tokens (`bg-secondary`, `border-border`, `text-muted-foreground`…) — never `white/N` or `black/N` for chrome, they break the light theme. The project gallery modal is the only intentionally dark-only surface (it scopes the `dark` class to itself).
+- Motion language (from Mux): `ease-energetic` = `cubic-bezier(.7,0,.3,1)`, stepped caret blink, pop-in/rise-in keyframes (see `tailwind.config.ts`).
 - Reusable low-level primitives are in `src/components/ui/`; prefer extending those before creating new base components.
 - The site relies heavily on Tailwind utility classes plus a few shared helpers like `cn()` from `src/lib/utils.ts`.
 - Motion and reduced-motion support are already wired into key components; preserve that behavior when editing animated UI.
@@ -104,7 +104,7 @@ The app currently uses these environment variables:
 - `RESEND_API_KEY`
 - `CONTACT_EMAIL_FROM`
 - `CONTACT_EMAIL_TO`
-- `AI_MODEL`
+- `AI_MODEL` (reserved for the RAG backend)
 - `LLM_API_KEY`
 - `LLM_BASE_URL`
 

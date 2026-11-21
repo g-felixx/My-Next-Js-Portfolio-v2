@@ -159,7 +159,7 @@ const Navbar = () => {
       <div className="fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-[max(1rem,env(safe-area-inset-top))] sm:pt-[max(1.5rem,env(safe-area-inset-top))] pointer-events-none">
         <nav
           className={`pointer-events-auto transition-all duration-500 rounded-2xl sm:rounded-full w-full max-w-6xl 2xl:max-w-[88rem] flex items-center justify-between px-4 sm:px-6 h-14 sm:h-16 border ${
-            scrolled ? "glass-strong shadow-accent-card border-white/10" : "bg-transparent border-transparent"
+            scrolled ? "glass-strong shadow-accent-card" : "bg-transparent border-transparent"
           }`}
         >
           <a href="#hero" aria-label={t.nav.heroAria} className="group">
@@ -177,14 +177,14 @@ const Navbar = () => {
                 aria-current={activeSection === link.href ? "location" : undefined}
                 className={`px-3 py-2 text-sm font-medium transition-all duration-200 rounded-full ${
                   activeSection === link.href
-                    ? "bg-primary/10 text-primary shadow-[0_0_14px_rgba(245,117,53,0.1)]"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/10"
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
               >
                 {link.label}
               </a>
             ))}
-            <div className="w-px h-4 bg-white/10 mx-2" />
+            <div className="w-px h-4 bg-border mx-2" />
             <LanguageToggle />
             <ThemeToggle />
             <a

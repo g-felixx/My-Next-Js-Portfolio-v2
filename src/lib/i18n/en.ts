@@ -438,6 +438,65 @@ export const en: Translation = {
       successDescription: "Thanks for reaching out. I will get back to you soon.",
     },
   },
+  prompt: {
+    title: "Ask my résumé",
+    badge: "RAG",
+    inputLabel: "Ask a question about Amanda's experience",
+    inputPlaceholder: "Ask about my experience, projects or stack…",
+    placeholders: [
+      "Ask about my experience…",
+      "Ask how my profile fits your job opening…",
+      "Ask what I've built with RAG and LLMs…",
+      "Ask about my projects and stack…",
+    ],
+    send: "Send",
+    hint: "Answers are grounded in my résumé · Enter to send",
+    suggestions: [
+      "Tell me about your experience",
+      "How does your profile fit my job opening?",
+      "What have you built with RAG and LLMs?",
+    ],
+    thinking: ["Searching my résumé…", "Reading the relevant experience…", "Writing the answer…"],
+    demo: [
+      {
+        question: "What have you built with RAG and LLMs?",
+        answer:
+          "At YDUQS I built and extended a chatbot using MCP and a RAG architecture for student recommendation, acquisition and enrollment, integrated with the website and with WhatsApp via Salesforce. I also worked on GenAI/LLM ecosystems with LangGraph.",
+        source: "Experience · YDUQS",
+      },
+      {
+        question: "How does your profile fit a Full Stack role?",
+        answer:
+          "I've shipped end to end: Next.js, React and TypeScript on the front, Java Spring Boot, Node and Python on the back, and AWS infrastructure with Terraform. At tns, Next.js landing pages drove 40,000 organic leads.",
+        source: "Experience · tns, YDUQS",
+      },
+    ],
+    sourceLabel: "Source",
+    you: "You",
+    assistant: "Amanda's AI",
+    newChat: "New chat",
+    error: "Something went wrong. Please try again.",
+    mock: {
+      answer:
+        "Demo mode: the RAG backend isn't connected yet, so this is a placeholder reply. Soon, answers will come straight from my résumé.",
+      source: "demo",
+    },
+    callout: "I built this AI with RAG",
+    mascot: {
+      askMe: "Ask my AI",
+      ariaLabel: "Scroll to the top and ask the AI about my résumé",
+      generic: "Psst… ask my AI at the top!",
+      sections: {
+        about: "Want to know more about me? Ask the AI up top!",
+        experience: "Every role here is searchable. Ask the AI!",
+        education: "My studies are in the AI's knowledge base too.",
+        certifications: "Curious about a certification? Just ask!",
+        projects: "Ask the AI how I built any of these.",
+        skills: "Ask which of these skills fits your role.",
+        contact: "Ready to talk? Send me a message!",
+      },
+    },
+  },
   footer: {
     roleNote: "Open to full-stack, backend, and frontend engineering roles.",
     downloadResume: "Download Resume",

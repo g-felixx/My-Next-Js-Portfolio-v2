@@ -5,32 +5,33 @@
 @layer base {
   /* Applied before JS to prevent white flash — matches .dark --background value */
   html {
-    background-color: hsl(270, 35%, 8%);
+    background-color: hsl(216, 28%, 7%);
   }
 
   :root {
-    --background: 40 20% 97%;
-    --foreground: 220 25% 10%;
-    --card: 40 15% 95%;
-    --card-foreground: 220 25% 10%;
-    --popover: 40 15% 95%;
-    --popover-foreground: 220 25% 10%;
+    /* Neutral, GitHub-like surfaces; purple stays the brand accent */
+    --background: 0 0% 100%;
+    --foreground: 213 13% 14%;
+    --card: 210 29% 97%;
+    --card-foreground: 213 13% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 13% 14%;
     --primary: 270 70% 45%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 270 30% 92%;
-    --secondary-foreground: 270 70% 30%;
-    --muted: 20 15% 92%;
-    --muted-foreground: 220 10% 45%;
+    --secondary: 210 29% 94%;
+    --secondary-foreground: 213 13% 14%;
+    --muted: 210 29% 94%;
+    --muted-foreground: 211 11% 39%;
     --accent: 18 90% 55%;
     --accent-light: 22 95% 65%;
     --accent-dark: 270 60% 25%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 270 20% 85%;
-    --input: 270 20% 85%;
+    --border: 208 20% 85%;
+    --input: 208 20% 85%;
     --ring: 270 70% 45%;
-    --radius: 0.75rem;
+    --radius: 0.5rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -39,30 +40,60 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Pixel mascot palette — exact colours of the mascot SVG (key legend: components/pixel/sprites.ts) */
+    --px-K: #0a0a0a;
+    --px-H: #1c1c1c;
+    --px-h: #2e2e2e;
+    --px-j: #4a4a4a;
+    --px-S: #f9cfa9;
+    --px-s: #e3a778;
+    --px-d: #b07346;
+    --px-c: #fff2cc;
+    --px-W: #ffffff;
+    --px-E: #5c3317;
+    --px-I: #8b5a2b;
+    --px-G: #5e666e;
+    --px-g: #87919b;
+    --px-r: #f49aff;
+    --px-P: #d66ae8;
+    --px-p: #9e3ab0;
+    --px-N: #333333;
+    --px-n: #555555;
   }
 
   .dark {
-    --background: 270 35% 8%;
-    --foreground: 30 25% 92%;
-    --card: 270 30% 12%;
-    --card-foreground: 30 25% 92%;
-    --popover: 270 30% 14%;
-    --popover-foreground: 30 25% 92%;
+    --background: 216 28% 7%;
+    --foreground: 210 67% 96%;
+    --card: 214 25% 11%;
+    --card-foreground: 210 67% 96%;
+    --popover: 214 25% 11%;
+    --popover-foreground: 210 67% 96%;
     --primary: 270 75% 65%;
-    --primary-foreground: 270 35% 8%;
-    --secondary: 270 25% 16%;
-    --secondary-foreground: 30 50% 85%;
-    --muted: 270 25% 16%;
-    --muted-foreground: 30 15% 60%;
+    --primary-foreground: 216 28% 7%;
+    --secondary: 213 16% 16%;
+    --secondary-foreground: 210 67% 96%;
+    --muted: 213 16% 16%;
+    --muted-foreground: 213 8% 60%;
     --accent: 18 90% 58%;
     --accent-light: 22 95% 68%;
     --accent-dark: 270 60% 25%;
-    --accent-foreground: 270 35% 8%;
+    --accent-foreground: 216 28% 7%;
     --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 100%;
-    --border: 270 25% 20%;
-    --input: 270 25% 20%;
+    --border: 211 12% 27%;
+    --input: 211 12% 27%;
     --ring: 270 75% 65%;
+
+    /* dark theme: lighter hair/boots/glasses so the dark parts don't vanish */
+    --px-K: #050505;
+    --px-H: #3a3a44;
+    --px-h: #50505c;
+    --px-j: #6c6c7a;
+    --px-G: #8d98a3;
+    --px-g: #b4bec8;
+    --px-N: #3d3f4c;
+    --px-n: #60647a;
   }
 }
 
@@ -139,16 +170,26 @@ textarea,
 }
 
 @layer utilities {
+  /* Flat, bordered surfaces (GitHub-like). Border colour comes from the base
+     layer so `border-*` utilities on the element still win. */
   .glass {
-    @apply bg-white/9 dark:bg-white/[0.035] backdrop-blur-xl border border-white/18 dark:border-white/[0.08];
+    background-color: hsl(var(--card));
+    border-width: 1px;
+    border-style: solid;
   }
 
   .glass-strong {
-    @apply bg-white/16 dark:bg-white/[0.065] backdrop-blur-xl border border-white/24 dark:border-white/[0.11];
+    background-color: hsl(var(--background) / 0.92);
+    border-width: 1px;
+    border-style: solid;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .glass-subtle {
-    @apply bg-white/4 dark:bg-white/[0.02] backdrop-blur-md border border-white/8 dark:border-white/[0.05];
+    background-color: hsl(var(--secondary) / 0.7);
+    border-width: 1px;
+    border-style: solid;
   }
 
   .text-gradient {
@@ -156,20 +197,30 @@ textarea,
   }
 
   .glow-accent {
-    box-shadow: 0 0 24px rgba(245, 117, 53, 0.12), 0 0 48px rgba(155, 81, 224, 0.05);
+    box-shadow: 0 1px 0 hsl(var(--border)), 0 12px 28px -12px hsl(var(--foreground) / 0.25);
   }
 
   .shadow-accent-soft {
-    box-shadow: 0 10px 24px rgba(245, 117, 53, 0.14);
+    box-shadow: 0 1px 2px hsl(var(--foreground) / 0.06), 0 8px 16px -8px hsl(var(--foreground) / 0.2);
   }
 
   .shadow-accent-card {
-    box-shadow: 0 16px 48px rgba(245, 117, 53, 0.18);
+    box-shadow: 0 1px 0 hsl(var(--border)), 0 14px 32px -14px hsl(var(--foreground) / 0.3);
   }
 
   .shadow-accent-strong {
-    box-shadow: 0 22px 68px rgba(245, 117, 53, 0.22);
+    box-shadow: 0 1px 0 hsl(var(--border)), 0 22px 48px -16px hsl(var(--foreground) / 0.35);
   }
+
+  /* Pixel sprites: crisp edges, and a faint light halo so the dark outline reads on dark backgrounds */
+  .px-sprite {
+    image-rendering: pixelated;
+  }
+
+  .dark .px-sprite {
+    filter: drop-shadow(0 0 1px rgb(255 255 255 / 0.4));
+  }
+
 
   .section-padding {
     @apply py-20 md:py-28 lg:py-32;

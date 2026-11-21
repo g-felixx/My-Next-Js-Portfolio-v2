@@ -444,6 +444,65 @@ export const fr: Translation = {
       successDescription: "Merci de m'avoir contactée. Je reviendrai vers vous bientôt.",
     },
   },
+  prompt: {
+    title: "Interrogez mon CV",
+    badge: "RAG",
+    inputLabel: "Posez une question sur l'expérience d'Amanda",
+    inputPlaceholder: "Posez une question sur mon expérience, mes projets ou ma stack…",
+    placeholders: [
+      "Posez une question sur mon expérience…",
+      "Demandez comment mon profil correspond à votre offre…",
+      "Demandez ce que j'ai construit avec RAG et LLM…",
+      "Posez une question sur mes projets et ma stack…",
+    ],
+    send: "Envoyer",
+    hint: "Réponses basées sur mon CV · Entrée pour envoyer",
+    suggestions: [
+      "Parlez-moi de votre expérience",
+      "Comment votre profil correspond-il à mon offre ?",
+      "Qu'avez-vous construit avec RAG et LLM ?",
+    ],
+    thinking: ["Recherche dans mon CV…", "Lecture de l'expérience pertinente…", "Rédaction de la réponse…"],
+    demo: [
+      {
+        question: "Qu'avez-vous construit avec RAG et LLM ?",
+        answer:
+          "Chez YDUQS, j'ai construit et fait évoluer un chatbot avec MCP et une architecture RAG pour la recommandation, l'acquisition et l'inscription des étudiants, intégré au site web et à WhatsApp via Salesforce. J'ai aussi travaillé sur des écosystèmes GenAI/LLM avec LangGraph.",
+        source: "Expérience · YDUQS",
+      },
+      {
+        question: "Comment votre profil correspond-il à un poste Full Stack ?",
+        answer:
+          "Je livre de bout en bout : Next.js, React et TypeScript côté front ; Java Spring Boot, Node et Python côté back ; et l'infrastructure AWS avec Terraform. Chez tns, des landing pages Next.js ont généré 40 000 leads organiques.",
+        source: "Expérience · tns, YDUQS",
+      },
+    ],
+    sourceLabel: "Source",
+    you: "Vous",
+    assistant: "L'IA d'Amanda",
+    newChat: "Nouvelle conversation",
+    error: "Une erreur s'est produite. Veuillez réessayer.",
+    mock: {
+      answer:
+        "Mode démo : le backend RAG n'est pas encore connecté, ceci est donc une réponse d'exemple. Bientôt, les réponses viendront directement de mon CV.",
+      source: "démo",
+    },
+    callout: "C'est moi qui ai développé cette IA avec RAG",
+    mascot: {
+      askMe: "Demandez à mon IA",
+      ariaLabel: "Remonter en haut et interroger l'IA sur mon CV",
+      generic: "Psst… demandez à mon IA, tout en haut !",
+      sections: {
+        about: "Envie d'en savoir plus sur moi ? Demandez à l'IA en haut !",
+        experience: "Chaque poste ici est interrogeable. Demandez à l'IA !",
+        education: "Ma formation est aussi dans la base de l'IA.",
+        certifications: "Une certification vous intrigue ? Demandez !",
+        projects: "Demandez à l'IA comment j'ai fait chacun d'eux.",
+        skills: "Demandez quelle compétence correspond à votre poste.",
+        contact: "Prêt à discuter ? Envoyez-moi un message !",
+      },
+    },
+  },
   footer: {
     roleNote: "Ouverte aux postes d'ingénierie full-stack, backend et frontend.",
     downloadResume: "Télécharger le CV",

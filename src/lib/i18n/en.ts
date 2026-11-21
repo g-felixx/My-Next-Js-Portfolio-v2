@@ -482,6 +482,14 @@ export const en: Translation = {
       source: "demo",
     },
     callout: "I built this AI with RAG",
+    marquee: { label: "Stack I work with", pause: "Pause", play: "Play" },
+    cta: {
+      eyebrow: "Still deciding?",
+      title: "Not sure if I'm the right fit?",
+      description:
+        "Paste your job description into my AI and see how my experience matches — answers come straight from my résumé.",
+      button: "Ask my AI",
+    },
     mascot: {
       askMe: "Ask my AI",
       ariaLabel: "Scroll to the top and ask the AI about my résumé",

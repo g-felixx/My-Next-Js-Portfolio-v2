@@ -100,6 +100,10 @@ export default {
           from: { opacity: "0", transform: "translateY(10px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
         // Blinking text caret (steps, like Mux's `blink`)
         caret: {
           "0%": { opacity: "0" },
@@ -128,6 +132,7 @@ export default {
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         "slide-up": "slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
         "count-up": "count-up 0.4s ease-out",
+        marquee: "marquee 60s linear infinite",
         caret: "caret 1s steps(1, end) infinite",
         "pop-in": "pop-in 0.25s cubic-bezier(0.7, 0, 0.3, 1) both",
         "rise-in": "rise-in 0.5s cubic-bezier(0.7, 0, 0.3, 1) both",

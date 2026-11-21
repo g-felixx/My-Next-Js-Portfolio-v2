@@ -159,7 +159,7 @@ const Navbar = () => {
       <div className="fixed top-0 inset-x-0 z-50 pointer-events-none">
         <div
           className={`pointer-events-auto w-full border-b pt-[env(safe-area-inset-top)] transition-[background-color,border-color,backdrop-filter] duration-300 ease-energetic ${
-            scrolled ? "border-border bg-background/90 backdrop-blur-md" : "border-transparent bg-transparent"
+            scrolled ? "border-border bg-background/90 backdrop-blur-md" : "border-border bg-transparent"
           }`}
         >
         <nav className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-5 sm:h-16 sm:px-6 lg:px-8 2xl:max-w-[88rem]">

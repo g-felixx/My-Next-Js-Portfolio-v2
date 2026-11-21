@@ -121,6 +121,17 @@ export interface Translation {
     flipChapterPrefix: string;
     flipChapterSuffix: string;
     flipChapterWords: string[];
+    /** Badge on the most recent role. */
+    latest: string;
+    /** Heading above the carousel of older roles (mobile). */
+    earlier: string;
+    showMore: string;
+    showLess: string;
+    prev: string;
+    next: string;
+    /** Accessible name of the career timeline. */
+    timelineLabel: string;
+    dotLabel: (n: number, total: number) => string;
     items: TranslationExperienceItem[];
   };
   education: {

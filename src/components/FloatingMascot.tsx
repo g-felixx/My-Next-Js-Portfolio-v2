@@ -183,7 +183,7 @@ const FloatingMascot = () => {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: ENERGETIC }}
-                    className={`absolute bottom-full mb-3 w-max max-w-[12.5rem] rounded-lg border-2 border-[#3b67af] bg-card px-3 py-2 font-pixel text-[11px] leading-snug text-foreground shadow-lg dark:border-[#9dbcf7] sm:max-w-[15rem] sm:text-xs ${
+                    className={`absolute bottom-full mb-3 w-max max-w-[12.5rem] rounded-lg border-2 border-[#3b67af] bg-card px-3 py-2 font-pixel text-[11px] leading-snug text-foreground shadow-lg dark:border-[#9dbcf7] sm:max-w-[10.5rem] sm:text-xs ${
                       bubbleOnRight ? "right-0" : "left-0"
                     }`}
                   >

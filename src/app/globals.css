@@ -247,6 +247,19 @@ textarea,
   }
 }
 
+/* Skill tiles: one tint per category (hue set inline), like GitHub's language colours */
+.skill-tile {
+  --tint: hsl(var(--hue) 70% 38%);
+  --tint-bg: hsl(var(--hue) 75% 50% / 0.1);
+  --tint-border: hsl(var(--hue) 70% 45% / 0.3);
+}
+
+.dark .skill-tile {
+  --tint: hsl(var(--hue) 85% 76%);
+  --tint-bg: hsl(var(--hue) 80% 62% / 0.14);
+  --tint-border: hsl(var(--hue) 80% 68% / 0.35);
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

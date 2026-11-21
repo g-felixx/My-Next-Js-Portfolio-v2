@@ -68,6 +68,14 @@ export const en: Translation = {
     flipChapterPrefix: "And a new",
     flipChapterSuffix: "ahead",
     flipChapterWords: ["adventure", "chapter", "journey"],
+    latest: "Latest",
+    earlier: "Earlier roles",
+    showMore: "Show more",
+    showLess: "Show less",
+    prev: "Previous role",
+    next: "Next role",
+    timelineLabel: "Career timeline",
+    dotLabel: (n, total) => `Go to role ${n} of ${total}`,
     items: [
       {
         company: "YDUQS",

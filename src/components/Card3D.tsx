@@ -117,7 +117,7 @@ const Card3D = ({ children, className = "" }: Card3DProps) => {
         onPointerEnter={isInteractive ? handlePointerEnter : undefined}
         onPointerMove={isInteractive ? handlePointerMove : undefined}
         onPointerLeave={isInteractive ? handlePointerLeave : undefined}
-        className="relative rounded-2xl overflow-hidden shadow-accent-strong will-change-transform"
+        className="relative rounded-xl overflow-hidden shadow-accent-strong will-change-transform"
         style={{
           rotateX: isInteractive ? rotateX : "0deg",
           rotateY: isInteractive ? rotateY : "0deg",
@@ -127,7 +127,7 @@ const Card3D = ({ children, className = "" }: Card3DProps) => {
       >
         {children}
         <motion.div
-          className="absolute inset-0 pointer-events-none rounded-2xl z-20"
+          className="absolute inset-0 pointer-events-none rounded-xl z-20"
           style={{
             background: glareBackground,
             opacity: isInteractive ? glareVisibility : 0,

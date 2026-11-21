@@ -729,7 +729,7 @@ export default function ProjectImageViewer({
           tabIndex={-1}
           onKeyDown={(event) => handleKeyControls(event)}
           style={{ top: "max(env(safe-area-inset-top), 0.75rem)" }}
-          className="fixed inset-x-0 bottom-0 z-[60] mx-auto flex w-[min(calc(100vw-0.75rem),96rem)] transform-gpu flex-col overflow-hidden rounded-t-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(17,24,39,0.97),rgba(12,18,32,0.98))] shadow-[0_-16px_36px_rgba(245,117,53,0.14)] outline-none [will-change:transform] sm:w-[min(calc(100vw-1.5rem),96rem)]"
+          className="dark fixed inset-x-0 bottom-0 z-[60] mx-auto flex w-[min(calc(100vw-0.75rem),96rem)] transform-gpu flex-col overflow-hidden rounded-t-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(17,24,39,0.97),rgba(12,18,32,0.98))] shadow-[0_-16px_36px_rgba(245,117,53,0.14)] outline-none [will-change:transform] sm:w-[min(calc(100vw-1.5rem),96rem)]"
         >
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/80 to-transparent" />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/10 to-transparent" />

@@ -191,11 +191,11 @@ function ExperienceItem({
             </div>
 
             <div className="flex w-full flex-col items-end gap-2 md:w-auto md:flex-none">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-mono font-medium uppercase tracking-wide text-muted-foreground">
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1.5 text-[11px] font-mono font-medium uppercase tracking-wide text-muted-foreground">
                 <MetaIcon className="h-3.5 w-3.5" />
                 {metaLabel}
               </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-mono font-medium text-muted-foreground">
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1.5 text-xs font-mono font-medium text-muted-foreground">
                 <CalendarDays className="h-3.5 w-3.5" />
                 {exp.period}
               </span>
@@ -323,11 +323,11 @@ const ExperienceSection = () => {
           </div>
 
           <div className="relative w-full lg:w-2/3" ref={timelineRef}>
-            <div className="absolute bottom-0 left-[24px] top-0 w-[2px] rounded-full bg-white/10 sm:left-[44px]" />
+            <div className="absolute bottom-0 left-[24px] top-0 w-[2px] rounded-full bg-border sm:left-[44px]" />
 
             <motion.div
               style={{ scaleY: shouldReduceMotion ? 1 : scrollYProgress }}
-              className="absolute bottom-0 left-[24px] top-0 w-[2px] origin-top rounded-full bg-primary shadow-[0_0_6px_rgba(245,117,53,0.18)] sm:left-[44px] sm:shadow-[0_0_12px_rgba(245,117,53,0.24)]"
+              className="absolute bottom-0 left-[24px] top-0 w-[2px] origin-top rounded-full bg-primary sm:left-[44px]"
             />
 
             <ul className="relative w-full py-4">

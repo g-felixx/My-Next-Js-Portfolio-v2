@@ -26,7 +26,7 @@ export function LanguageToggle() {
           type="button"
           aria-label={t.languageToggle.label}
           title={t.languageToggle.label}
-          className="inline-flex items-center gap-1.5 rounded-lg px-2 py-2 text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground transition-all duration-300 hover:bg-white/10 hover:text-foreground active:scale-95"
+          className="inline-flex items-center gap-1.5 rounded-lg px-2 py-2 text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground transition-all duration-300 hover:bg-secondary hover:text-foreground active:scale-95"
         >
           <Globe className="h-4 w-4" />
           <span>{LOCALE_CODES[locale]}</span>
@@ -35,7 +35,7 @@ export function LanguageToggle() {
       <DropdownMenuContent
         align="end"
         sideOffset={10}
-        className="min-w-[10rem] rounded-xl border border-white/10 bg-background/95 p-1.5 shadow-accent-card backdrop-blur-xl"
+        className="min-w-[10rem] rounded-xl border border-border bg-background/95 p-1.5 shadow-accent-card backdrop-blur-xl"
       >
         {t.languageToggle.options.map((option) => {
           const isActive = option.code === locale;
@@ -46,7 +46,7 @@ export function LanguageToggle() {
               className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus:outline-none ${
                 isActive
                   ? "bg-primary/10 text-primary"
-                  : "text-foreground/80 hover:bg-white/5 hover:text-foreground"
+                  : "text-foreground/80 hover:bg-secondary hover:text-foreground"
               }`}
             >
               <div className="flex flex-col">

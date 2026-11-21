@@ -18,7 +18,7 @@ export function SpotlightCard({
   children,
   delay = 0,
   className,
-  glowColor = "rgba(245, 117, 53, 0.1)",
+  glowColor = "hsl(var(--primary) / 0.08)",
   glowSize = 650,
   glowOpacity = 100,
   animateOnEnter = true,
@@ -132,13 +132,13 @@ export function SpotlightCard({
       onPointerMove={isInteractive ? handlePointerMove : undefined}
       onPointerLeave={isInteractive ? handlePointerLeave : undefined}
       className={cn(
-        "group relative rounded-3xl border border-border/60 bg-background/65 dark:bg-background/68 backdrop-blur-[18px] backdrop-saturate-140 overflow-hidden shadow-accent-card",
+        "group relative rounded-xl border border-border bg-card overflow-hidden shadow-accent-soft",
         className
       )}
     >
       {/* Spotlight hover effect */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-3xl"
+        className="pointer-events-none absolute -inset-px rounded-xl"
         animate={{ opacity: isInteractive && isHovered ? glowOpacity / 100 : 0 }}
         transition={{ duration: shouldReduceMotion ? 0.2 : 0.5 }}
         style={{

@@ -36,7 +36,7 @@ const SkillsSection = () => {
                 <SpotlightCard key={cat.title} animateOnEnter={false} className="w-full">
                   <div className="p-8 sm:p-10">
                     <div className="flex items-center gap-4 mb-8">
-                      <div className="w-12 h-12 rounded-2xl glass-subtle border border-white/5 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-500 group-hover:border-primary/30">
+                      <div className="w-12 h-12 rounded-xl glass-subtle border border-border flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-500 group-hover:border-primary/30">
                         <Icon className="w-5 h-5 text-primary group-hover:text-primary transition-colors duration-500" />
                       </div>
                       <div>
@@ -53,7 +53,7 @@ const SkillsSection = () => {
                       {cat.skills.map((skill) => (
                         <span
                           key={skill}
-                          className="px-4 py-2 rounded-xl text-sm font-medium glass-subtle text-foreground/80 border border-white/5 hover:bg-white/10 hover:border-primary/40 hover:text-primary transition-all duration-300 select-none"
+                          className="px-4 py-2 rounded-xl text-sm font-medium glass-subtle text-foreground/80 border border-border hover:bg-secondary hover:border-primary/40 hover:text-primary transition-all duration-300 select-none"
                         >
                           {skill}
                         </span>

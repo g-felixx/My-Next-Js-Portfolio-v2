@@ -2,7 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
+  animate,
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
@@ -23,6 +25,10 @@ const SWEEPS = 3;
 const MIN_X = 8;
 const MAX_X = 92;
 const IDLE_DELAY_MS = 900;
+/** How long the speech bubble stays before she goes quiet again. */
+const BUBBLE_MS = 5500;
+/** Keeps her fully on screen (half the sprite + a margin), also on small phones. */
+const EDGE_PX = 44;
 const ENERGETIC = [0.7, 0, 0.3, 1] as const;
 
 /** 0 → 1 → 0 → 1 … as `u` grows. */
@@ -45,7 +51,15 @@ const FloatingMascot = () => {
 
   const { scrollY, scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 70, damping: 22, mass: 0.7 });
-  const left = useTransform(smoothProgress, (value) => `${positionFor(value)}%`);
+  // 0 = walking where the scroll puts her, 1 = parked at the nearest screen edge
+  // (so she doesn't stand on top of the text while she talks).
+  const settle = useMotionValue(0);
+  const edgeTarget = useRef(0);
+  const left = useTransform([smoothProgress, settle], ([progress, parked]: number[]) => {
+    const walking = positionFor(progress);
+    const pct = walking + (edgeTarget.current - walking) * parked;
+    return `clamp(${EDGE_PX}px, ${pct}%, calc(100% - ${EDGE_PX}px))`;
+  });
 
   const [visible, setVisible] = useState(false);
   const [moving, setMoving] = useState(false);
@@ -56,6 +70,7 @@ const FloatingMascot = () => {
   const [facingRight, setFacingRight] = useState(false);
   const lastProgress = useRef(0);
   const idleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const bubbleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const copyRef = useRef(copy);
 
   useEffect(() => {
@@ -90,16 +105,35 @@ const FloatingMascot = () => {
 
     setMoving(true);
     setBubble(null);
+    clearTimeout(bubbleTimer.current);
+    if (settle.get() !== 0) animate(settle, 0, { duration: reducedMotion ? 0 : 0.3, ease: ENERGETIC });
 
     clearTimeout(idleTimer.current);
     idleTimer.current = setTimeout(() => {
+      const onRight = positionFor(smoothProgress.get()) > 50;
+      edgeTarget.current = onRight ? 100 : 0;
+      setBubbleOnRight(onRight);
+      animate(settle, 1, { duration: reducedMotion ? 0 : 0.8, ease: ENERGETIC });
       setMoving(false);
-      setBubbleOnRight(positionFor(smoothProgress.get()) > 50);
-      setBubble(pickMessage());
+      // speak only once she has reached the edge
+      clearTimeout(bubbleTimer.current);
+      bubbleTimer.current = setTimeout(
+        () => {
+          setBubble(pickMessage());
+          bubbleTimer.current = setTimeout(() => setBubble(null), BUBBLE_MS);
+        },
+        reducedMotion ? 0 : 800,
+      );
     }, IDLE_DELAY_MS);
   });
 
-  useEffect(() => () => clearTimeout(idleTimer.current), []);
+  useEffect(
+    () => () => {
+      clearTimeout(idleTimer.current);
+      clearTimeout(bubbleTimer.current);
+    },
+    [],
+  );
 
   // Alternate the two walking frames while the page is scrolling.
   useEffect(() => {

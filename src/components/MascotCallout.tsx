@@ -61,7 +61,7 @@ const MascotCallout = ({ variant = "below" }: MascotCalloutProps) => {
   }
 
   return (
-    <div className="mx-auto mt-6 flex w-full max-w-3xl items-end justify-end gap-2 pr-2 sm:mt-8 sm:gap-4 sm:pr-10">
+    <div className="mx-auto mt-14 flex w-full max-w-3xl items-end justify-end gap-2 pr-2 sm:mt-16 sm:gap-4 sm:pr-10">
       <div className="relative mb-4 max-w-[13rem] text-right sm:mb-6 sm:max-w-xs">
         {/* hand-drawn arrow curling up toward the prompt */}
         <svg

@@ -219,6 +219,10 @@ export interface Translation {
     /** Placeholder reply used until the real RAG backend is connected. */
     mock: { answer: string; source: string };
     callout: string;
+    /** Technology strip under the hero (Mux-style marquee). */
+    marquee: { label: string; pause: string; play: string };
+    /** Closing call-to-action before the contact section. */
+    cta: { eyebrow: string; title: string; description: string; button: string };
     mascot: {
       askMe: string;
       ariaLabel: string;

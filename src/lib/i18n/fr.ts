@@ -488,6 +488,14 @@ export const fr: Translation = {
       source: "démo",
     },
     callout: "C'est moi qui ai développé cette IA avec RAG",
+    marquee: { label: "Stack avec laquelle je travaille", pause: "Pause", play: "Lecture" },
+    cta: {
+      eyebrow: "Encore indécis ?",
+      title: "Vous hésitez sur mon profil ?",
+      description:
+        "Collez l'offre d'emploi dans mon IA et voyez comment mon expérience correspond — les réponses viennent directement de mon CV.",
+      button: "Demander à mon IA",
+    },
     mascot: {
       askMe: "Demandez à mon IA",
       ariaLabel: "Remonter en haut et interroger l'IA sur mon CV",

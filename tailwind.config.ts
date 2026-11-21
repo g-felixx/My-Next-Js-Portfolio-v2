@@ -15,8 +15,13 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['"Avenir Next"', '"Segoe UI"', "system-ui", "sans-serif"],
-        mono: ['"SF Mono"', "Consolas", "Monaco", "monospace"],
+        sans: ["var(--font-sans)", '"Segoe UI"', "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", '"SF Mono"', "Consolas", "Monaco", "monospace"],
+        pixel: ["var(--font-pixel)", "var(--font-mono)", "monospace"],
+      },
+      transitionTimingFunction: {
+        // Same easing curve Mux uses for UI motion ("ease-in-out-energetic")
+        energetic: "cubic-bezier(0.7, 0, 0.3, 1)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -95,6 +100,26 @@ export default {
           from: { opacity: "0", transform: "translateY(10px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        // Blinking text caret (steps, like Mux's `blink`)
+        caret: {
+          "0%": { opacity: "0" },
+          "50%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
+        "pop-in": {
+          from: { opacity: "0", transform: "scale(0.95) translateY(4px)" },
+          to: { opacity: "1", transform: "scale(1) translateY(0)" },
+        },
+        "rise-in": {
+          from: { opacity: "0", transform: "translateY(10px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        // 2-step idle bob for pixel sprites (holds each position, no tweening)
+        "pixel-bob": {
+          "0%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-3px)" },
+          "100%": { transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -103,6 +128,10 @@ export default {
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         "slide-up": "slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
         "count-up": "count-up 0.4s ease-out",
+        caret: "caret 1s steps(1, end) infinite",
+        "pop-in": "pop-in 0.25s cubic-bezier(0.7, 0, 0.3, 1) both",
+        "rise-in": "rise-in 0.5s cubic-bezier(0.7, 0, 0.3, 1) both",
+        "pixel-bob": "pixel-bob 1.2s steps(1, end) infinite",
       },
     },
   },

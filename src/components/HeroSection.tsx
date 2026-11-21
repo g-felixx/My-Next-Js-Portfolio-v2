@@ -5,6 +5,8 @@ import { useInView } from "react-intersection-observer";
 import { ArrowDown, Download } from "lucide-react";
 import { personalInfo } from "@/data/portfolio";
 import { useTranslation } from "@/lib/i18n/context";
+import HeroPrompt from "@/components/HeroPrompt";
+import MascotCallout from "@/components/MascotCallout";
 
 const AnimatedCounter = ({ value, suffix, start }: { value: number; suffix: string; start: boolean }) => {
   const [count, setCount] = useState(0);
@@ -61,21 +63,20 @@ const HeroSection = () => {
     show: {
       transition: shouldReduceMotion
         ? { staggerChildren: 0.04, delayChildren: 0.1 }
-        : { staggerChildren: 0.12, delayChildren: 0.3 },
+        : { staggerChildren: 0.1, delayChildren: 0.2 },
     },
   };
 
   const item = {
     hidden: shouldReduceMotion
       ? { opacity: 0 }
-      : { opacity: 0, y: 24, filter: "blur(4px)" },
+      : { opacity: 0, y: 20 },
     show: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
-        duration: shouldReduceMotion ? 0.2 : 0.7,
-        ease: [0.16, 1, 0.3, 1] as const,
+        duration: shouldReduceMotion ? 0.2 : 0.6,
+        ease: [0.7, 0, 0.3, 1] as const,
       },
     },
   };
@@ -83,67 +84,84 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] items-start overflow-hidden pt-[calc(5rem+env(safe-area-inset-top))] pb-[max(2rem,env(safe-area-inset-bottom))] sm:pt-[calc(5.5rem+env(safe-area-inset-top))] sm:pb-[max(2.5rem,env(safe-area-inset-bottom))] lg:min-h-screen lg:items-center lg:pt-20 lg:pb-0"
+      className="relative overflow-hidden pt-[calc(5.5rem+env(safe-area-inset-top))] pb-16 sm:pt-32 lg:pt-36 lg:pb-24"
     >
-      {/* Subtle background grid & Animated Glow Orb */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
-        backgroundImage: "radial-gradient(hsl(var(--accent)) 1px, transparent 1px)",
-        backgroundSize: "32px 32px",
-      }} />
-
-      {/* Flame-like animated glow: purple top, orange/red base */}
-      <div className="absolute -top-1/4 -right-1/4 w-[800px] h-[800px] rounded-full animate-[pulse_8s_ease-in-out_infinite] motion-reduce:animate-none opacity-60 pointer-events-none bg-[radial-gradient(circle,hsl(var(--primary)/0.35)_0%,transparent_70%)]" />
-      <div className="absolute -bottom-1/4 -left-1/4 w-[700px] h-[700px] rounded-full animate-[pulse_10s_ease-in-out_infinite_reverse] motion-reduce:animate-none opacity-70 pointer-events-none bg-[radial-gradient(circle,hsl(var(--accent)/0.35)_0%,transparent_70%)]" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full animate-[pulse_12s_ease-in-out_infinite] motion-reduce:animate-none opacity-50 pointer-events-none bg-[radial-gradient(ellipse_at_bottom,hsl(var(--accent-light)/0.3)_0%,hsl(var(--primary)/0.18)_45%,transparent_75%)]" />
-
-      {/* Smooth fade into the next section */}
-      <div className="absolute bottom-0 inset-x-0 h-32 sm:h-64 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none z-0" />
+      {/* Faint dotted grid that fades out toward the edges */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.07] [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
+        style={{
+          backgroundImage: "radial-gradient(hsl(var(--foreground)) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
 
       <div className="container-narrow relative z-10 w-full">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center sm:gap-8"
+          className="mx-auto flex max-w-4xl flex-col items-center gap-5 text-center sm:gap-6"
         >
           <motion.div variants={item}>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-bold glass-subtle border border-primary/20 text-primary tracking-wide shadow-[0_0_12px_rgba(245,117,53,0.1)]">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse motion-reduce:animate-none" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 font-mono text-xs font-medium text-muted-foreground">
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse motion-reduce:animate-none" />
               {t.heroAvailable}
             </span>
           </motion.div>
 
           <div className="flex flex-col gap-2">
-            <motion.h1 variants={item} className="text-5xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-tighter leading-[1.1] sm:leading-[1.05]">
+            <motion.h1
+              variants={item}
+              className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl"
+              style={{ textWrap: "balance" }}
+            >
               {personalInfo.name}
             </motion.h1>
-            <motion.h2 variants={item} className="text-xl sm:text-4xl font-semibold tracking-tight text-muted-foreground mt-2">
+            <motion.h2
+              variants={item}
+              className="text-xl font-semibold tracking-tight text-muted-foreground sm:text-3xl"
+            >
               {roleWithoutHighlight} <span className="text-gradient">{t.roleHighlightWord}</span>
             </motion.h2>
           </div>
 
           <motion.p
             variants={item}
-            className="max-w-2xl text-base sm:text-lg leading-relaxed font-medium text-muted-foreground"
+            className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base"
             style={{ textWrap: "pretty" }}
           >
             {t.tagline}
           </motion.p>
 
-          <motion.div variants={item} className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mt-1 sm:mt-2">
+          {/* AI prompt — the centrepiece of the hero */}
+          <motion.div variants={item} className="mt-2 w-full">
+            <div className="relative">
+              <HeroPrompt />
+              {/* wide screens: the mascot stands beside the card */}
+              <div className="absolute left-full top-[34%] ml-2 hidden min-[1360px]:block">
+                <MascotCallout variant="side" />
+              </div>
+            </div>
+            {/* smaller screens: the mascot stands below the card */}
+            <div className="min-[1360px]:hidden">
+              <MascotCallout variant="below" />
+            </div>
+          </motion.div>
+
+          <motion.div variants={item} className="flex w-full flex-col flex-wrap justify-center gap-3 sm:w-auto sm:flex-row">
             <a
               href="#projects"
-              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(245,117,53,0.18)] hover:shadow-[0_0_28px_rgba(245,117,53,0.24)] transition-all duration-300 active:scale-95"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all duration-200 ease-energetic hover:brightness-110 active:scale-[0.97] sm:w-auto"
             >
               {t.heroViewProjects}
-              <ArrowDown className="w-4 h-4 ml-1" />
+              <ArrowDown className="h-4 w-4" />
             </a>
             <a
               href={t.resumeUrl}
               download
-              className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-8 py-3.5 rounded-full bg-white/5 dark:bg-white/[0.02] backdrop-blur-lg border border-primary/50 dark:border-primary/50 font-bold text-foreground text-sm tracking-wide hover:bg-primary/10 transition-all duration-300 active:scale-95"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-card px-6 py-3 text-sm font-semibold text-foreground transition-all duration-200 ease-energetic hover:border-primary/60 active:scale-[0.97] sm:w-auto"
             >
-              <Download className="w-4 h-4 mr-1 text-primary" />
+              <Download className="h-4 w-4 text-primary" />
               {t.heroResume}
             </a>
           </motion.div>
@@ -156,11 +174,11 @@ const HeroSection = () => {
             className="mt-4 grid w-full grid-cols-2 gap-4 sm:mt-6 sm:grid-cols-4"
           >
             {t.stats.map((stat, index) => (
-              <div key={index} className="border-l-2 border-primary/30 pl-4 py-1 text-left">
+              <div key={index} className="border-l-2 border-border py-1 pl-4 text-left">
                 <div className="text-2xl font-bold tracking-tighter text-foreground">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} start={shouldStartStats} />
                 </div>
-                <div className="text-xs font-medium text-muted-foreground mt-1 uppercase tracking-wider">{stat.label}</div>
+                <div className="mt-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">{stat.label}</div>
               </div>
             ))}
           </motion.div>

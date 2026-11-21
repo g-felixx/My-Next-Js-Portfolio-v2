@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { JetBrains_Mono, Mona_Sans, Pixelify_Sans } from 'next/font/google'
 import { cookies } from 'next/headers'
 import './globals.css'
 import { Providers } from './providers'
@@ -7,6 +8,12 @@ import { getPortfolioGraph, toJsonLd } from '@/lib/seo/jsonld'
 import { siteConfig, ogLocale } from '@/lib/seo/site'
 import { DEFAULT_LOCALE, LOCALE_COOKIE } from '@/lib/i18n/types'
 import { normalizeLocale, translations } from '@/lib/i18n/translations'
+
+// Mona Sans (GitHub's open-source typeface) for UI, JetBrains Mono for code/prompt,
+// Pixelify Sans only for the mascot's speech bubbles and callout.
+const monaSans = Mona_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' })
+const pixelifySans = Pixelify_Sans({ subsets: ['latin'], variable: '--font-pixel', display: 'swap' })
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
@@ -74,7 +81,11 @@ export default async function RootLayout({
   const htmlLang = translations[initialLocale].htmlLang
 
   return (
-    <html lang={htmlLang} suppressHydrationWarning>
+    <html
+      lang={htmlLang}
+      className={`${monaSans.variable} ${jetbrainsMono.variable} ${pixelifySans.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="color-scheme" content="dark light" />
         <script

@@ -197,6 +197,38 @@ export interface Translation {
       successDescription: string;
     };
   };
+  prompt: {
+    title: string;
+    badge: string;
+    inputLabel: string;
+    inputPlaceholder: string;
+    /** Phrases typed (and erased) in a loop inside the empty input. */
+    placeholders: string[];
+    send: string;
+    hint: string;
+    suggestions: string[];
+    /** Rotating status lines shown while the answer is being prepared. */
+    thinking: string[];
+    /** Auto-playing sample conversations shown before the visitor types. */
+    demo: { question: string; answer: string; source: string }[];
+    sourceLabel: string;
+    you: string;
+    assistant: string;
+    newChat: string;
+    error: string;
+    /** Placeholder reply used until the real RAG backend is connected. */
+    mock: { answer: string; source: string };
+    callout: string;
+    mascot: {
+      askMe: string;
+      ariaLabel: string;
+      generic: string;
+      sections: Record<
+        "about" | "experience" | "education" | "certifications" | "projects" | "skills" | "contact",
+        string
+      >;
+    };
+  };
   footer: {
     roleNote: string;
     downloadResume: string;

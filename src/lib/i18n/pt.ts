@@ -444,6 +444,65 @@ export const pt: Translation = {
       successDescription: "Obrigada por entrar em contato. Retornarei em breve.",
     },
   },
+  prompt: {
+    title: "Pergunte ao meu currículo",
+    badge: "RAG",
+    inputLabel: "Faça uma pergunta sobre a experiência da Amanda",
+    inputPlaceholder: "Pergunte sobre minha experiência, projetos ou stack…",
+    placeholders: [
+      "Pergunte sobre minha experiência…",
+      "Pergunte como meu perfil se encaixa na sua vaga…",
+      "Pergunte o que já construí com RAG e LLMs…",
+      "Pergunte sobre meus projetos e minha stack…",
+    ],
+    send: "Enviar",
+    hint: "Respostas baseadas no meu currículo · Enter para enviar",
+    suggestions: [
+      "Fale sobre sua experiência",
+      "Como seu perfil se encaixa na minha vaga?",
+      "O que você já construiu com RAG e LLMs?",
+    ],
+    thinking: ["Buscando no meu currículo…", "Lendo a experiência relevante…", "Escrevendo a resposta…"],
+    demo: [
+      {
+        question: "O que você já construiu com RAG e LLMs?",
+        answer:
+          "Na YDUQS, construí e evoluí um chatbot com MCP e arquitetura RAG para recomendação, captação e matrícula de alunos, integrado ao site e ao WhatsApp via Salesforce. Também atuei em ecossistemas GenAI/LLM com LangGraph.",
+        source: "Experiência · YDUQS",
+      },
+      {
+        question: "Como seu perfil se encaixa em uma vaga Full Stack?",
+        answer:
+          "Entrego ponta a ponta: Next.js, React e TypeScript no front; Java Spring Boot, Node e Python no back; e infraestrutura AWS com Terraform. Na tns, landing pages em Next.js geraram 40 mil leads orgânicos.",
+        source: "Experiência · tns, YDUQS",
+      },
+    ],
+    sourceLabel: "Fonte",
+    you: "Você",
+    assistant: "IA da Amanda",
+    newChat: "Nova conversa",
+    error: "Algo deu errado. Tente novamente.",
+    mock: {
+      answer:
+        "Modo demo: o backend de RAG ainda não está conectado, então esta é uma resposta de exemplo. Em breve, as respostas virão direto do meu currículo.",
+      source: "demo",
+    },
+    callout: "Eu que desenvolvi essa IA com RAG",
+    mascot: {
+      askMe: "Pergunte à minha IA",
+      ariaLabel: "Voltar ao topo e perguntar à IA sobre o meu currículo",
+      generic: "Psiu… pergunte à minha IA lá no topo!",
+      sections: {
+        about: "Quer saber mais sobre mim? Pergunte à IA lá em cima!",
+        experience: "Cada cargo daqui dá para consultar. Pergunte à IA!",
+        education: "Minha formação também está na base da IA.",
+        certifications: "Curiosidade sobre uma certificação? Pergunte!",
+        projects: "Pergunte à IA como eu fiz cada um desses.",
+        skills: "Pergunte qual dessas skills combina com a sua vaga.",
+        contact: "Pronto para conversar? Mande uma mensagem!",
+      },
+    },
+  },
   footer: {
     roleNote: "Aberta a vagas de engenharia full-stack, backend e frontend.",
     downloadResume: "Baixar Currículo",

@@ -68,6 +68,14 @@ export const pt: Translation = {
     flipChapterPrefix: "E uma nova",
     flipChapterSuffix: "pela frente",
     flipChapterWords: ["aventura", "etapa", "jornada"],
+    latest: "Mais recente",
+    earlier: "Experiências anteriores",
+    showMore: "Ver mais",
+    showLess: "Ver menos",
+    prev: "Experiência anterior",
+    next: "Próxima experiência",
+    timelineLabel: "Linha do tempo da carreira",
+    dotLabel: (n, total) => `Ir para a experiência ${n} de ${total}`,
     items: [
       {
         company: "YDUQS",

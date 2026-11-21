@@ -16,7 +16,9 @@ export default {
     extend: {
       fontFamily: {
         sans: ['"Avenir Next"', '"Segoe UI"', "system-ui", "sans-serif"],
-        mono: ['"SF Mono"', "Consolas", "Monaco", "monospace"],
+        mono: ["var(--font-mono)", '"SF Mono"', "Consolas", "Monaco", "monospace"],
+        display: ["var(--font-display)", "Impact", '"Arial Narrow"', "sans-serif"],
+        pixel: ["var(--font-pixel)", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",

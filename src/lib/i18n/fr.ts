@@ -6,7 +6,7 @@ export const fr: Translation = {
   role: "Ingénieure Full Stack",
   roleHighlightWord: "Stack",
   tagline:
-    "Je suis développeuse logiciel avec une expertise en développement backend, Java Spring Boot, API REST et microservices, spécialisée dans les solutions cloud et les architectures évolutives.",
+    "Je construis des produits full stack avec de l'IA — des agents vocaux et du RAG aux plateformes AWS — de zéro au déploiement.",
   heroAvailable: "Disponible pour de Nouvelles Opportunités",
   heroViewProjects: "Voir les Projets",
   heroResume: "CV",

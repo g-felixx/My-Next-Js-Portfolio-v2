@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -9,16 +8,18 @@ import ProjectsSection from "@/components/ProjectsSection";
 import SkillsSection from "@/components/SkillsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-
-const FluidCursor = dynamic(() => import("@/components/FluidCursor"));
+import Mascot from "@/components/Mascot";
+import StatsStrip from "@/components/StatsStrip";
+import SeaDivider from "@/components/SeaDivider";
 
 export default function Home() {
   return (
     <>
-      <FluidCursor />
+      <Mascot />
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         <HeroSection />
+        <StatsStrip />
         <AboutSection />
         <ExperienceSection />
         <EducationSection />
@@ -26,6 +27,7 @@ export default function Home() {
         <ProjectsSection />
         <SkillsSection />
         <ContactSection />
+        <SeaDivider />
       </main>
       <Footer />
     </>

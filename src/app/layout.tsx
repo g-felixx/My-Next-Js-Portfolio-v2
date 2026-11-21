@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { Anton, JetBrains_Mono, Press_Start_2P } from 'next/font/google'
 import { cookies } from 'next/headers'
 import './globals.css'
 import { Providers } from './providers'
@@ -7,6 +8,10 @@ import { getPortfolioGraph, toJsonLd } from '@/lib/seo/jsonld'
 import { siteConfig, ogLocale } from '@/lib/seo/site'
 import { DEFAULT_LOCALE, LOCALE_COOKIE } from '@/lib/i18n/types'
 import { normalizeLocale, translations } from '@/lib/i18n/translations'
+
+const fontDisplay = Anton({ weight: '400', subsets: ['latin'], variable: '--font-display', display: 'swap' })
+const fontPixel = Press_Start_2P({ weight: '400', subsets: ['latin'], variable: '--font-pixel', display: 'swap' })
+const fontMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' })
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
@@ -74,7 +79,11 @@ export default async function RootLayout({
   const htmlLang = translations[initialLocale].htmlLang
 
   return (
-    <html lang={htmlLang} suppressHydrationWarning>
+    <html
+      lang={htmlLang}
+      className={`${fontDisplay.variable} ${fontPixel.variable} ${fontMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="color-scheme" content="dark light" />
         <script

@@ -86,12 +86,12 @@ function ProjectShowcase({
   }, [mediaInView, prefetchProjectImages, project.images.length]);
 
   return (
-    <div ref={mediaRef} className="lg:w-1/2 bg-black/40 border-t lg:border-t-0 lg:border-l border-white/5 p-6 sm:p-10 flex items-center justify-center overflow-hidden group/img relative">
+    <div ref={mediaRef} className="lg:w-1/2 bg-secondary dark:bg-black/40 border-t lg:border-t-0 lg:border-l border-border p-6 sm:p-10 flex items-center justify-center overflow-hidden group/img relative">
       <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-50 pointer-events-none" />
 
       {project.images && project.images.length > 0 ? (
         mediaInView ? (
-          <Carousel className="w-full relative z-10 rounded-xl overflow-hidden shadow-accent-card ring-1 ring-white/10 bg-black">
+          <Carousel className="w-full relative z-10 rounded-xl overflow-hidden shadow-accent-card ring-1 ring-border bg-black">
             <CarouselContent>
               {project.images.map((img, idx) => (
                 <CarouselItem key={`${title}-${img}`}>
@@ -128,8 +128,8 @@ function ProjectShowcase({
               ))}
             </CarouselContent>
             <div className="opacity-100 lg:opacity-0 lg:group-hover/img:opacity-100 lg:group-focus-within/img:opacity-100 transition-opacity duration-300">
-              <CarouselPrevious className="left-4 bg-background/80 hover:bg-background border-none w-10 h-10 flex items-center justify-center text-foreground hover:text-primary transition-colors z-20 shadow-[0_10px_24px_rgba(245,117,53,0.12)]" />
-              <CarouselNext className="right-4 bg-background/80 hover:bg-background border-none w-10 h-10 flex items-center justify-center text-foreground hover:text-primary transition-colors z-20 shadow-[0_10px_24px_rgba(245,117,53,0.12)]" />
+              <CarouselPrevious className="left-4 bg-background/80 hover:bg-background border-none w-10 h-10 flex items-center justify-center text-foreground hover:text-primary transition-colors z-20" />
+              <CarouselNext className="right-4 bg-background/80 hover:bg-background border-none w-10 h-10 flex items-center justify-center text-foreground hover:text-primary transition-colors z-20" />
             </div>
           </Carousel>
         ) : (
@@ -142,7 +142,7 @@ function ProjectShowcase({
             onMouseEnter={() => prefetchProjectImages(0)}
             onFocus={() => prefetchProjectImages(0)}
             onTouchStart={() => prefetchProjectImages(0)}
-            className="group/viewer w-full relative z-10 rounded-xl overflow-hidden shadow-accent-card ring-1 ring-white/10 bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="group/viewer w-full relative z-10 rounded-xl overflow-hidden shadow-accent-card ring-1 ring-border bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             aria-label={`Open ${title} preview in viewer`}
           >
             <ProjectPreviewImage src={project.images[0]} alt={`${title} preview`} />
@@ -154,7 +154,7 @@ function ProjectShowcase({
           </button>
         )
       ) : (
-        <div className="aspect-[16/10] w-full flex items-center justify-center rounded-xl ring-1 ring-white/10 bg-zinc-950/50 text-muted-foreground text-sm font-mono z-10">
+        <div className="aspect-[16/10] w-full flex items-center justify-center rounded-xl border border-dashed border-border bg-card text-muted-foreground text-sm font-mono z-10">
           {t.projects.noPreview}
         </div>
       )}
@@ -224,8 +224,8 @@ const ProjectsSection = () => {
               aria-pressed={filterKey === null}
               className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 active:scale-95 border ${
                 filterKey === null
-                  ? "bg-primary text-primary-foreground border-primary shadow-[0_0_14px_rgba(245,117,53,0.18)]"
-                  : "glass-subtle text-muted-foreground border-white/5 hover:text-foreground hover:bg-white/10 hover:border-white/10"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "glass-subtle text-muted-foreground border-border hover:text-foreground hover:bg-secondary hover:border-border"
               }`}
             >
               {t.projects.filterAll}
@@ -238,8 +238,8 @@ const ProjectsSection = () => {
                 aria-pressed={filterKey === key}
                 className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 active:scale-95 border ${
                   filterKey === key
-                    ? "bg-primary text-primary-foreground border-primary shadow-[0_0_14px_rgba(245,117,53,0.18)]"
-                    : "glass-subtle text-muted-foreground border-white/5 hover:text-foreground hover:bg-white/10 hover:border-white/10"
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "glass-subtle text-muted-foreground border-border hover:text-foreground hover:bg-secondary hover:border-border"
                 }`}
               >
                 {t.projects.categoryLabels[key]}
@@ -267,7 +267,7 @@ const ProjectsSection = () => {
                   zIndex: i,
                 }}
               >
-                <SpotlightCard className="w-full relative bg-background dark:bg-background border-black/10 dark:border-white/10 backdrop-blur-none backdrop-saturate-100">
+                <SpotlightCard className="w-full relative bg-background dark:bg-background border-border backdrop-blur-none backdrop-saturate-100">
                   <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} min-h-[450px]`}>
 
                     {/* Content Section */}
@@ -338,7 +338,7 @@ const ProjectsSection = () => {
             href="https://github.com/mandis-ncs"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-8 py-4 rounded-full glass border border-white/10 border-b-white/5 text-sm font-bold text-foreground hover:text-primary hover:bg-white/10 transition-all duration-300 shadow-accent-soft hover:shadow-[0_0_18px_rgba(245,117,53,0.12)] active:scale-95"
+            className="flex items-center gap-2 px-8 py-4 rounded-full glass border border-border text-sm font-bold text-foreground hover:text-primary hover:bg-secondary transition-all duration-300 shadow-accent-soft active:scale-95"
           >
             <Github className="w-5 h-5" />
             {t.projects.exploreMore}

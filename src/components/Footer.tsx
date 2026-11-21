@@ -50,7 +50,7 @@ const Footer = () => {
           </div>
 
           {/* Divider */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6" />
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent mb-6" />
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-8 text-center sm:text-left">
             <p className="text-sm font-medium text-foreground/85">
@@ -79,7 +79,7 @@ const Footer = () => {
                   target={href.startsWith("mailto") ? undefined : "_blank"}
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-10 h-10 rounded-full glass-subtle border border-white/5 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-white/5 hover:border-primary/20 transition-all duration-300"
+                  className="w-10 h-10 rounded-full glass-subtle border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-secondary hover:border-primary/20 transition-all duration-300"
                 >
                   <Icon className="w-4 h-4" />
                 </a>

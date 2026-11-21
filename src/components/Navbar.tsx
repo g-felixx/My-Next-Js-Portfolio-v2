@@ -156,12 +156,13 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-[max(1rem,env(safe-area-inset-top))] sm:pt-[max(1.5rem,env(safe-area-inset-top))] pointer-events-none">
-        <nav
-          className={`pointer-events-auto transition-all duration-500 rounded-2xl sm:rounded-full w-full max-w-6xl 2xl:max-w-[88rem] flex items-center justify-between px-4 sm:px-6 h-14 sm:h-16 border ${
-            scrolled ? "glass-strong shadow-accent-card" : "bg-transparent border-transparent"
+      <div className="fixed top-0 inset-x-0 z-50 pointer-events-none">
+        <div
+          className={`pointer-events-auto w-full border-b pt-[env(safe-area-inset-top)] transition-[background-color,border-color,backdrop-filter] duration-300 ease-energetic ${
+            scrolled ? "border-border bg-background/90 backdrop-blur-md" : "border-transparent bg-transparent"
           }`}
         >
+        <nav className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-5 sm:h-16 sm:px-6 lg:px-8 2xl:max-w-[88rem]">
           <a href="#hero" aria-label={t.nav.heroAria} className="group">
             <span className="font-bold text-base sm:text-lg tracking-wide transition-colors group-hover:text-primary">
               Amanda Castro
@@ -201,7 +202,7 @@ const Navbar = () => {
             ref={menuButtonRef}
             type="button"
             onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
-            className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors active:scale-95"
+            className="md:hidden p-2 rounded-xl bg-secondary border border-border hover:bg-secondary transition-colors active:scale-95"
             aria-label={t.nav.toggleMenu}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
@@ -209,6 +210,7 @@ const Navbar = () => {
             {isOpen ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
           </button>
         </nav>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -229,7 +231,7 @@ const Navbar = () => {
               animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, height: "auto", y: 0 }}
               exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, height: 0, y: -10 }}
               transition={mobileMenuTransition}
-              className="md:hidden fixed top-[calc(max(1rem,env(safe-area-inset-top))+3.5rem)] inset-x-4 z-[100] glass-strong border border-white/10 overflow-hidden rounded-2xl shadow-accent-card sm:top-[calc(max(1.5rem,env(safe-area-inset-top))+4rem)]"
+              className="md:hidden fixed top-[calc(env(safe-area-inset-top)+3.5rem)] inset-x-0 z-[100] border-b border-border bg-background/95 backdrop-blur-md overflow-hidden shadow-accent-card sm:top-[calc(env(safe-area-inset-top)+4rem)]"
               role="dialog"
               aria-modal="true"
               aria-label="Mobile navigation"
@@ -245,13 +247,13 @@ const Navbar = () => {
                   className={`block px-4 py-3 text-sm rounded-lg transition-colors font-medium w-full ${
                     activeSection === link.href
                       ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
                 >
                   {link.label}
                 </a>
               ))}
-              <div className="flex items-center justify-between mt-2 pt-4 border-t border-white/5 gap-2">
+              <div className="flex items-center justify-between mt-2 pt-4 border-t border-border gap-2">
                 <div className="flex items-center gap-1">
                   <LanguageToggle />
                   <ThemeToggle />

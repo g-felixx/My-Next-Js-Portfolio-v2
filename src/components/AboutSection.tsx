@@ -64,7 +64,7 @@ const AboutSection = () => {
                     {t.about.softSkills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-lg border border-white/5 bg-white/5 px-3 py-1.5 text-xs font-medium text-foreground/80 transition-all duration-300 hover:border-primary/40 hover:text-primary"
+                        className="rounded-lg border border-border bg-secondary px-3 py-1.5 text-xs font-medium text-foreground/80 transition-all duration-300 hover:border-primary/40 hover:text-primary"
                       >
                         {skill}
                       </span>
@@ -97,12 +97,12 @@ const AboutSection = () => {
                             {lang.level}
                           </span>
                         </div>
-                        <div className="relative h-1.5 overflow-hidden rounded-full bg-white/5">
+                        <div className="relative h-1.5 overflow-hidden rounded-full bg-secondary">
                           <motion.span
                             initial={{ width: 0 }}
                             animate={inView ? { width: `${lang.proficiency}%` } : { width: 0 }}
                             transition={{ duration: shouldReduceMotion ? 0.2 : 1.1, ease: [0.16, 1, 0.3, 1], delay: shouldReduceMotion ? 0 : 0.2 }}
-                            className="block h-full rounded-full bg-primary shadow-[0_0_10px_rgba(245,117,53,0.35)]"
+                            className="block h-full rounded-full bg-primary"
                           />
                         </div>
                       </li>
@@ -138,7 +138,7 @@ const AboutSection = () => {
                   </a>
                 </div>
 
-                <div className="rounded-2xl border border-white/5 bg-black/30 p-4 sm:p-5">
+                <div className="rounded-xl border border-border bg-background p-4 sm:p-5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={GITHUB_CHART_URL}

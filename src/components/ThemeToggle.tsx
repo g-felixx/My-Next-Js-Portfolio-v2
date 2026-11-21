@@ -185,7 +185,7 @@ export function ThemeToggle({
     <button
       onClick={handleClick}
       className={cn(
-        "p-2 rounded-lg hover:bg-white/10 transition-all duration-300 active:scale-95",
+        "p-2 rounded-lg hover:bg-secondary transition-all duration-300 active:scale-95",
         className,
       )}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}

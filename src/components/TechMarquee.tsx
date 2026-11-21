@@ -21,7 +21,7 @@ const TechMarquee = () => {
     "rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors duration-200 hover:border-primary/50 hover:text-foreground";
 
   return (
-    <section aria-label={copy.label} className="relative border-y border-border bg-card/40 py-6">
+    <section aria-label={copy.label} className="relative bg-card/40 py-6">
       <div className="container-narrow mb-4 flex items-center justify-between gap-4">
         <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">{copy.label}</p>
         {!reducedMotion && (

@@ -208,7 +208,7 @@ export const fr: Translation = {
         ],
       },
       {
-        institution: "ETEC Professor André Bogas",
+        institution: "ETEC Professor André Bogasian",
         degree: "Lycée Intégré + Cours Technique en Administration des Affaires",
         period: "Février 2019 — Décembre 2021",
         location: "Registro, São Paulo, Brésil",
@@ -273,6 +273,9 @@ export const fr: Translation = {
     viewGallery: "Voir la galerie",
     viewImage: "Voir l'image",
     noPreview: "> Aucun aperçu disponible",
+    featured: "Projet le plus récent",
+    more: "Plus de projets",
+    trackLabel: "Plus de projets, faites défiler pour avancer",
     categoryLabels: {
       "ai-web-app": "App Web IA",
       institutional: "Site Institutionnel",
@@ -384,10 +387,10 @@ export const fr: Translation = {
         skills: ["Java", "Spring Boot", "Spring Security", "Spring WebFlux", "Node.js", "TypeScript", "API REST", "GraphQL", "OpenFeign", "OAuth 2.0", "JWT", "WebSocket", "Swagger", "Clean Code", "Architecture Hexagonale", "Microservices"],
       },
       {
-        title: "Frontend et Expérience Produit",
+        title: "Cloud, DevOps et Livraison",
         description:
-          "La stack que j'utilise pour construire des interfaces modernes, performantes et accessibles pour des produits web.",
-        skills: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", "Atomic Design", "Storybook", "SEO"],
+          "Les outils cloud et de livraison que j'utilise pour déployer, sécuriser et exploiter des applications en production.",
+        skills: ["AWS", "AWS EC2", "AWS Lambda", "AWS Cognito", "AWS API Gateway", "AWS Parameter Store", "AWS SNS", "Cloudflare Workers", "Docker", "CI/CD", "Jenkins", "Serverless"],
       },
       {
         title: "Données et Messagerie",
@@ -396,10 +399,10 @@ export const fr: Translation = {
         skills: ["PostgreSQL", "MongoDB", "AWS Aurora", "H2 Database", "Flyway", "Apache Kafka", "RabbitMQ", "ActiveMQ Artemis", "SQS"],
       },
       {
-        title: "Cloud, DevOps et Livraison",
+        title: "Frontend et Expérience Produit",
         description:
-          "Les outils cloud et de livraison que j'utilise pour déployer, sécuriser et exploiter des applications en production.",
-        skills: ["AWS", "AWS EC2", "AWS Lambda", "AWS Cognito", "AWS API Gateway", "AWS Parameter Store", "AWS SNS", "Cloudflare Workers", "Docker", "CI/CD", "Jenkins", "Serverless"],
+          "La stack que j'utilise pour construire des interfaces modernes, performantes et accessibles pour des produits web.",
+        skills: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", "Atomic Design", "Storybook", "SEO"],
       },
       {
         title: "Tests, Outils et Méthodologies",

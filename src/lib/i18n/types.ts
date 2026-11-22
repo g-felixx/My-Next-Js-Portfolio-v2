@@ -163,6 +163,12 @@ export interface Translation {
     viewGallery: string;
     viewImage: string;
     noPreview: string;
+    /** Badge on the most recent project. */
+    featured: string;
+    /** Heading of the horizontal track with the remaining projects. */
+    more: string;
+    /** Accessible name of the horizontally scrolling project list. */
+    trackLabel: string;
     categoryLabels: Record<ProjectCategoryKey, string>;
     items: TranslationProjectItem[];
   };

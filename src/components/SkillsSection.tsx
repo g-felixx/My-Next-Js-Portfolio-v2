@@ -12,9 +12,9 @@ const ENERGETIC = [0.7, 0, 0.3, 1] as const;
  */
 const TILES: { icon: React.ElementType; hue: number; span: string }[] = [
   { icon: Layers, hue: 262, span: "lg:col-span-7" },
-  { icon: Code2, hue: 330, span: "lg:col-span-5" },
+  { icon: Server, hue: 38, span: "lg:col-span-5" },
   { icon: Database, hue: 212, span: "lg:col-span-4" },
-  { icon: Server, hue: 38, span: "lg:col-span-4" },
+  { icon: Code2, hue: 330, span: "lg:col-span-4" },
   { icon: Wrench, hue: 142, span: "lg:col-span-4" },
 ];
 

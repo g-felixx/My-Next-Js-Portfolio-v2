@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ExternalLink, Github, Maximize2 } from "lucide-react";
 import { projects, type Project } from "@/data/portfolio";
@@ -18,6 +18,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { cn } from "@/lib/utils";
 import ProjectImageViewer from "@/components/ProjectImageViewer";
 
 const PROJECT_IMAGE_SIZES = "(min-width: 1536px) 42rem, (min-width: 1024px) 40vw, 100vw";
@@ -38,6 +39,57 @@ function ProjectPreviewImage({ src, alt, priority = false, eager = false }: { sr
           draggable={false}
         />
       </div>
+    </div>
+  );
+}
+
+/** Stand-in for projects without screenshots: a tiny "window" listing the stack. */
+function ProjectPlaceholder({ title, tech, label, fill = false }: { title: string; tech: string[]; label: string; fill?: boolean }) {
+  return (
+    <div
+      className={cn(
+        "relative z-10 flex w-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-accent-soft",
+        fill ? "h-full" : "aspect-[16/10]",
+      )}
+    >
+      <div className="flex items-center gap-1.5 border-b border-border bg-secondary px-3 py-2">
+        <span className="h-2.5 w-2.5 rounded-full bg-border" />
+        <span className="h-2.5 w-2.5 rounded-full bg-border" />
+        <span className="h-2.5 w-2.5 rounded-full bg-border" />
+        <span className="ml-2 truncate font-mono text-[11px] text-muted-foreground">{title}</span>
+      </div>
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-1 overflow-hidden p-4 font-mono text-xs text-muted-foreground">
+        {tech.slice(0, fill ? 3 : 4).map((name) => (
+          <p key={name} className="truncate">
+            <span className="text-primary">+</span> {name}
+          </p>
+        ))}
+        <p className="mt-1.5 truncate text-muted-foreground/70">{label}</p>
+      </div>
+    </div>
+  );
+}
+
+function ProjectLinks({ project, compact = false }: { project: Project; compact?: boolean }) {
+  const t = useTranslation();
+  const linkClass = compact
+    ? "flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-semibold text-foreground transition-colors hover:bg-primary/10 hover:text-primary"
+    : "flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-primary/10 hover:text-primary";
+  if (!project.github && !project.live) return null;
+  return (
+    <div className={compact ? "-ml-3 mt-auto flex items-center gap-2" : "mt-auto flex items-center gap-6"}>
+      {project.github && (
+        <a href={project.github} target="_blank" rel="noopener noreferrer" className={cn(linkClass, !compact && "-ml-4")}>
+          <Github className="h-5 w-5" />
+          {t.projects.sourceCode}
+        </a>
+      )}
+      {project.live && (
+        <a href={project.live} target="_blank" rel="noopener noreferrer" className={linkClass}>
+          <ExternalLink className="h-5 w-5" />
+          {t.projects.liveDemo}
+        </a>
+      )}
     </div>
   );
 }
@@ -154,11 +206,191 @@ function ProjectShowcase({
           </button>
         )
       ) : (
-        <div className="aspect-[16/10] w-full flex items-center justify-center rounded-xl border border-dashed border-border bg-card text-muted-foreground text-sm font-mono z-10">
-          {t.projects.noPreview}
-        </div>
+        <ProjectPlaceholder title={title} tech={project.tech} label={t.projects.noPreview} />
       )}
 
+    </div>
+  );
+}
+
+/** Compact card used in the horizontal track (desktop, pinned) and the swipe list (mobile). */
+function ProjectTrackCard({
+  project,
+  item,
+  index,
+  total,
+  progress,
+  onOpenViewer,
+}: {
+  project: Project;
+  item: TranslationProjectItem;
+  index: number;
+  total: number;
+  progress?: MotionValue<number>;
+  onOpenViewer: (project: Project, index: number) => void;
+}) {
+  const t = useTranslation();
+  const idle = useMotionValue(0.5);
+  // Parallax: the screenshot drifts against the track while the card slides past.
+  const imageX = useTransform(progress ?? idle, [0, 1], progress ? [30, -30] : [0, 0]);
+  const hasImage = project.images.length > 0;
+
+  return (
+    <article className="group flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors duration-300 ease-energetic hover:border-primary/40">
+      <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden border-b border-border bg-secondary dark:bg-black/40">
+        {hasImage ? (
+          <button
+            type="button"
+            onClick={() => onOpenViewer(project, 0)}
+            className="group/viewer absolute inset-0 block w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            aria-label={`Open ${item.title} preview in viewer`}
+          >
+            <motion.div style={{ x: imageX }} className="relative h-full w-full scale-[1.16]">
+              <Image
+                src={project.images[0]}
+                alt={`${item.title} preview`}
+                fill
+                sizes="30rem"
+                className="object-contain object-center p-2 opacity-90 transition-opacity duration-300 group-hover/viewer:opacity-100"
+                draggable={false}
+              />
+            </motion.div>
+            <span className="pointer-events-none absolute bottom-3 left-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-3 py-1.5 font-mono text-xs text-white/90 backdrop-blur-md">
+              <Maximize2 className="h-3.5 w-3.5" />
+              {project.images.length > 1 ? t.projects.viewGallery : t.projects.viewImage}
+            </span>
+          </button>
+        ) : (
+          <div className="absolute inset-0 p-4">
+            <ProjectPlaceholder fill title={item.title} tech={project.tech} label={t.projects.noPreview} />
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-1 flex-col p-6">
+        <div className="mb-3 flex items-center justify-between gap-3 font-mono text-xs">
+          <span className="uppercase tracking-widest text-primary">{t.projects.categoryLabels[project.categoryKey]}</span>
+          <span className="text-muted-foreground">
+            {String(index).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
+        </div>
+        <h3 className="text-xl font-bold leading-tight tracking-tight">{item.title}</h3>
+        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+        <div className="mb-5 mt-4 flex flex-wrap gap-1.5">
+          {project.tech.slice(0, 5).map((tech) => (
+            <span key={tech} className="rounded-md border border-primary/20 bg-primary/10 px-2 py-1 font-mono text-[11px] text-primary">
+              {tech}
+            </span>
+          ))}
+          {project.tech.length > 5 && (
+            <span className="rounded-md border border-border px-2 py-1 font-mono text-[11px] text-muted-foreground">
+              +{project.tech.length - 5}
+            </span>
+          )}
+        </div>
+        <ProjectLinks project={project} compact />
+      </div>
+    </article>
+  );
+}
+
+/**
+ * Desktop: a tall wrapper pins a viewport-high stage while vertical scroll drives the card row
+ * sideways (back and forth as you scroll down or up).
+ */
+function ProjectTrack({
+  entries,
+  startIndex,
+  total,
+  onOpenViewer,
+}: {
+  entries: { project: Project; item: TranslationProjectItem }[];
+  startIndex: number;
+  total: number;
+  onOpenViewer: (project: Project, index: number) => void;
+}) {
+  const t = useTranslation();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [distance, setDistance] = useState(0);
+  const [active, setActive] = useState(0);
+  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end end"] });
+  const x = useTransform(scrollYProgress, [0, 1], [0, -distance]);
+
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    setActive(Math.min(entries.length - 1, Math.max(0, Math.round(value * (entries.length - 1)))));
+  });
+
+  useEffect(() => {
+    const measure = () => {
+      const track = trackRef.current;
+      if (!track) return;
+      setDistance(Math.max(0, track.scrollWidth - window.innerWidth));
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    if (trackRef.current) observer.observe(trackRef.current);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [entries.length]);
+
+  // Tabbing to a card that is off-stage moves the page so the card slides into view.
+  const handleFocus = useCallback(
+    (event: React.FocusEvent<HTMLDivElement>) => {
+      const wrap = wrapRef.current;
+      if (!wrap || distance <= 0) return;
+      const card = event.currentTarget;
+      const rect = card.getBoundingClientRect();
+      if (rect.left >= 0 && rect.right <= window.innerWidth) return;
+      const inset = parseFloat(getComputedStyle(trackRef.current as HTMLElement).paddingLeft) || 0;
+      const ratio = Math.min(1, Math.max(0, (card.offsetLeft - inset) / distance));
+      const top = wrap.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: top + ratio * distance });
+    },
+    [distance],
+  );
+
+  return (
+    <div ref={wrapRef} style={{ height: `calc(100svh + ${distance}px)` }} className="relative">
+      <div className="sticky top-0 flex h-[100svh] flex-col justify-center gap-6 overflow-x-clip pt-20">
+        <div className="container-narrow w-full">
+          <div className="flex items-end justify-between gap-8">
+            <h3 className="text-2xl font-bold tracking-tight sm:text-3xl">{t.projects.more}</h3>
+            <div className="flex w-56 flex-col gap-2 font-mono text-xs text-muted-foreground" aria-hidden="true">
+              <span className="self-end">
+                {String(startIndex + active).padStart(2, "0")} / {String(total).padStart(2, "0")}
+              </span>
+              <span className="block h-px w-full bg-border">
+                <motion.span style={{ scaleX: scrollYProgress }} className="block h-px origin-left bg-primary" />
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <motion.div
+          ref={trackRef}
+          style={{ x }}
+          role="list"
+          aria-label={t.projects.trackLabel}
+          className="track-inset flex w-max items-stretch gap-6 will-change-transform"
+        >
+          {entries.map(({ project, item }, i) => (
+            <div key={project.slug} role="listitem" onFocusCapture={handleFocus} className="w-[30rem] shrink-0 2xl:w-[34rem]">
+              <ProjectTrackCard
+                project={project}
+                item={item}
+                index={startIndex + i}
+                total={total}
+                progress={scrollYProgress}
+                onOpenViewer={onOpenViewer}
+              />
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 }
@@ -186,6 +418,11 @@ const ProjectsSection = () => {
   );
 
   const filtered = filterKey === null ? projects : projects.filter((p) => p.categoryKey === filterKey);
+  const entries = filtered.flatMap((project) => {
+    const item = itemBySlug.get(project.slug);
+    return item ? [{ project, item }] : [];
+  });
+  const [featured, ...rest] = entries;
   const activeViewerProject = viewerState.project;
   const activeViewerTitle = activeViewerProject
     ? itemBySlug.get(activeViewerProject.slug)?.title ?? ""
@@ -248,85 +485,79 @@ const ProjectsSection = () => {
           </div>
         </motion.div>
 
-        {/* Stacked Cards Layout */}
-        <div className="flex flex-col gap-8 relative pb-20 max-w-5xl 2xl:max-w-7xl mx-auto">
-          {filtered.map((project, i) => {
-            const item = itemBySlug.get(project.slug);
-            if (!item) return null;
-            const isEven = i % 2 === 0;
-            return (
-              <div
-                key={project.slug}
-                id={`${PROJECT_ANCHOR_PREFIX}${project.slug}`}
-                data-project-slug={project.slug}
-                className="scroll-mt-28 w-full static lg:sticky"
-                // The stack offset calculates top position so cards visually overlap like a deck
-                style={{
-                  top: `calc(10vh + ${i * 30}px)`,
-                  // Z-index increases so subsequent cards go over previous ones
-                  zIndex: i,
-                }}
-              >
-                <SpotlightCard className="w-full relative bg-background dark:bg-background border-border backdrop-blur-none backdrop-saturate-100">
-                  <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} min-h-[450px]`}>
+        {/* Most recent project, in the spotlight */}
+        {featured && (
+          <div
+            id={`${PROJECT_ANCHOR_PREFIX}${featured.project.slug}`}
+            data-project-slug={featured.project.slug}
+            className="scroll-mt-28 mx-auto w-full max-w-5xl 2xl:max-w-7xl"
+          >
+            <SpotlightCard className="w-full relative bg-background dark:bg-background border-border backdrop-blur-none backdrop-saturate-100">
+              <div className="flex min-h-[450px] flex-col lg:flex-row">
+                <div className="static z-10 flex flex-1 flex-col justify-center p-6 sm:p-8 lg:w-1/2 lg:p-12">
+                  <span className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 font-mono text-xs text-primary">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+                    {t.projects.featured}
+                  </span>
+                  <span className="text-xs font-mono uppercase tracking-widest text-primary mb-4 block">
+                    {t.projects.categoryLabels[featured.project.categoryKey]}
+                  </span>
+                  <h3 className="text-3xl font-bold mb-4 tracking-tight leading-tight">{featured.item.title}</h3>
+                  <p className="text-base text-muted-foreground leading-relaxed mb-8 flex-1 text-pretty">
+                    {featured.item.description}
+                  </p>
 
-                    {/* Content Section */}
-                    <div className="p-6 sm:p-8 lg:p-12 flex flex-col justify-center flex-1 lg:w-1/2 static z-10">
-                      <span className="text-xs font-mono uppercase tracking-widest text-primary mb-4 block">
-                        {t.projects.categoryLabels[project.categoryKey]}
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {featured.project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1.5 rounded-lg text-xs font-mono bg-primary/10 text-primary border border-primary/20 backdrop-blur-sm"
+                      >
+                        {tech}
                       </span>
-                      <h3 className="text-3xl font-bold mb-4 tracking-tight leading-tight">{item.title}</h3>
-                      <p className="text-base text-muted-foreground leading-relaxed mb-8 flex-1 text-pretty">
-                        {item.description}
-                      </p>
-
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {project.tech.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1.5 rounded-lg text-xs font-mono bg-primary/10 text-primary border border-primary/20 backdrop-blur-sm"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-6 mt-auto">
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors hover:bg-primary/10 px-4 py-2 rounded-lg -ml-4"
-                          >
-                            <Github className="w-5 h-5" />
-                            {t.projects.sourceCode}
-                          </a>
-                        )}
-                        {project.live && (
-                          <a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary transition-colors hover:bg-primary/10 px-4 py-2 rounded-lg"
-                          >
-                            <ExternalLink className="w-5 h-5" />
-                            {t.projects.liveDemo}
-                          </a>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Image / Carousel Showcase Section */}
-                    <ProjectShowcase project={project} title={item.title} priority={i === 0} onOpenViewer={handleOpenViewer} />
-
+                    ))}
                   </div>
-                </SpotlightCard>
-              </div>
-            );
-          })}
-        </div>
 
+                  <ProjectLinks project={featured.project} />
+                </div>
+
+                <ProjectShowcase project={featured.project} title={featured.item.title} priority onOpenViewer={handleOpenViewer} />
+              </div>
+            </SpotlightCard>
+          </div>
+        )}
+      </div>
+
+      {rest.length > 0 && (
+        <>
+          {/* Desktop: pinned stage, vertical scroll drives the row sideways */}
+          {!shouldReduceMotion && (
+            <div className="mt-16 hidden lg:block">
+              <ProjectTrack entries={rest} startIndex={2} total={entries.length} onOpenViewer={handleOpenViewer} />
+            </div>
+          )}
+
+          {/* Mobile / reduced motion: native swipe list */}
+          <div className={cn("mt-12", !shouldReduceMotion && "lg:hidden")}>
+            <div className="container-narrow">
+              <h3 className="mb-5 text-2xl font-bold tracking-tight">{t.projects.more}</h3>
+            </div>
+            <div
+              role="list"
+              aria-label={t.projects.trackLabel}
+              className="track-inset flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {rest.map(({ project, item }, i) => (
+                <div key={project.slug} role="listitem" className="w-[85%] shrink-0 snap-center sm:w-[26rem]">
+                  <ProjectTrackCard project={project} item={item} index={i + 2} total={entries.length} onOpenViewer={handleOpenViewer} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
+      <div className="container-narrow">
         {/* View more on GitHub */}
         <motion.div
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}

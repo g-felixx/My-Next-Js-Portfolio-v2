@@ -297,6 +297,11 @@ textarea,
     }
   }
 
+  /* Left/right inset that lines a full-bleed row up with the page rails (see `main` above) */
+  .track-inset {
+    padding-inline: max(1.25rem, calc(50% - var(--rail-w, 72rem) / 2 + 2rem));
+  }
+
   .mask-x-fade {
     mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);

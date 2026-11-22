@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { rasterize, SPRITE_HEIGHT, SPRITE_WIDTH, type SpriteFrame } from "./sprites";
+import { HEAD_BOX, rasterize, SPRITE_HEIGHT, SPRITE_WIDTH, type SpriteFrame } from "./sprites";
 
 interface PixelSpriteProps {
   frame: SpriteFrame;
@@ -11,9 +11,6 @@ interface PixelSpriteProps {
   /** Mirror horizontally (the drawing faces left by default). */
   flip?: boolean;
 }
-
-// Head (hair included) occupies columns 8–39 and rows 2–29 of the 48×48 grid.
-const HEAD_BOX = { x: 7, y: 1, w: 34, h: 30 };
 
 /**
  * Renders a pixel sprite as crisp SVG rectangles. Colours come from the CSS

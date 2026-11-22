@@ -60,6 +60,16 @@
     --px-p: #9e3ab0;
     --px-N: #333333;
     --px-n: #555555;
+    /* cat — light theme: black cat, yellow eyes */
+    --px-F: #26262d;
+    --px-f: #17171c;
+    --px-u: #42424d;
+    --px-O: #26262d;
+    --px-Y: #f5c518;
+    --px-y: #c99a0a;
+    --px-Q: #0a0a0a;
+    --px-T: #e98aa4;
+    --px-b: #f2c94c;
   }
 
   .dark {
@@ -94,6 +104,14 @@
     --px-g: #b4bec8;
     --px-N: #3d3f4c;
     --px-n: #60647a;
+    /* cat — dark theme: white cat, blue eyes, brown patches */
+    --px-F: #f5f1e8;
+    --px-f: #cfc7b8;
+    --px-u: #ffffff;
+    --px-O: #a9693a;
+    --px-Y: #4aa3f0;
+    --px-y: #2b6fb8;
+    --px-T: #f3a6b8;
   }
 }
 

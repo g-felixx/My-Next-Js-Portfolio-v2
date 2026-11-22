@@ -362,7 +362,7 @@ const ChatPanel = ({ chat, expanded = false, suspended = false, onToggle, toggle
     }
   };
 
-  const demoVisible = !hasChat && demo.stage !== "idle";
+  const demoVisible = !hasChat && !expanded && demo.stage !== "idle";
   const canSend = value.trim().length > 0 && !busy;
   const ToggleIcon = expanded ? Minimize2 : Maximize2;
   const toggleLabel = expanded ? p.collapse : p.expand;
@@ -423,6 +423,26 @@ const ChatPanel = ({ chat, expanded = false, suspended = false, onToggle, toggle
             expanded ? "min-h-0 flex-1 sm:px-6 sm:py-6" : "max-h-[22rem] min-h-[13.5rem]",
           )}
         >
+          {/* full-screen empty state: mascot + the suggestions, instead of a blank page */}
+          {expanded && !hasChat && (
+            <div className="m-auto flex max-w-xl flex-col items-center gap-5 py-6 text-center">
+              <PixelSprite frame="idle" className="block h-[96px] w-auto sm:h-[144px]" />
+              <p className="text-xl font-semibold tracking-tight">{p.title}</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {p.suggestions.map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    onClick={() => void send(suggestion)}
+                    className="rounded-full border border-border bg-background px-4 py-2 text-sm text-muted-foreground transition-colors duration-200 hover:border-primary/60 hover:text-foreground"
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {hasChat &&
             messages.map((m) =>
               m.role === "user" ? (
@@ -511,7 +531,7 @@ const ChatPanel = ({ chat, expanded = false, suspended = false, onToggle, toggle
       </div>
 
       {/* suggestion chips */}
-      {!hasChat && (
+      {!hasChat && !expanded && (
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           {p.suggestions.map((suggestion, index) => (
             <button
@@ -532,6 +552,12 @@ const ChatPanel = ({ chat, expanded = false, suspended = false, onToggle, toggle
 
 /* ───────────────────────── main component ───────────────────────── */
 
+/**
+ * Desktop only: scrolling down from the top of the page opens the chat full screen by itself
+ * (scrolling down again inside it hands the scroll back to the page). Flip to `false` to turn it off.
+ */
+const AUTO_EXPAND_ON_SCROLL = true;
+
 const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 const HeroPrompt = () => {
@@ -549,7 +575,47 @@ const HeroPrompt = () => {
   const overlayRef = useRef<HTMLDivElement>(null);
   const wasExpanded = useRef(false);
 
-  const collapse = useCallback(() => setExpanded(false), []);
+  // Auto-expand bookkeeping: `armed` = may open on the next scroll, `dismissed` = the visitor closed it on purpose.
+  const armed = useRef(true);
+  const dismissed = useRef(false);
+  const openedAt = useRef(0);
+
+  const collapse = useCallback(() => {
+    dismissed.current = true;
+    setExpanded(false);
+  }, []);
+
+  useEffect(() => {
+    if (expanded) {
+      armed.current = false;
+      openedAt.current = performance.now();
+    }
+  }, [expanded]);
+
+  // Scrolling down from the top of the page opens the chat full screen.
+  useEffect(() => {
+    if (!AUTO_EXPAND_ON_SCROLL || reducedMotion) return;
+    const desktop = window.matchMedia("(min-width: 1024px) and (hover: hover)");
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > 900) dismissed.current = false;
+      if (y < 40) {
+        armed.current = !dismissed.current;
+        return;
+      }
+      if (!armed.current || y < 90 || y > 600 || !desktop.matches) return;
+      const card = document.getElementById("ask");
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+      armed.current = false;
+      setExpanded(true);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [reducedMotion]);
 
   // While the full-screen chat is open: lock page scroll, Esc closes, Tab stays inside.
   useEffect(() => {
@@ -614,6 +680,13 @@ const HeroPrompt = () => {
                 transition={fade}
                 onMouseDown={(event) => {
                   if (event.target === event.currentTarget) collapse();
+                }}
+                onWheel={(event) => {
+                  // Scrolling down past the end of the conversation hands the scroll back to the page.
+                  if (event.deltaY <= 0 || performance.now() - openedAt.current < 900) return;
+                  const log = (event.target as HTMLElement).closest<HTMLElement>('[role="log"]');
+                  if (log && log.scrollTop + log.clientHeight < log.scrollHeight - 2) return;
+                  setExpanded(false);
                 }}
                 className="fixed inset-0 z-[200] flex items-center justify-center overscroll-contain bg-background/85 p-3 backdrop-blur-md sm:p-6 lg:p-10"
               >

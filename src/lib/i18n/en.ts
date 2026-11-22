@@ -486,6 +486,8 @@ export const en: Translation = {
     you: "You",
     assistant: "Amanda's AI",
     newChat: "New chat",
+    expand: "Expand chat",
+    collapse: "Back to page",
     error: "Something went wrong. Please try again.",
     mock: {
       answer:

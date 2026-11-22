@@ -492,6 +492,8 @@ export const pt: Translation = {
     you: "Você",
     assistant: "IA da Amanda",
     newChat: "Nova conversa",
+    expand: "Ampliar chat",
+    collapse: "Voltar para a página",
     error: "Algo deu errado. Tente novamente.",
     mock: {
       answer:

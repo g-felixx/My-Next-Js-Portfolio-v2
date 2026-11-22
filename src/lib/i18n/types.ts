@@ -232,6 +232,10 @@ export interface Translation {
     you: string;
     assistant: string;
     newChat: string;
+    /** Enlarge the chat to the full screen. */
+    expand: string;
+    /** Shrink it back into the hero. */
+    collapse: string;
     error: string;
     /** Placeholder reply used until the real RAG backend is connected. */
     mock: { answer: string; source: string };
